@@ -1,0 +1,125 @@
+/*!
+ * Start Bootstrap - Landing Page v5.0.7 (https://startbootstrap.com/template-overviews/landing-page)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
+ */
+
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+header.masthead {
+  position: relative;
+  background-color: #343a40;
+  /*background: url("../images/casco_fondo.jpg") no-repeat center center;*/
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+header.masthead .overlay {
+  position: absolute;
+  background-color: #212529;
+  /*background: url("../images/f1.jpg") no-repeat center center;*/
+  background-size: 90% 90%;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  
+  opacity: 0.4;
+}
+
+header.masthead.portada {
+  background: url("../images/casco_fondo.jpg") no-repeat center center;
+}
+
+/*
+header.masthead .overlay.portada {
+  background: url("../images/Rallyman_titulo.png") no-repeat center center;
+  background-size: 90% 90%;
+  height: 100%;
+  width: 100%;
+}
+
+header.masthead .overlay.clasificacion {
+  background: url("../images/Rallyman_titulo.png") no-repeat center center;
+  background-size: 90% 90%;
+  height: 100%;
+  width: 100%;
+}*/
+
+header.masthead.portada {
+  background: url("../images/Eaat2AqXsAAZCwe.jpeg") no-repeat 40% 60%;
+  top: 30%;
+  background-size: cover;
+}
+
+
+header.masthead.pilotos {
+  background: url("../images/f1-2622387_1920.jpg") no-repeat center 30%;
+  top: 30%;
+}
+
+header.masthead.escuderias {
+  background: url("../images/red-bull-2254036_1920.jpg") no-repeat center center;
+  top: 30%;
+}
+
+header.masthead.clasificacion {
+  background: url("../images/red-bull-2387282_1920.png") no-repeat center center;
+  top: 30%;
+}
+
+@media (min-width: 768px) {
+  header.masthead {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+
+}
+
+.secciones-portada {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+
+
+a.secciones-enlace,
+a.secciones-enlace:hover {
+  color: inherit;
+}
+
+
+footer.footer {
+  padding-top: 1rem;
+  /*padding-bottom: 1rem;*/
+}
+
+.icon_clima{
+  height: 30px;
+  width: 30px;
+}
+
+a.nav-link{
+
+  color:#6c757d!important;;
+
+}
+
+a.nav-link:hover{
+
+  color:#343a40!important;
+
+}
