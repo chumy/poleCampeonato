@@ -15,6 +15,8 @@ class CarreraController extends Controller
     public function index()
     {
         //
+        $carreras = Carrera::all();
+        return view('admin/carrera' , compact('carreras'));
     }
 
     /**
@@ -25,6 +27,8 @@ class CarreraController extends Controller
     public function create()
     {
         //
+        $carreras = Carrera::all();
+        return view('admin/carrera' , compact('carreras'));
     }
 
     /**
@@ -36,6 +40,12 @@ class CarreraController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[ 'nombre'=>'required']);
+        $carrera= Carrera::create($request->all());
+        $carrera->visible = $request->has('visible');
+        $carrera->save();
+   
+        return redirect()->route('carreras.create')->with('success','Registro creado satisfactoriamente');
     }
 
     /**
@@ -57,7 +67,8 @@ class CarreraController extends Controller
      */
     public function edit(Carrera $carrera)
     {
-        //
+        $carreras = Carrera::all();
+        return view('admin/carrera' , compact('carreras','carrera'));
     }
 
     /**
@@ -70,6 +81,13 @@ class CarreraController extends Controller
     public function update(Request $request, Carrera $carrera)
     {
         //
+        $this->validate($request,[ 'nombre'=>'required']);
+        $carrera->update($request->all());
+        $carrera->visible = $request->has('visible');
+        $carrera->save();
+        
+        return redirect()->route('carreras.create')->with('success','Registro actualizado satisfactoriamente');
+ 
     }
 
     /**
@@ -81,5 +99,8 @@ class CarreraController extends Controller
     public function destroy(Carrera $carrera)
     {
         //
+       $carrera->delete();
+       
+       return redirect()->route('carreras.create')->with('success','Registro eliminado satisfactoriamente');
     }
 }

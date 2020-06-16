@@ -45,9 +45,8 @@ Route::get('/escuderias', function () {
 
 
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', function (){
     return view('admin/campeonato');
@@ -61,9 +60,10 @@ Route::get('/admin/campeonatos', function (){
     return view('admin/campeonato');
 });
 
-Route::get('/admin/carreras', function (){
-    return view('admin/carrera');
-});
+Route::resource('/admin/carreras', 'CarreraController');
+
+
+//Route::get('/admin/carreras', 'CarreraController@index');
 
 Route::get('/admin/participantes', function (){
     return view('admin/participante');
