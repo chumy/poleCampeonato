@@ -147,18 +147,21 @@
  
   <section class="secciones-portada bg-light text-center" >
     <div class="container">
+    Campeonato con Escuderias 
       <div class="row">
-        <div class="col-lg-10">
+
+
+        <div class="col-lg-6">
 
        
-      Campeonato con Escuderias 
+
 
         <table class="table table-hover table-light">
           <thead>
             <tr class="thead-dark">
               <th scope="col">#</th>
-              <th scope="col">Escuderia</th>
               <th scope="col">Nombre</th>
+              <th scope="col">Escuderia</th>
               <th scope="col">Puntuacion</th>
               <th></th>
             </tr>
@@ -167,27 +170,68 @@
             
             <tr>
               <th scope="row">1</th>
+              <td>Apodo 1</td>
               <td>Escuderia 1</td>
-              <td>Apodo 1 / Apodo 2</td>
-              <td>20</td>
+              <td>21 (20 + 1) </td>
               <td><a href="/campeonato/escuderia"><i class="material-icons">timer</i></a></td>
             </tr>
             <tr>
-              <th scope="row">2</th>
-              <td>Escuderia 2</td>
-             <td> Apodo 3</td>
-              <td>18</td>
+            <th scope="row">1</th>
+              <td>Apodo 2</td>
+              <td>Escuderia 1</td>
+              <td>11 (10 + 1) </td>
               <td><a href="/campeonato/escuderia"><i class="material-icons">timer</i></a></td>
+
             </tr>
            
-           
+            <th scope="row">1</th>
+              <td>Apodo 3</td>
+              <td>Escuderia 2</td>
+              <td>20 (10 + 10) </td>
+              <td><a href="/campeonato/escuderia"><i class="material-icons">timer</i></a></td>
+
+            </tr>
            
           </tbody>
         </table>
        
 
         </div>
+        <div class="col-lg-4">
 
+
+
+  <table class="table table-hover table-light">
+    <thead>
+      <tr class="thead-dark">
+        <th scope="col">#</th>
+        <th scope="col">Escuderia</th>
+        <th scope="col">Puntuacion</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+      
+      <tr>
+        <th scope="row">1</th>
+        <td>Escuderia 1</td>
+        <td>1 </td>
+        <td><a href="/campeonato/escuderia"><i class="material-icons">timer</i></a></td>
+      </tr>
+      
+     
+      <th scope="row">2</th>
+        <td>Escuderia 2</td>
+        <td>10</td>
+        <td><a href="/campeonato/escuderia"><i class="material-icons">timer</i></a></td>
+
+      </tr>
+     
+    </tbody>
+  </table>
+ 
+
+  </div>
 
       
       </div>

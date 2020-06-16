@@ -24,23 +24,23 @@ Route::get('/', function () {
 });
 
 Route::get('/campeonato', function () {
-    return view('campeonato');
+    return view('campeonatos/campeonato');
 });
 
 Route::get('/campeonato/piloto', function () {
-    return view('piloto');
+    return view('campeonatos/piloto');
 });
 
 Route::get('/campeonato/escuderia', function () {
-    return view('escuderia');
+    return view('campeonatos/escuderia');
 });
 
 Route::get('/pilotos', function () {
-    return view('pilotos');
+    return view('pilotos/pilotos');
 });
 
 Route::get('/escuderias', function () {
-    return view('escuderias');
+    return view('escuderias/escuderias');
 });
 
 
