@@ -27,6 +27,16 @@ Route::get('/campeonato', function () {
     return view('campeonatos/campeonato');
 });
 
+Route::get('/campeonato2', function () {
+    return view('campeonatos/campeonato_ind');
+});
+
+
+Route::get('/campeonato3', function () {
+    return view('campeonatos/campeonato_esc');
+});
+
+
 Route::get('/campeonato/piloto', function () {
     return view('campeonatos/piloto');
 });
@@ -39,9 +49,19 @@ Route::get('/pilotos', function () {
     return view('pilotos/pilotos');
 });
 
+Route::get('/pilotos/resultado', function () {
+    return view('pilotos/resultado');
+});
+
+
 Route::get('/escuderias', function () {
     return view('escuderias/escuderias');
 });
+
+Route::get('/escuderias/resultado', function () {
+    return view('escuderias/resultado');
+});
+
 
 
 

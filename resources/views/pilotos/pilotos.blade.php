@@ -34,12 +34,14 @@
                             <th scope="row">1</th>
                             <td>Apodo 1</td>
 
-                            <td></td>
+                            <td><a href="/pilotos/resultado"><i class="material-icons">timer</i></a></td>
+
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>Apodo 2</td>
-                            <td></td>
+                            <td><a href="/pilotos/resultado"><i class="material-icons">timer</i></a></td>
+
                         </tr>
 
 

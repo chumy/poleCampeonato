@@ -29,13 +29,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Campeonato Pilotos Verano 2020
+                                    Campeonato Inidividual Julio 2020
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="/campeonato3">Campeonato Escuderias Verano 2020</a>
-                                    <a class="dropdown-item" href="/campeonato2">Campeonato Inidividual Julio 2020</a>
 
+                                    <a class="dropdown-item" href="/campeonato">Campeonato Pilotos Verano 2020</a>
 
                                 </div>
                             </li>
@@ -58,7 +58,7 @@
         <div class="row">
             <div class="col-md-8 blog-main">
                 <h3 class=" pb-3 mb-4 font-italic border-bottom ">
-                    Campeonato pilotos Verano 2020
+                    Campeonato Inidividual Julio 2020
                 </h3>
 
                 <div class=" blog-post text-left">
@@ -78,7 +78,7 @@
                         <dd class="col-sm-3">50%</dd>
 
                         <dt class="col-sm-3">Pilotos</dt>
-                        <dd class="col-sm-3">Habilitados</dd>
+                        <dd class="col-sm-3">Dehabilitados</dd>
                         <dt class="col-sm-3">Escuderias</dt>
                         <dd class="col-sm-3">Habilitados</dd>
 
@@ -120,21 +120,20 @@
                 </div><!-- /.blog-post -->
             </div>
         </div>
-
-
 </section>
-
 <section class="secciones-portada bg-light text-center">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-10">
+
+
 
                 <table class="table table-hover table-light">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Piloto</th>
                             <th scope="col">Puntuacion</th>
                             <th></th>
                         </tr>
@@ -144,32 +143,16 @@
                         <tr>
                             <th scope="row">1</th>
                             <td>Apodo 1</td>
-                            <td>Piloto 1</td>
                             <td>20</td>
                             <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>Apodo 2</td>
-                            <td>Piloto 2</td>
                             <td>18</td>
                             <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 3</td>
-                            <td>Piloto 3</td>
-                            <td>13</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
-                        </tr>
 
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 4</td>
-                            <td>Piloto 5</td>
-                            <td>12</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
-                        </tr>
 
 
                     </tbody>

@@ -5,8 +5,8 @@
 @section('content')
 
 <!-- Masthead -->
-<header class="masthead text-white text-center escuderias">
-    <div class="overlay "></div>
+<header class="masthead text-white text-center clasificacion">
+    <div class="overlay clasificacion"></div>
     <div class="container"></div>
 </header>
 
@@ -20,9 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1"><a href="/campeonato" class=" badge badge-light">
-                            <h5>Campeonato 1</h5>
-                        </a></span>
+                    <span class="navbar-brand mb-0 h1">Pilotos </span>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
@@ -31,12 +29,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Escuderia 1
+                                    Apodo 1
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="#">Escuderia 2</a>
-                                    <a class="dropdown-item" href="#">Escuderia 3</a>
+                                    <a class="dropdown-item" href="/pilotos/resultado">Apodo 2</a>
+                                    <a class="dropdown-item" href="/pilotos/resultado">Apodo 3</a>
                                 </div>
                             </li>
                         </ul>
@@ -63,45 +61,32 @@
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
-                            <th scope="col">Carrera</th>
+                            <th scope="col">Campeonato</th>
                             <th scope="col">Posicion</th>
-                            <th scope="col">Nombre</th>
+                            <th scope="col">Puntos</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
 
                         <tr>
-                            <th scope="row" rowspan="2">1</th>
-                            <td rowspan="2">Carrera 1</td>
+                            <th scope="row">1</th>
+                            <td>Campeonato Verano 2020</td>
                             <td>1</td>
-                            <td>Apodo 1</td>
+                            <td>40</td>
                         </tr>
                         <tr>
-
-
-                            <td>3</td>
-                            <td>Apodo 2</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row" rowspan="2">2</th>
-                            <td rowspan="2">Carrera 2</td>
-                            <td>4</td>
-                            <td>Apodo 1</td>
-                        </tr>
-                        <tr>
-
-
+                            <th scope="row">2</th>
+                            <td>Campeonato Escuderias 2020</td>
                             <td>2</td>
-                            <td>Apodo 2</td>
+                            <td>38</td>
                         </tr>
 
 
 
                     </tbody>
                 </table>
-
 
             </div>
 
@@ -110,8 +95,6 @@
 
     </div>
 </section>
-
-
 
 
 @endsection
