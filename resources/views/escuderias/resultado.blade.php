@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1">Escuderia </span>
+                    <span class="navbar-brand mb-0 h1 d-none d-sm-block">Escuderia </span>
 
                     <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">

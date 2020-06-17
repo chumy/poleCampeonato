@@ -12,7 +12,7 @@ class CarrerasSeeder extends Seeder
      */
     public function run()
     {
-         factory(\App\Carrera::class)->create([
+         factory(Carrera::class)->create([
             'nombre' => 'Circuito 1',
             'visible' => true,
         ]);

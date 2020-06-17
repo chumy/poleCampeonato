@@ -20,9 +20,9 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1">Campeonato </span>
+                    <span class="navbar-brand mb-0 h1 d-none d-sm-block">Campeonato </span>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
 
 
