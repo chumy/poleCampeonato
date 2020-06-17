@@ -20,11 +20,11 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1"><a href="/campeonato" class=" badge badge-light">
+                    <span class="navbar-brand mb-0 h1 "><a href="/campeonato" class=" badge badge-light">
                             <h5>Campeonato 1</h5>
                         </a></span>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
 
 

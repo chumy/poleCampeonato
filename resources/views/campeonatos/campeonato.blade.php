@@ -20,9 +20,9 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1">Campeonato </span>
+                    <span class="navbar-brand mb-0 h1 d-none d-sm-block">Campeonato </span>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
 
 
@@ -63,7 +63,8 @@
 
                 <div class=" blog-post text-left">
 
-                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato por pilotos</p>
+                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato individual donde podrás elegir que
+                        piloto ocupará tu monoplaza y a que escudería pertenece. Escoge sabiamente</p>
                     <hr>
 
                     <h5>Formato</h5>

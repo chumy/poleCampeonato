@@ -61,7 +61,8 @@
 
                 <div class=" blog-post text-left">
 
-                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato por pilotos</p>
+                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato por escuderias, favorece a tu compañero
+                        para ganar mas puntos al final del torneo</p>
                     <hr>
 
                     <h5>Formato</h5>
@@ -111,6 +112,17 @@
                             <p>6. 5 puntos</p>
 
                         </dd>
+
+                        <dt class="col-sm-9"></dt>
+                        <dd class="col-sm-3"></dd>
+                        <dt class="col-sm-3">Puntuación Adicional de escuderias</dt>
+                        <dd class="col-sm-3">
+                            <p>1. 10 puntos</p>
+                            <p>2. 5 puntos</p>
+                            <p>3. 0 puntos</p>
+
+                        </dd>
+
 
                     </dl>
                     <hr>

@@ -22,7 +22,7 @@
 
                     <span class="navbar-brand mb-0 h1">Escuderia </span>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
 
 
@@ -70,12 +70,12 @@
 
                         <tr>
                             <th scope="row">1</th>
-                            <td>Campeonato Verano 2020</td>
+                            <td><a href="/campeonato3" class="text-dark"> Campeonato Verano 2020</a></td>
                             <td>1</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Campeonato Escuderias 2020</td>
+                            <td><a href="/campeonato3" class="text-dark"> Campeonato Escuderias 2020</a></td>
                             <td>2</td>
                         </tr>
 

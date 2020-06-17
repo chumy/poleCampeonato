@@ -20,9 +20,9 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1">Pilotos </span>
+                    <span class="navbar-brand mb-0 h1 d-none d-sm-block">Pilotos </span>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
 
 
@@ -72,13 +72,14 @@
 
                         <tr>
                             <th scope="row">1</th>
-                            <td>Campeonato Verano 2020</td>
+                            <td><a href="/campeonato/piloto" class="text-dark"> Campeonato Verano 2020</a>
+                            </td>
                             <td>1</td>
                             <td>40</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Campeonato Escuderias 2020</td>
+                            <td><a href="/campeonato/piloto" class="text-dark"> Campeonato Escuderias 2020</a></td>
                             <td>2</td>
                             <td>38</td>
                         </tr>

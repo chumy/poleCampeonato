@@ -63,7 +63,8 @@
 
                 <div class=" blog-post text-left">
 
-                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato por pilotos</p>
+                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato individual, demuestra que eres el
+                        mejor!</p>
                     <hr>
 
                     <h5>Formato</h5>
