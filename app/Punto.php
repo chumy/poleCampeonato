@@ -8,9 +8,13 @@ class Punto extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'puntos1', 'puntos2', 'puntos3', 'puntos4', 
-        'puntos5', 'puntos6', 'penalizacion', 
+        'nombre',  'penalizacion', 
     ];
 
+
+    public function puntos()
+    {
      
+        return $this->hasMany('App\Punto');
+    }
 }

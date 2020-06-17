@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePuntosTable extends Migration
+class CreateListaPuntosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreatePuntosTable extends Migration
      */
     public function up()
     {
-        Schema::create('puntos', function (Blueprint $table) {
+        Schema::create('lista_puntos', function (Blueprint $table) {
+            //
+            
             $table->bigIncrements('id');
-            $table->text('nombre');
-            $table->decimal('penalizacion', 3, 2)->default(1.00);
+            $table->integer('posicion')->default(1);
+            $table->integer('puntos')->default(0);
+            $table->integer('punto_id')->unsigned();
             $table->timestamps();
+
         });
     }
 
@@ -28,6 +32,6 @@ class CreatePuntosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('puntos');
+         Schema::dropIfExists('lista_puntos');
     }
 }
