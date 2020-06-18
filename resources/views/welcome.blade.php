@@ -20,7 +20,7 @@
 
                     <a href="{{ route('campeonato.index')}}" class="secciones-enlace">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="../images/clasificacion.jpg" alt="Card image cap">
+                            <img class="card-img-top" src="../images/campeonato2.jpg" alt="Card image cap">
                             <div class="card-body  bg-light">
 
                                 <h3>Campeonatos</h3>
@@ -54,7 +54,7 @@
 
                     <a href="/escuderias" class="secciones-enlace">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="../images/carreras.jpg" alt="Card image cap">
+                            <img class="card-img-top" src="../images/escuderias.jpg" alt="Card image cap">
                             <div class="card-body bg-light">
 
                                 <h3>Escuderias</h3>

@@ -5,8 +5,8 @@
 @section('content')
 
 <!-- Masthead -->
-<header class="masthead text-white text-center clasificacion">
-    <div class="overlay clasificacion"></div>
+<header class="masthead text-white text-center campeonato">
+    <div class="overlay campeonato"></div>
     <div class="container"></div>
 </header>
 
