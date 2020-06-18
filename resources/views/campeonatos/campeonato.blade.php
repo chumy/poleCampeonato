@@ -79,24 +79,23 @@
                         <dt class="col-sm-3">Pilotos</dt>
                         <dd class="col-sm-3">{{ ($campeonato->pilotos) ? 'Habilitados' : 'Deshabilitados' }}</dd>
                         <dt class="col-sm-3">Escuderias</dt>
-                        <dd class="col-sm-3">{{ ($campeonato->pilotos) ? 'Habilitadas' : 'Deshabilitadas' }}</dd>
+                        <dd class="col-sm-3">{{ ($campeonato->escuderias) ? 'Habilitadas' : 'Deshabilitadas' }}</dd>
 
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
 
                         <dt class="col-sm-3">Puntuación</dt>
-                        <dd class="col-sm-3">
-                            <p>1. 10 puntos</p>
-                            <p>2. 8 puntos</p>
-                            <p>3. 6 puntos</p>
+                        <dd class="col-sm-9">
+                            @foreach ($campeonato->puntuaciones->puntos as $punto)
+                            @if(!$loop->last)
+                            {{$punto->puntos}} -
+                            @else
+                            {{$punto->puntos}}
+                            @endif
+                            @endforeach
 
                         </dd>
-                        <dd class="col-sm-3">
-                            <p>4. 5 puntos</p>
-                            <p>5. 4 puntos</p>
-                            <p>6. 3 puntos</p>
 
-                        </dd>
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
                         <dt class="col-sm-3">Puntuación especial Carrera 5</dt>
@@ -133,42 +132,34 @@
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Piloto</th>
+                            @if ($campeonato->pilotos)
+                            <th scope="col">Pilotos</th>
+                            @endif
+                            @if ($campeonato->escuderias)
+                            <th scope="col">Escuderias</th>
+                            @endif
+
                             <th scope="col">Puntuacion</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($clasificacionCampeonato as $clasif)
+                        <tr>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$clasif->apodo}}</td>
+                            @if ($campeonato->pilotos)
 
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Apodo 1</td>
-                            <td>Piloto 1</td>
-                            <td>20</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 2</td>
-                            <td>Piloto 2</td>
-                            <td>18</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 3</td>
-                            <td>Piloto 3</td>
-                            <td>13</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
-                        </tr>
+                            @endif
+                            @if ($campeonato->escuderias)
+                            <td>{{$clasif->escuderia}}</td>
+                            @endif
 
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 4</td>
-                            <td>Piloto 5</td>
-                            <td>12</td>
+                            <td>{{$clasif->puntos}}</td>
                             <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
                         </tr>
+                        @endforeach
+
 
 
                     </tbody>

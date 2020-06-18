@@ -17,4 +17,8 @@ class Punto extends Model
      
         return $this->hasMany('App\ListaPunto');
     }
+
+    public function campeonatos(){
+        return $this->hasMany('App\Campeonato');
+    }
 }

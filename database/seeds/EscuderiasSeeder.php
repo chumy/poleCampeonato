@@ -12,8 +12,38 @@ class EscuderiasSeeder extends Seeder
      */
     public function run()
     {
-        factory(Escuderia::class)->create([
+        Escuderia::create([
             'nombre' => 'Red Light',
+            'descripcion' =>'',
+            'visible' => true,
+        ]);
+
+        Escuderia::create([
+            'nombre' => 'Green Greyhounds',
+            'descripcion' =>'',
+            'visible' => true,
+        ]);
+
+        Escuderia::create([
+            'nombre' => 'Yellow Energy',
+            'descripcion' =>'',
+            'visible' => true,
+        ]);
+
+        Escuderia::create([
+            'nombre' => 'Blue Sonic',
+            'descripcion' =>'',
+            'visible' => true,
+        ]);
+
+        Escuderia::create([
+            'nombre' => 'Black Lotus',
+            'descripcion' =>'',
+            'visible' => true,
+        ]);
+
+        Escuderia::create([
+            'nombre' => 'Purple Sound',
             'descripcion' =>'',
             'visible' => true,
         ]);

@@ -17,4 +17,9 @@ class Campeonato extends Model
         return $this->belongsToMany('App\Participante','campeonato_participante')
                    ->withPivot( ['escuderia_id']); ;
     }
+
+    public function puntuaciones()
+    {
+        return $this->hasOne('App\Punto', 'id');
+    }
 }
