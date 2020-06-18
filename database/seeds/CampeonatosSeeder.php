@@ -14,6 +14,7 @@ class CampeonatosSeeder extends Seeder
     {
         //
         $campeonato = Campeonato::create([
+            'id' =>1,
             'nombre' => 'Torneo LABSK por Escuderias Verano 2020',
             'tipo' =>'1',
             'coches' =>'6',
@@ -25,14 +26,17 @@ class CampeonatosSeeder extends Seeder
             'escuderia2'=>5,
             'escuderia3'=>3,
             'descripcion' => 'Primer torneo por escuderias para usuarios de LaBSK',
-            'punto_id'=> 1,
+            'punto_id'=> 2,
         ]);
 
         for ($i=1; $i < 7; $i++)
         {
            
             $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i]); 
-            $campeonato->participantes()->attach(App\Participante::find($i));
+            //$campeonato->participantes()->attach(App\Participante::find($i));
+            $campeonato->participantes()
+                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);
+
             $posiciones= range(1,6);
             shuffle($posiciones);
             for($j=0; $j<sizeof($posiciones); $j++)
@@ -45,5 +49,39 @@ class CampeonatosSeeder extends Seeder
             }
         }
    
+        $campeonato = Campeonato::create([
+            'id' =>2,
+            'nombre' => 'Campeonato pilotos Verano 2020',
+            'tipo' =>'1',
+            'coches' =>'6',
+            'carreras' =>'5',
+            'vueltas' =>'12',
+            'pilotos' =>true,
+            'escuderias' =>true,
+            'descripcion' => 'Bienvenido al campeonato veraniego de 2020. Un campeonato individual donde podrás elegir que piloto ocupará tu monoplaza y a que escudería pertenece. Escoge sabiamente',
+            'punto_id'=> 1,
+        ]);
+
+        for ($i=1; $i < 6; $i++)
+        {
+            //$escuderias=App\Escuderias::all();
+            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i]); 
+            $campeonato->participantes()
+                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);
+            $posiciones= range(1,6);
+            shuffle($posiciones);
+            for($j=0; $j<sizeof($posiciones); $j++)
+            {
+                App\Participante::find($j+1)
+                            ->carreras()
+                            ->attach(App\Carrera::find($i),
+                                ["posicion"=> $posiciones[$j], "campeonato_id"=>2]);
+            
+            }
+        }
+   
+
+
+
     }
 }

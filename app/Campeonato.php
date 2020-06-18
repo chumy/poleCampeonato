@@ -15,6 +15,6 @@ class Campeonato extends Model
 
     public function participantes(){
         return $this->belongsToMany('App\Participante','campeonato_participante')
-                    ;
+                   ->withPivot( ['escuderia_id']); ;
     }
 }

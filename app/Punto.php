@@ -15,6 +15,6 @@ class Punto extends Model
     public function puntos()
     {
      
-        return $this->hasMany('App\Punto');
+        return $this->hasMany('App\ListaPunto');
     }
 }

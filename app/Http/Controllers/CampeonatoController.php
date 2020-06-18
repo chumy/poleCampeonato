@@ -15,6 +15,9 @@ class CampeonatoController extends Controller
     public function index()
     {
         //
+        $campeonato = Campeonato::find(1);
+
+         return redirect()->route('campeonato.show', $campeonato);
     }
 
     /**
@@ -62,6 +65,9 @@ and c.punto_id = pu.id
 and lpu.punto_id = pu.id
 and cp.posicion = lpu.posicion
 order by cc.orden, cp.posicion*/
+        $campeonatos = Campeonato::all()->where('visible',1);
+        return view('campeonatos/campeonato' , compact('campeonatos', 'campeonato'));
+
     }
 
     /**

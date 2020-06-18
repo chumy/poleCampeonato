@@ -29,14 +29,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Campeonato Pilotos Verano 2020
+                                    {{ $campeonato->nombre}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="/campeonato3">Campeonato Escuderias Verano 2020</a>
-                                    <a class="dropdown-item" href="/campeonato2">Campeonato Inidividual Julio 2020</a>
-
-
+                                    @foreach($campeonatos as $camplist)
+                                    <a class="dropdown-item"
+                                        href="{{ route('campeonato.show', ['id' => $camplist->id ]) }}">{{$camplist->nombre}}</a>
+                                    @endforeach
                                 </div>
                             </li>
                         </ul>
@@ -58,30 +57,29 @@
         <div class="row">
             <div class="col-md-8 blog-main">
                 <h3 class=" pb-3 mb-4 font-italic border-bottom ">
-                    Campeonato pilotos Verano 2020
+                    {{ $campeonato->nombre}}
                 </h3>
 
                 <div class=" blog-post text-left">
 
-                    <p>Bienvenido al campeonato veraniego de 2020. Un campeonato individual donde podrás elegir que
-                        piloto ocupará tu monoplaza y a que escudería pertenece. Escoge sabiamente</p>
+                    <p>{{ $campeonato->descripcion}}</p>
                     <hr>
 
                     <h5>Formato</h5>
                     <dl class="row">
                         <dt class="col-sm-3">Número de coches</dt>
-                        <dd class="col-sm-3">6</dd>
+                        <dd class="col-sm-3">{{ $campeonato->coches}}</dd>
                         <dt class="col-sm-3">Número de carreras</dt>
-                        <dd class="col-sm-3">5</dd>
+                        <dd class="col-sm-3">{{ $campeonato->carreras}}</dd>
                         <dt class="col-sm-3">Vueltas por carreras</dt>
-                        <dd class="col-sm-3">12</dd>
+                        <dd class="col-sm-3">{{ $campeonato->vueltas}}</dd>
                         <dt class="col-sm-3">Penalización por abandono</dt>
                         <dd class="col-sm-3">50%</dd>
 
                         <dt class="col-sm-3">Pilotos</dt>
-                        <dd class="col-sm-3">Habilitados</dd>
+                        <dd class="col-sm-3">{{ ($campeonato->pilotos) ? 'Habilitados' : 'Deshabilitados' }}</dd>
                         <dt class="col-sm-3">Escuderias</dt>
-                        <dd class="col-sm-3">Habilitados</dd>
+                        <dd class="col-sm-3">{{ ($campeonato->pilotos) ? 'Habilitadas' : 'Deshabilitadas' }}</dd>
 
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>

@@ -17,6 +17,7 @@ class CreateCampeonatoParticipanteTable extends Migration
             $table->bigIncrements('id');
             $table->integer("campeonato_id")->unsigned();
             $table->integer("participante_id")->unsigned();
+            $table->integer("escuderia_id")->unsigned()->default(0);
             $table->timestamps();
         });
     }

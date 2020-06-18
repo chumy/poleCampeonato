@@ -26,6 +26,7 @@ class CreateCampeonatosTable extends Migration
             $table->integer('escuderia1')->default(0);
             $table->integer('escuderia2')->default(0);
             $table->integer('escuderia3')->default(0);
+            $table->boolean('visible')->default(true);
             $table->integer("punto_id")->unsigned();
             
             $table->timestamps();

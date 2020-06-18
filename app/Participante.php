@@ -22,8 +22,14 @@ class Participante extends Model
     }
 
     public function campeonatos(){
-        return $this->belongsToMany('App\Campeonato','campeonato_usuario');
+        return $this->belongsToMany('App\Campeonato','campeonato_participante');
     }
+
+    public function escuderias(){
+        return $this->belongsToMany('App\Escuderia','campeonato_participante')
+                ->withPivot(['campeonato_id']);;
+    }
+
 
 
 }

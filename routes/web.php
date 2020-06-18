@@ -19,13 +19,14 @@ Route::get('/', function () {
 });
 */
 
+/* -----------------  RUTAS PUBLICAS  -------------------- */
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/campeonato', function () {
-    return view('campeonatos/campeonato');
-});
+Route::get('/campeonato', 'CampeonatoController@index')->name('campeonato.index');
+
+Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campeonato.show');
 
 Route::get('/campeonato2', function () {
     return view('campeonatos/campeonato_ind');
@@ -67,7 +68,7 @@ Route::get('/escuderias/resultado', function () {
 
 //Auth::routes();
 
-
+/* -------------  RUTAS ADMINISTRACION ---------------- */
 Route::get('/admin', function (){
     return view('admin/campeonato');
 });
