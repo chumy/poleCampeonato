@@ -18,15 +18,7 @@ class CampeonatoController extends Controller
     {
         //
         $campeonato = Campeonato::find(1);
-
-        /*
-        DB::enableQueryLog(); // Enable query log
-
-        $clasificacionCampeonato =  $this->getClasificacionCampeonato($campeonato);
-        dd(DB::getQueryLog());
-        */
-
-         return redirect()->route('campeonato.show', $campeonato);
+        return redirect()->route('campeonato.show', $campeonato);
     }
 
     /**
@@ -59,21 +51,7 @@ class CampeonatoController extends Controller
     public function show(Campeonato $campeonato)
     {
         //
-        /*select ca.nombre, pa.apodo, cp.posicion, lpu.puntos
-        from campeonatos c, campeonato_carrera cc, carreras ca,
-        carrera_participante cp, participantes pa, 
-        puntos pu, lista_puntos lpu
-
-        where c.id = cc.campeonato_id
-        and cc.carrera_id in (1,2)
-        and cc.carrera_id = ca.id
-        and ca.id = cp.carrera_id
-        and c.id = cp.campeonato_id
-        and pa.id = cp.participante_id
-        and c.punto_id = pu.id
-        and lpu.punto_id = pu.id
-        and cp.posicion = lpu.posicion
-        order by cc.orden, cp.posicion*/
+        
         $campeonatos = Campeonato::all()->where('visible',1);
 
         $clasificacionEscuderias=[];
@@ -84,33 +62,28 @@ class CampeonatoController extends Controller
                 //$listaEscuderias =  $this->getClasificacionCampeonato($campeonato) ;
                 //dd(DB::getQueryLog());
         
-            $listaEscuderias =  $this->getClasificacionEscuderias($campeonato) ;
-            
-            //dd ($campeonato->punto_escuderia_id);
-            $puntuacionEscuderias = Punto::find($campeonato->punto_escuderia_id)->puntos;
-
-            for ($i=0; $i<sizeof($listaEscuderias);$i++)
-            {
-
-                $punto = 0;
-                for($j=0; $j<sizeof($puntuacionEscuderias);$j++){
-                    if ( $listaEscuderias[$i]->posicion == $puntuacionEscuderias[$j]->posicion){
-                        $punto = $puntuacionEscuderias[$j]->puntos;
-                        break;
-                    }
-                }
-
-                $clasificacionEscuderias[] = array ("id" => $listaEscuderias[$i]->id,
-                                                     "nombre" => $listaEscuderias[$i]->escuderia,
-                                                     "posicion" => $listaEscuderias[$i]->posicion,
-                                                     "puntos" => $puntuacionEscuderias[$j]->puntos);
-            }
+          
+             $clasificacionEscuderias =  $this->getClasificacionEscuderias($campeonato) ;
 
         }
         //dd($clasificacionEscuderias[0]["id"]);
+        //DB::enableQueryLog();
+        $puntosEspeciales=[];
+        $carreasEspeciales=$this->getCarrerasEspeciales($campeonato);
+        if (sizeof($carreasEspeciales) > 0)
+        {
+            foreach($carreasEspeciales as $carr)
+            {
+                $puntosEspeciales[] = Punto::find($carr->punto_id) ;
+            }
+
+        }
+       // dd(DB::getQueryLog());
         $clasificacionCampeonato =  $this->getClasificacionCampeonato($campeonato) ;
 
-        return view('campeonatos/campeonato' , compact('campeonatos', 'campeonato','clasificacionCampeonato','clasificacionEscuderias'));
+        return view('campeonatos/campeonato' , compact('campeonatos', 'campeonato','clasificacionCampeonato',
+                                                        'clasificacionEscuderias', 'carreasEspeciales',
+                                                    'puntosEspeciales'));
 
     }
 
@@ -326,30 +299,6 @@ campeonato_participante ') )
             group by escuderia
         */
 
-/*
-
-        return DB::table('carrera_participante')
-                ->join('campeonato_carrera', 'carrera_participante.carrera_id', '=', 'campeonato_carrera.carrera_id')
-                ->join('lista_puntos', 'carrera_participante.posicion', '=', 'lista_puntos.posicion')
-                ->join('campeonatos', 'campeonato_carrera.campeonato_id', '=', 'campeonatos.id')
-                ->join('puntos', 'puntos.id', '=', 'campeonatos.punto_escuderia_id')
-                ->join('campeonato_participante', 'campeonato_participante.participante_id', '=', 'carrera_participante.participante_id')
-                ->join('escuderias', 'escuderias.id', '=', 'campeonato_participante.escuderia_id')
-                ->select((DB::raw(' escuderias.id, escuderias.nombre escuderia, sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos,
-            rank() over ( order by sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) desc ) posicion') ) )
-                ->whereColumn ( [
-
-                        ['puntos.id', 'lista_puntos.punto_id'],
-                        ['carrera_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                         ['campeonato_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                ])
-                ->where( [
-                        ['carrera_participante.campeonato_id', '=', $campeonato->id],    
-                ])
-                ->groupBy('escuderias.id',  'escuderias.nombre')
-                ->orderBy('puntos','desc')
-                ->get();
-       */
       return DB::table(DB::raw( 'escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante') )
                 ->select((DB::raw(' escuderias.id, escuderias.nombre escuderia, sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos,
             rank() over ( order by sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) desc ) posicion') ) )
@@ -372,6 +321,27 @@ campeonato_participante ') )
                 ->get();
 
        
+
+    }
+
+    public function getCarrerasEspeciales($campeonato){
+        /* select orden, campeonato_carrera.punto_id
+            from campeonato_carrera, campeonatos
+            where campeonatos.id =  campeonato_carrera.campeonato_id
+            and campeonato_carrera.punto_id <> campeonatos.punto_id */
+        return DB::table(DB::raw('campeonato_carrera, campeonatos') )
+            ->select( 'orden', 'campeonato_carrera.punto_id')
+             ->whereColumn ( [
+                        ['campeonatos.id',  'campeonato_carrera.campeonato_id'],
+                        ['campeonato_carrera.punto_id', '<>', 'campeonatos.punto_id'],
+             ])
+             ->where( [
+                          
+                        ['campeonato_carrera.campeonato_id', '=', $campeonato->id],  
+                ])
+                ->groupBy('orden', 'campeonato_carrera.punto_id')
+                ->orderBy('orden','asc')
+                ->get();
 
     }
 }

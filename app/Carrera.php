@@ -19,4 +19,10 @@ class Carrera extends Model
         protected $casts = [
         'visible' => 'boolean',
     ];
+
+
+    public function asignadas(){
+        return $this->belongsToMany('App\Campeonato','campeonato_carrera')
+                   ->withPivot( ['orden', 'punto_id']); 
+    }
 }

@@ -98,19 +98,19 @@
 
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
-                        <dt class="col-sm-3">Puntuación especial Carrera 5</dt>
-                        <dd class="col-sm-3">
-                            <p>1. 15 puntos</p>
-                            <p>2. 12 puntos</p>
-                            <p>3. 10 puntos</p>
+                        @foreach ($carreasEspeciales as $carreasEspeciales )
+                        <dt class="col-sm-3">Puntuación especial Carrera {{$carreasEspeciales->orden}}</dt>
+                        <dd class="col-sm-9">
+                            @foreach ($puntosEspeciales[$loop->index]->puntos as $punto)
+                            @if(!$loop->last)
+                            {{$punto->puntos}} -
+                            @else
+                            {{$punto->puntos}}
+                            @endif
+                            @endforeach
 
                         </dd>
-                        <dd class="col-sm-3">
-                            <p>4. 8 puntos</p>
-                            <p>5. 6 puntos</p>
-                            <p>6. 5 puntos</p>
-
-                        </dd>
+                        @endforeach
 
                     </dl>
                     <hr>
@@ -197,9 +197,9 @@
                             @foreach($clasificacionEscuderias as $clasifEsc)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{ $clasifEsc["nombre"] }}</td>
-                                <td>{{ $clasifEsc["posicion"] }} </td>
-                                <td><a href="/campeonato/escuderia/{{$clasifEsc['id']}}"><i
+                                <td>{{ $clasifEsc->escuderia }}</td>
+                                <td>{{ $clasifEsc->posicion }} </td>
+                                <td><a href="/campeonato/escuderia/{{$clasifEsc->id}}"><i
                                             class="material-icons">timer</i></a></td>
                             </tr>
 
