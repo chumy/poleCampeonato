@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Campeonato;
 use Illuminate\Http\Request;
 use App\Punto;
+use App\Participante;
 
 class CampeonatoController extends Controller
 {
@@ -57,10 +58,7 @@ class CampeonatoController extends Controller
         $clasificacionEscuderias=[];
         // Obtener datos de escuderias
         if ($campeonato->tipo == 2) {
-                //DB::enableQueryLog(); // Enable query log
-
-                //$listaEscuderias =  $this->getClasificacionCampeonato($campeonato) ;
-                //dd(DB::getQueryLog());
+                
         
           
              $clasificacionEscuderias =  $this->getClasificacionEscuderias($campeonato) ;
@@ -87,6 +85,17 @@ class CampeonatoController extends Controller
 
     }
 
+    public function piloto(Campeonato $campeonato, Participante $participante)
+    {
+        //DB::enableQueryLog(); // Enable query log
+
+                
+        $listaCarreras = $this->getResultadoPiloto( $participante,  $campeonato);
+        //dd($campeonato->participantes);
+        //dd(DB::getQueryLog());
+        $apodos = $campeonato->participantes;
+        return view('campeonatos/piloto', compact('listaCarreras', 'campeonato' , 'participante', 'apodos'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,6 +130,38 @@ class CampeonatoController extends Controller
         //
     }
 
+    public function getResultadoPiloto(Participante $participante, Campeonato $campeonato){
+
+        /*select carreras.nombre, carrera_participante.posicion, floor(if( carrera_participante.abandono = 1, puntos.penalizacion * lista_puntos.puntos, lista_puntos.puntos) ) puntos
+from campeonato_carrera, carrera_participante, lista_puntos, carreras, puntos
+where  carrera_participante.campeonato_id = campeonato_carrera.campeonato_id
+and campeonato_carrera.punto_id = lista_puntos.punto_id 
+and carrera_participante.posicion = lista_puntos.posicion
+and campeonato_carrera.carrera_id = carrera_participante.carrera_id
+and carreras.id = carrera_participante.carrera_id
+and puntos.id = lista_puntos.punto_id
+and campeonato_carrera.campeonato_id = 1
+and carrera_participante.participante_id = 1
+order by campeonato_carrera.orden asc
+*/
+        return DB::table(DB::raw( ' carreras, campeonato_carrera, carrera_participante, lista_puntos, puntos ') )                    
+                ->select((DB::raw(' carreras.nombre, carrera_participante.posicion, 
+                    floor(if( carrera_participante.abandono = 1, puntos.penalizacion * lista_puntos.puntos, lista_puntos.puntos) ) puntos ') ) )
+                ->whereColumn ( [
+                        ['carrera_participante.campeonato_id' , 'campeonato_carrera.campeonato_id'],
+                        ['campeonato_carrera.punto_id' , 'lista_puntos.punto_id' ],
+                        ['carrera_participante.posicion' , 'lista_puntos.posicion'],
+                        ['campeonato_carrera.carrera_id' , 'carrera_participante.carrera_id'],
+                        ['carreras.id', 'carrera_participante.carrera_id'],
+                        ['puntos.id' , 'lista_puntos.punto_id'],
+                    ])
+                ->where( [
+                        ['campeonato_carrera.campeonato_id', $campeonato->id], 
+                        ['carrera_participante.participante_id',  $participante->id],    
+                ])
+               ->orderBy('campeonato_carrera.orden','asc')
+                ->get();
+    }
     public function  getClasificacionCarrera($campeonato, $carrera)
     {
 

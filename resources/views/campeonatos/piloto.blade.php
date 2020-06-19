@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1">Campeonato 1</span>
+                    <span class="navbar-brand mb-0 h1">{{ $campeonato->nombre }}</span>
 
                     <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
@@ -29,12 +29,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Apodo 1
+                                    {{$participante->nombre}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="#">Apodo 2</a>
-                                    <a class="dropdown-item" href="#">Apodo 3</a>
+                                    @foreach ($campeonato->participantes as $part)
+                                    @if ($part->id != $participante->id )
+                                    <a class="dropdown-item"
+                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $part->id ]) }}">{{$part->apodo}}</a>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </li>
                         </ul>
@@ -69,18 +72,15 @@
                     </thead>
                     <tbody>
 
+                        @foreach ($listaCarreras as $carrera)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Carrera 1</td>
-                            <td>1</td>
-                            <td>20</td>
+                            <th scope="row">{{$loop->iteration }}</th>
+                            <td>{{$carrera->nombre}}</td>
+                            <td>{{$carrera->posicion}}</td>
+                            <td>{{$carrera->puntos}}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Carrera 2</td>
-                            <td>3</td>
-                            <td>15</td>
-                        </tr>
+
+                        @endforeach
 
 
 
@@ -88,7 +88,8 @@
                 </table>
 
                 <div class="text-right">
-                    <h3> <span class="badge badge-secondary">Total: 35 puntos</span> </h3>
+                    <h3> <span class="badge badge-secondary">Total: {{$listaCarreras->sum('puntos')}} puntos</span>
+                    </h3>
                 </div>
 
             </div>

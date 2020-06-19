@@ -167,7 +167,9 @@
                                 @else
                                 <td>{{$clasif->puntos}}</td>
                                 @endif
-                                <td><a href="/campeonato/piloto/{{$clasif->id}}"><i class="material-icons">timer</i></a>
+                                <td><a
+                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $clasif->id ]) }}"><i
+                                            class="material-icons">timer</i></a>
                                 </td>
                             </tr>
                             @endforeach

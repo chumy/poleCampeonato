@@ -28,6 +28,9 @@ Route::get('/campeonato', 'CampeonatoController@index')->name('campeonato.index'
 
 Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campeonato.show');
 
+Route::get('/campeonato/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
+
+
 Route::get('/campeonato2', function () {
     return view('campeonatos/campeonato_ind');
 });
