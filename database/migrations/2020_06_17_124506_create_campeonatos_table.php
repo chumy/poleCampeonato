@@ -22,10 +22,9 @@ class CreateCampeonatosTable extends Migration
             $table->boolean('pilotos')->default(false);
             $table->boolean('escuderias')->default(false);
             $table->text('descripcion');
+            $table->integer('punto_escuderia_id')->unsigned()->default(0);
             $table->integer("tipo")->unsigned();
-            $table->integer('escuderia1')->default(0);
-            $table->integer('escuderia2')->default(0);
-            $table->integer('escuderia3')->default(0);
+            
             $table->boolean('visible')->default(true);
             $table->integer("punto_id")->unsigned();
             

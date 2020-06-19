@@ -109,7 +109,7 @@ class PuntosSeeder extends Seeder
             
          Punto::create([
              'id' =>3,
-            'nombre' => 'Puntuacion Extra Escuderias',
+            'nombre' => 'Puntuacion Extra Campeonato Escuderias',
             'penalizacion' => '0.5',
         ]);
 
@@ -147,6 +147,48 @@ class PuntosSeeder extends Seeder
             'posicion' => 6,
             'puntos' => 5,
             'punto_id' => 3,
+        ]);
+        
+         Punto::create([
+             'id' =>4,
+            'nombre' => 'Puntuacion Campeonato Equipos/Escuderias',
+            'penalizacion' => '0',
+        ]);
+
+        ListaPunto::create([
+            'posicion' => 1,
+            'puntos' => 10,
+            'punto_id' => 4,
+        ]);
+
+         ListaPunto::create([
+            'posicion' => 2,
+            'puntos' => 8,
+            'punto_id' => 4,
+        ]);
+
+        ListaPunto::create([
+            'posicion' => 3,
+            'puntos' => 5,
+            'punto_id' => 4,
+        ]);
+
+        ListaPunto::create([
+            'posicion' => 4,
+            'puntos' => 3,
+            'punto_id' => 4,
+        ]);
+
+        ListaPunto::create([
+            'posicion' => 5,
+            'puntos' => 2,
+            'punto_id' => 4,
+        ]);
+
+        ListaPunto::create([
+            'posicion' => 6,
+            'puntos' => 1,
+            'punto_id' => 4,
         ]);
         
 

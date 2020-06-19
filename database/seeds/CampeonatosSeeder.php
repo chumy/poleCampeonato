@@ -22,9 +22,7 @@ class CampeonatosSeeder extends Seeder
             'vueltas' =>'12',
             'pilotos' =>false,
             'escuderias' =>true,
-            'escuderia1' =>10,
-            'escuderia2'=>5,
-            'escuderia3'=>3,
+            'punto_escuderia_id' => 4,
             'descripcion' => 'Primer torneo por escuderias para usuarios de LaBSK',
             'punto_id'=> 2,
         ]);

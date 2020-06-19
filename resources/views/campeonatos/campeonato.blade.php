@@ -125,54 +125,96 @@
 <section class="secciones-portada bg-light text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10">
 
-                <table class="table table-hover table-light">
-                    <thead>
-                        <tr class="thead-dark">
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            @if ($campeonato->pilotos)
-                            <th scope="col">Pilotos</th>
-                            @endif
-                            @if ($campeonato->escuderias)
-                            <th scope="col">Escuderias</th>
-                            @endif
+            @if ($campeonato->tipo == 2)
+            <div class="col-lg-6">
+                @else
+                <div class="col-lg-10">
+                    @endif
 
-                            <th scope="col">Puntuacion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($clasificacionCampeonato as $clasif)
-                        <tr>
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$clasif->apodo}}</td>
-                            @if ($campeonato->pilotos)
-                            <td>{{$clasif->piloto}}</td>
-                            @endif
-                            @if ($campeonato->escuderias)
-                            <td>{{$clasif->escuderia}}</td>
-                            @endif
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="thead-dark">
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                @if ($campeonato->pilotos)
+                                <th scope="col">Pilotos</th>
+                                @endif
+                                @if ($campeonato->escuderias)
+                                <th scope="col">Escuderias</th>
+                                @endif
 
-                            <td>{{$clasif->puntos}}</td>
-                            <td><a href="/campeonato/piloto/{{$clasif->id}}"><i class="material-icons">timer</i></a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                <th scope="col">Puntuacion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($clasificacionCampeonato as $clasif)
+                            <tr>
+                                <th scope="row">{{$loop->iteration}}</th>
+                                <td>{{$clasif->apodo}}</td>
+                                @if ($campeonato->pilotos)
+                                <td>{{$clasif->piloto}}</td>
+                                @endif
+                                @if ($campeonato->escuderias)
+                                <td>{{$clasif->escuderia}}</td>
+                                @endif
+                                @if ($campeonato->tipo == 2)
+
+                                <td>{{$clasif->puntosTotales}}
+                                    ({{$clasif->puntos}} + {{$clasif->puntosEscuderia}} ) </td>
+
+                                @else
+                                <td>{{$clasif->puntos}}</td>
+                                @endif
+                                <td><a href="/campeonato/piloto/{{$clasif->id}}"><i class="material-icons">timer</i></a>
+                                </td>
+                            </tr>
+                            @endforeach
 
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                @if ($campeonato->tipo == 2)
+                <div class="col-lg-4">
+
+
+
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="thead-dark">
+                                <th scope="col">#</th>
+                                <th scope="col">Escuderia</th>
+                                <th scope="col">Posicion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($clasificacionEscuderias as $clasifEsc)
+                            <tr>
+                                <th scope="row">{{$loop->iteration}}</th>
+                                <td>{{ $clasifEsc["nombre"] }}</td>
+                                <td>{{ $clasifEsc["posicion"] }} </td>
+                                <td><a href="/campeonato/escuderia/{{$clasifEsc['id']}}"><i
+                                            class="material-icons">timer</i></a></td>
+                            </tr>
+
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                @endif
 
 
             </div>
-
-
-
         </div>
-    </div>
 </section>
 
 

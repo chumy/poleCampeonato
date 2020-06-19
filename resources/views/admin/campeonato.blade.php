@@ -189,6 +189,17 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Expansion Escuderias</label>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -206,35 +217,15 @@
 
                     <div class="row">
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Puntuacion para Escuderias</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
+
+                        <div class="col-md-8">
 
                             <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Primera Posicion</label>
-                                <input type="text" class="form-control" value="0">
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-2">
-
-                            <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Segunda Posicion</label>
-                                <input type="text" class="form-control" value="0">
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-
-                            <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Tercera Posicion</label>
-                                <input type="text" class="form-control" value="0">
+                                <label for="exampleSelect2" class="bmd-label-floating">Puntuacion por Equipos</label>
+                                <select class="form-control" id="exampleSelect2">
+                                    <option>Puntuacion 1 - 25-18-15-10-8</option>
+                                    <option>Puntuacion 2 - 5-3-2-1</option>
+                                </select>
                             </div>
 
                         </div>
