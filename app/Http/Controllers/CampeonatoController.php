@@ -18,11 +18,12 @@ class CampeonatoController extends Controller
         //
         $campeonato = Campeonato::find(1);
 
-        //DB::enableQueryLog(); // Enable query log
+        /*
+        DB::enableQueryLog(); // Enable query log
 
-        //$clasificacionCampeonato =  $this->getClasificacionCampeonato($campeonato) );
-        //dd(DB::getQueryLog());
-        
+        $clasificacionCampeonato =  $this->getClasificacionCampeonato($campeonato);
+        dd(DB::getQueryLog());
+        */
 
          return redirect()->route('campeonato.show', $campeonato);
     }
@@ -140,7 +141,7 @@ class CampeonatoController extends Controller
                         ['campeonato_carrera.carrera_id', 'carreras.id'],
                         ['puntos.id', 'lista_puntos.punto_id'],
                         ['carrera_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                        ['puntos.id' , 'carrera_participante.campeonato_id'],
+                        ['puntos.id' , 'campeonato_carrera.punto_id'],
                 ])
                 ->where( [
                         ['carrera_participante.campeonato_id', '=', $campeonato->id], 
@@ -160,15 +161,23 @@ class CampeonatoController extends Controller
     {
 
          /*
-            select carreras.nombre, participantes.apodo, carrera_participante.posicion, lista_puntos.puntos 
-            from carrera_participante 
+            select  participantes.id, participantes.apodo, escuderias.nombre escuderia, pilotos.nombre piloto, 
+            floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos ) ) ) puntos  
+            from carrera_participante inner join campeonato_carrera on carrera_participante.carrera_id = campeonato_carrera.carrera_id 
             inner join carreras on carrera_participante.carrera_id = carreras.id 
-            inner join campeonato_carrera on carrera_participante.id = carreras.id 
             inner join lista_puntos on carrera_participante.posicion = lista_puntos.posicion 
             inner join participantes on carrera_participante.participante_id = participantes.id 
-
-            inner join puntos on puntos.id = lista_puntos.punto_id
-            where carrera_participante.campeonato_id = 1*/
+            inner join puntos on campeonato_carrera.punto_id = puntos.id 
+            inner join campeonato_participante on campeonato_participante.participante_id = participantes.id 
+            left join escuderias on escuderias.id = campeonato_participante.escuderia_id 
+            left join pilotos on pilotos.id = campeonato_participante.piloto_id 
+            where (campeonato_carrera.carrera_id = carreras.id 
+            and puntos.id = lista_puntos.punto_id 
+            and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id 
+            and puntos.id = campeonato_carrera.punto_id  
+            and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id) 
+            and (carrera_participante.campeonato_id = 1) 
+            group by participantes.id, participantes.apodo, escuderias.nombre, pilotos.nombre order by puntos desc*/
 
 
 
@@ -179,19 +188,20 @@ class CampeonatoController extends Controller
                 ->join('participantes', 'carrera_participante.participante_id', '=', 'participantes.id')
                 ->join('puntos', 'campeonato_carrera.punto_id', '=', 'puntos.id')
                 ->join('campeonato_participante', 'campeonato_participante.participante_id', '=', 'participantes.id')
-                ->join('escuderias', 'escuderias.id', '=', 'campeonato_participante.escuderia_id')
-                ->select((DB::raw(' participantes.id, participantes.apodo, escuderias.nombre escuderia,  sum(lista_puntos.puntos) puntos ') ) )
+                ->leftjoin('escuderias', 'escuderias.id', '=', 'campeonato_participante.escuderia_id')
+                ->leftjoin('pilotos', 'pilotos.id', '=', 'campeonato_participante.piloto_id')
+                ->select((DB::raw(' participantes.id, participantes.apodo, escuderias.nombre escuderia, pilotos.nombre piloto, floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos ) ) ) puntos   ') ) )
                 ->whereColumn ( [
                         ['campeonato_carrera.carrera_id', 'carreras.id'],
                         ['puntos.id', 'lista_puntos.punto_id'],
                         ['carrera_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                        ['puntos.id' , 'carrera_participante.campeonato_id'],
+                        ['puntos.id' , 'campeonato_carrera.punto_id'],
                          ['campeonato_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
                 ])
                 ->where( [
                         ['carrera_participante.campeonato_id', '=', $campeonato->id],    
                 ])
-                ->groupBy('participantes.id', 'participantes.apodo', 'escuderias.nombre')
+                ->groupBy('participantes.id', 'participantes.apodo', 'escuderias.nombre', 'pilotos.nombre')
                 ->orderBy('puntos','desc')
                 ->get();
        

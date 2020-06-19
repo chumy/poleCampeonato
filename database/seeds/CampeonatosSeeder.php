@@ -32,7 +32,7 @@ class CampeonatosSeeder extends Seeder
         for ($i=1; $i < 7; $i++)
         {
            
-            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>1]); 
+            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>2]); 
             //$campeonato->participantes()->attach(App\Participante::find($i));
             $campeonato->participantes()
                                     ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);

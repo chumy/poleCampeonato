@@ -149,14 +149,15 @@
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$clasif->apodo}}</td>
                             @if ($campeonato->pilotos)
-
+                            <td>{{$clasif->piloto}}</td>
                             @endif
                             @if ($campeonato->escuderias)
                             <td>{{$clasif->escuderia}}</td>
                             @endif
 
                             <td>{{$clasif->puntos}}</td>
-                            <td><a href="/campeonato/piloto"><i class="material-icons">timer</i></a></td>
+                            <td><a href="/campeonato/piloto/{{$clasif->id}}"><i class="material-icons">timer</i></a>
+                            </td>
                         </tr>
                         @endforeach
 
