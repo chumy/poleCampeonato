@@ -16,7 +16,7 @@ class CampeonatosSeeder extends Seeder
         $campeonato = Campeonato::create([
             'id' =>1,
             'nombre' => 'Torneo LABSK por Escuderias Verano 2020',
-            'tipo' =>'1',
+            'tipo' =>'2',
             'coches' =>'6',
             'carreras' =>'6',
             'vueltas' =>'12',
@@ -27,25 +27,37 @@ class CampeonatosSeeder extends Seeder
             'punto_id'=> 2,
         ]);
 
+        for ($i=1; $i < 13; $i++)
+        {
+            $campeonato->participantes()
+                        ->attach(App\Participante::find($i), [ 'escuderia_id'=> ($i % 6) + 1 ]);
+        }
+
         for ($i=1; $i < 7; $i++)
         {
            
-            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>2]); 
-            //$campeonato->participantes()->attach(App\Participante::find($i));
-            $campeonato->participantes()
-                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);
+            $punto = ($i<6) ? 2 : 3;
+            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>$punto]); 
 
-            $posiciones= range(1,6);
+            //$campeonato->participantes()->attach(App\Participante::find($i));
+        
+           /* $campeonato->participantes()
+                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);*/
+
+            $posiciones= range(1,12);
             shuffle($posiciones);
             for($j=0; $j<sizeof($posiciones); $j++)
             {
+                $participacion =  ($posiciones[$j] < 7) ? 1 : 0;
                 App\Participante::find($j+1)
                             ->carreras()
                             ->attach(App\Carrera::find($i),
-                                ["posicion"=> $posiciones[$j], "campeonato_id"=>1]);
+                                ["posicion"=> $posiciones[$j], "campeonato_id"=>1, "participacion"=> $participacion]);
             
             }
         }
+
+        /* -------------- Torneo 2 --------------------*/
    
         $campeonato = Campeonato::create([
             'id' =>2,

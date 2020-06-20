@@ -30,6 +30,9 @@ class CampeonatoController extends Controller
     public function create()
     {
         //
+        $campeonatos = Campeonato::all();
+        return view('admin/campeonato', compact('campeonatos'));
+
     }
 
     /**

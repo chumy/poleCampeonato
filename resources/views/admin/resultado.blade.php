@@ -16,13 +16,14 @@
                     <div class="dropdown show">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Campeonato 1
+                            {{$campeonato->nombre}}
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Campeonato 1</a>
-                            <a class="dropdown-item" href="#">Campeonato 2</a>
-                            <a class="dropdown-item" href="#">Campeonato 3</a>
+                            @foreach ($campeonatos as $camp)
+                            <a class="dropdown-item"
+                                href="{{ route('resultados.show', [ 'campeonato' =>$camp->id ]) }}">{{$camp->nombre}}</a>
+                            @endforeach
                         </div>
                     </div>
 
@@ -30,13 +31,15 @@
                     <div class="dropdown show">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Carrera 3
+                            {{$carrera->nombre}}
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Carrera 1</a>
-                            <a class="dropdown-item" href="#">Carrera 2</a>
-                            <a class="dropdown-item" href="#">Carrera 3</a>
+                            @foreach ($campeonato->carreras()->get() as $car)
+                            <a class="dropdown-item"
+                                href="{{ route('resultados.show', [ 'campeonato' =>$campeonato->id , 'carrera' => $car->id, ]) }}">{{$car->nombre}}</a>
+                            @endforeach
+
                         </div>
                     </div>
 
@@ -67,97 +70,98 @@
                             </th>
                         </thead>
                         <tbody>
+
+                            @foreach ($parrilla as $pos)
                             <tr>
                                 <td>
-                                    1
+                                    {{$pos->posicion}}
                                 </td>
                                 <td>
-                                    Participante 1
+                                    {{$pos->participante->apodo}}
                                 </td>
 
-                                <td>Piloto 1</td>
-                                <td>Escuderia 1</td>
                                 <td>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" checked>
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
+                                    @if ($pos->participante->pilotos->where('pivot.campeonato_id', $campeonato->id
+                                    )->count() > 0)
+                                    {{$pos->participante->pilotos->where('pivot.campeonato_id',$campeonato->id)[0]->nombre}}
+                                    @endif
                                 </td>
                                 <td>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" checked>
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
+                                    @if ($pos->participante->escuderias->where('pivot.campeonato_id',
+                                    $campeonato->id)->count() > 0)
+                                    {{$pos->participante->escuderias->where('pivot.campeonato_id',
+                                    $campeonato->id)[0]->nombre}}
+                                    @endif
+                                </td>
+                                <td>
+                                    <form
+                                        action="{{ route('resultados.participacion',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"
+                                                    onClick="this.form.submit()" name="participacion"
+                                                    value="{{$pos->participacion}}" @if($pos->participacion)
+                                                checked
+                                                @endif
+                                                >
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form
+                                        action="{{ route('resultados.abandono',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="abandono"
+                                                    value="{{$pos->abandono}}" @if($pos->abandono)
+                                                checked
+                                                @endif
+                                                >
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td>
 
-
-                                    <button type="button" rel="tooltip" title="Edit Task"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_upward</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_downward</i>
-                                    </button>
-
+                                    <form
+                                        action="{{ route('resultados.up',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <button type="submit" rel="tooltip" title="Subir Posicion"
+                                            class="btn btn-primary btn-link btn-sm">
+                                            <i class="material-icons">arrow_upward</i>
+                                        </button>
+                                    </form>
+                                    <form
+                                        action="{{ route('resultados.down',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <button type="submit" rel="tooltip" title="Bajar Posicion"
+                                            class="btn btn-primary btn-link btn-sm">
+                                            <i class="material-icons">arrow_downward</i>
+                                        </button>
+                                    </form>
 
                                 </td>
 
                             </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Participante 2
-                                </td>
+                            @endforeach
 
-
-                                <td>Piloto 2</td>
-                                <td>Escuderia 2</td>
-                                <td>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" checked>
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" checked>
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-
-                                    <button type="button" rel="tooltip" title="Edit Task"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_upward</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_downward</i>
-                                    </button>
-                                </td>
-
-                            </tr>
                         </tbody>
                     </table>
                 </div>

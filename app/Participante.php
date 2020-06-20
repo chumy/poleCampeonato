@@ -18,7 +18,7 @@ class Participante extends Model
 
     public function carreras(){
         return $this->belongsToMany('App\Carrera', 'carrera_participante')
-                ->withPivot(['posicion', 'campeonato_id']);
+                ->withPivot(['posicion', 'abandono','participacion','campeonato_id']);
     }
 
     public function campeonatos(){
@@ -27,7 +27,12 @@ class Participante extends Model
 
     public function escuderias(){
         return $this->belongsToMany('App\Escuderia','campeonato_participante')
-                ->withPivot(['campeonato_id']);;
+                ->withPivot(['campeonato_id']);
+    }
+
+    public function pilotos(){
+        return $this->belongsToMany('App\Piloto','campeonato_participante')
+                ->withPivot(['campeonato_id']);
     }
 
 

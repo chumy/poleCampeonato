@@ -25,12 +25,14 @@
                             </th>
                         </thead>
                         <tbody>
+
+                            @foreach ($campeonatos as $campeonato)
                             <tr>
                                 <td>
-                                    1
+                                    {{ $campeonato->id}}
                                 </td>
                                 <td>
-                                    Campeonato 1
+                                    {{ $campeonato->nombre}}
                                 </td>
 
                                 <td>
@@ -65,48 +67,11 @@
                                     </button>
 
                                 </td>
-
                             </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Campeonato 2
-                                </td>
+                            @endforeach
 
-                                <td>
-                                    <button type="button" rel="tooltip" title="Edit Task"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
-                                        class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/campeonato/1/carreras'">
-                                        <i class="material-icons">location_ons</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Participantes"
-                                        class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/campeonato/1/participantes'">
-                                        <i class="material-icons">person</i>
-                                    </button>
 
-                                    <button type="button" rel="tooltip" title="Resultados"
-                                        class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/resultados'">
-                                        <i class="material-icons">list_alt</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Cambiar visibilidad"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">visibility</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Eliminar"
-                                        class="btn btn-danger btn-link btn-sm">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
 
-                            </tr>
                         </tbody>
                     </table>
                 </div>

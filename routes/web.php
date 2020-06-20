@@ -72,9 +72,11 @@ Route::get('/escuderias/resultado', function () {
 //Auth::routes();
 
 /* -------------  RUTAS ADMINISTRACION ---------------- */
-Route::get('/admin', function (){
-    return view('admin/campeonato');
-});
+
+Route::get('/admin', 'CampeonatoController@create')->name('campeonato.create');
+
+
+
 
 Route::get('/admin/pilotos', function (){
     return view('admin/piloto');
@@ -113,6 +115,14 @@ Route::get('/admin/puntuaciones', function (){
     return view('admin/puntuacion');
 });
 
-Route::get('/admin/resultados', function (){
-    return view('admin/resultado');
-});
+Route::get('/admin/resultados', 'ResultadoController@create')->name('resultados.create');
+
+Route::get('/admin/resultados/{campeonato}/{carrera?}', 'ResultadoController@show')->name('resultados.show');
+
+Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{participante}', 'ResultadoController@up')->name('resultados.up');
+
+Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{participante}', 'ResultadoController@down')->name('resultados.down');
+
+Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{participante}', 'ResultadoController@abandono')->name('resultados.abandono');
+
+Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{participante}', 'ResultadoController@participacion')->name('resultados.participacion');

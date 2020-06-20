@@ -34,7 +34,7 @@
             active
           @endif
           ">
-                        <a class="nav-link" href="/admin/resultados">
+                        <a class="nav-link" href="{{ route ('resultados.create') }}">
                             <i class="material-icons">list_alt</i>
                             <p>Resultados</p>
                         </a>

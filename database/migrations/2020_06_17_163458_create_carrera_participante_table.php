@@ -15,8 +15,9 @@ class CreateCarreraParticipanteTable extends Migration
     {
         Schema::create('carrera_participante', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("posicion")->default("6");
+            $table->integer("posicion")->default(6);
             $table->boolean('abandono')->default(false);
+            $table->boolean('participacion')->default(false);
             $table->integer("campeonato_id")->unsigned();
             $table->integer("carrera_id")->unsigned();
             $table->integer("participante_id")->unsigned();
