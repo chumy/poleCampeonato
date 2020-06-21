@@ -65,5 +65,37 @@ class ParticipantesSeeder extends Seeder
             'nombre' => 'Prebosting',
             'apodo' =>'Prebosting',
         ]);
+
+         Participante::create([
+            'nombre' => 'Zoste - Turlusiflu',
+            'apodo' =>'Zoste - Turlusiflu',
+        ]);
+
+        Participante::create([
+            'nombre' => 'Enric - Chumy',
+            'apodo' =>'Enric - Chumy',
+        ]);
+
+        Participante::create([
+            'nombre' => 'Jenaru - Marco Antonio',
+            'apodo' =>'Jenaru - Marco Antonio',
+        ]);
+
+        Participante::create([
+            'nombre' => 'Deporobom - Isaías',
+            'apodo' =>'Deporobom - Isaías',
+        ]);
+
+         Participante::create([
+            'nombre' => 'Jose Joaquin - Rewind Masters',
+            'apodo' =>'Jose Joaquin - Rewind Masters',
+        ]);
+
+        Participante::create([
+            'nombre' => 'Sergi - Salas',
+            'apodo' =>'Sergi - Salas',
+        ]);
+
+
     }
 }

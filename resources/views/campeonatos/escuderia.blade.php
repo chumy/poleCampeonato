@@ -37,7 +37,8 @@
                                     @foreach ($escuderias as $esc)
                                     @if ($esc->escuderia <> $escuderia->nombre)
 
-                                        <a class="dropdown-item" href="#">{{$esc->escuderia}}</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route ('campeonato.escuderia',  [ 'campeonato' =>$campeonato->id , 'escuderia' => $esc->id, ] ) }}">{{$esc->escuderia}}</a>
                                         @endif
                                         @endforeach
                                 </div>

@@ -35,9 +35,10 @@ Route::get('/campeonato/piloto/{campeonato}/{participante}', 'CampeonatoControll
 
 Route::get('/campeonato/escuderia/{campeonato}/{escuderia}', 'CampeonatoController@escuderia')->name('campeonato.escuderia');
 
-Route::get('/pilotos', function () {
-    return view('pilotos/pilotos');
-});
+Route::get('/pilotos', 'ParticipanteController@index')->name('piloto.index');
+
+Route::get('/pilotos/{participante}', 'ParticipanteController@show')->name('piloto.show');
+
 
 Route::get('/pilotos/resultado', function () {
     return view('pilotos/resultado');

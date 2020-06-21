@@ -16,9 +16,9 @@ class Carrera extends Model
         'nombre', 'visible',
     ];
 
-        protected $casts = [
+      /*  protected $casts = [
         'visible' => 'boolean',
-    ];
+    ];*/
 
 
     public function asignadas(){

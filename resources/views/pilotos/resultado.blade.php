@@ -29,12 +29,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Apodo 1
+                                    {{$participante->apodo}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="/pilotos/resultado">Apodo 2</a>
-                                    <a class="dropdown-item" href="/pilotos/resultado">Apodo 3</a>
+                                    @foreach ($pilotos as $piloto)
+                                    @if ($piloto->id != $participante->id)
+                                    <a class="dropdown-item"
+                                        href="{{ route('piloto.show', ['participante'=> $piloto->id ])}}">{{$piloto->apodo}}</a>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </li>
                         </ul>
@@ -49,6 +52,7 @@
 
 
 </section>
+
 
 
 <section class="secciones-portada bg-light text-center">
@@ -69,14 +73,15 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach ($puntuaciones as $puntuacion)
                         <tr>
-                            <th scope="row">1</th>
-                            <td><a href="/campeonato/piloto" class="text-dark"> Campeonato Verano 2020</a>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td><a href="/campeonato/piloto" class="text-dark"> {{$puntuacion->campeonato}}</a>
                             </td>
                             <td>1</td>
                             <td>40</td>
                         </tr>
+                        @endforeach
                         <tr>
                             <th scope="row">2</th>
                             <td><a href="/campeonato/piloto" class="text-dark"> Campeonato Escuderias 2020</a></td>

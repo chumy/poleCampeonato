@@ -169,7 +169,7 @@ order by campeonato_carrera.orden asc
 */
         return DB::table(DB::raw( ' carreras, campeonato_carrera, carrera_participante, lista_puntos, puntos ') )                    
                 ->select((DB::raw(' carreras.nombre, carrera_participante.posicion, 
-                    floor(if( carrera_participante.abandono = 1, puntos.penalizacion * lista_puntos.puntos, lista_puntos.puntos) ) puntos ') ) )
+                    floor(if( carrera_participante.abandono = 1, puntos.penalizacion * lista_puntos.puntos, lista_puntos.puntos)  * carrera_participante.participacion ) puntos ') ) )
                 ->whereColumn ( [
                         ['carrera_participante.campeonato_id' , 'campeonato_carrera.campeonato_id'],
                         ['campeonato_carrera.punto_id' , 'lista_puntos.punto_id' ],
@@ -224,7 +224,7 @@ from(
 
 select escuderias.id escuderia_id, escuderias.nombre escuderia, carrera_participante.campeonato_id,  carrera_participante.carrera_id ,
 carreras.nombre carrera, participantes.nombre participante,
-sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion )  * carrera_participante.participacion ) puntos
 from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante, 
 carreras, participantes
 where carrera_participante.carrera_id = campeonato_carrera.carrera_id
@@ -364,7 +364,7 @@ escuderias, (
     select id, escuderia, @rowid:=@rowid+1 as posicion, puntos
 from (
 select  escuderias.id, escuderias.nombre escuderia, 
-sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion )  * carrera_participante.participacion ) puntos
 from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante 
 where (carrera_participante.carrera_id = campeonato_carrera.carrera_id and carrera_participante.posicion = lista_puntos.posicion and carrera_participante.carrera_id = campeonato_carrera.carrera_id and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id and campeonato_participante.participante_id = carrera_participante.participante_id and campeonato_carrera.campeonato_id = campeonatos.id and escuderias.id = campeonato_participante.escuderia_id and puntos.id = lista_puntos.punto_id and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id) and (carrera_participante.campeonato_id = 1) group by escuderias.id, escuderias.nombre order by puntos desc) esc,  (SELECT @rowid:=0) as init
      ) posicionEsc,
@@ -373,8 +373,8 @@ campeonato_participante ') )
                 ->leftjoin('pilotos', 'pilotos.id', '=', 'campeonato_participante.piloto_id')  
                     
                 ->select((DB::raw(' participantes.id, participantes.apodo, escuderias.nombre escuderia, pilotos.nombre piloto, 
-        floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos ) ) ) puntos,
-        floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos ) ) ) + puntosEsc.puntos puntosTotales
+        floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos )  * carrera_participante.participacion ) ) puntos,
+        floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos )  * carrera_participante.participacion ) ) + puntosEsc.puntos puntosTotales
         , posicionEsc.posicion posicionEscuderia, puntosEsc.puntos puntosEscuderia ') ) )
                 ->whereColumn ( [
                         ['carrera_participante.carrera_id',  'campeonato_carrera.carrera_id'],

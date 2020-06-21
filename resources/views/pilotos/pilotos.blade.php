@@ -29,21 +29,16 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach($pilotos as $piloto)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Apodo 1</td>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$piloto->apodo}}</td>
 
-                            <td><a href="/pilotos/resultado"><i class="material-icons">timer</i></a></td>
+                            <td><a href="{{ route('piloto.show', ['participante' => $piloto->id, ])}}"><i
+                                        class="material-icons">timer</i></a></td>
 
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Apodo 2</td>
-                            <td><a href="/pilotos/resultado"><i class="material-icons">timer</i></a></td>
-
-                        </tr>
-
+                        @endforeach
 
 
                     </tbody>

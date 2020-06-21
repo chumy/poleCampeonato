@@ -35,7 +35,7 @@
             <div class="col-lg-4">
                 <div class="mx-auto mb-5 mb-lg-0 mb-lg-3">
 
-                    <a href="/pilotos" class="secciones-enlace">
+                    <a href="{{ route('piloto.index')}}" class="secciones-enlace">
                         <div class="card" style="width: 18rem;">
                             <img class="card-img-top" src="../images/pilotos.jpg" alt="Card image cap">
                             <div class="card-body  bg-light">
