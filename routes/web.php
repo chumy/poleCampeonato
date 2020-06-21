@@ -73,7 +73,9 @@ Route::get('/escuderias/resultado', function () {
 
 /* -------------  RUTAS ADMINISTRACION ---------------- */
 
-Route::get('/admin', 'CampeonatoController@create')->name('campeonato.create');
+Route::get('/admin', 'CampeonatoController@create')->name('campeonatos.create');
+
+//Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonato.create');
 
 
 

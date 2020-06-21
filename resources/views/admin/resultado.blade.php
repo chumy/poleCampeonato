@@ -83,14 +83,14 @@
                                 <td>
                                     @if ($pos->participante->pilotos->where('pivot.campeonato_id', $campeonato->id
                                     )->count() > 0)
-                                    {{$pos->participante->pilotos->where('pivot.campeonato_id',$campeonato->id)[0]->nombre}}
+                                    {{$pos->participante->pilotos->where('pivot.campeonato_id',$campeonato->id)->first()->nombre}}
                                     @endif
                                 </td>
                                 <td>
                                     @if ($pos->participante->escuderias->where('pivot.campeonato_id',
                                     $campeonato->id)->count() > 0)
                                     {{$pos->participante->escuderias->where('pivot.campeonato_id',
-                                    $campeonato->id)[0]->nombre}}
+                                    $campeonato->id)->first()->nombre}}
                                     @endif
                                 </td>
                                 <td>
@@ -123,7 +123,8 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input class="form-check-input" type="checkbox" name="abandono"
-                                                    value="{{$pos->abandono}}" @if($pos->abandono)
+                                                    onClick="this.form.submit()" value="{{$pos->abandono}}"
+                                                    @if($pos->abandono)
                                                 checked
                                                 @endif
                                                 >

@@ -101,8 +101,8 @@
                             <div class="form-group">
                                 <label for="exampleSelect1" class="bmd-label-floating">Tipo</label>
                                 <select class="form-control" id="exampleSelect1">
-                                    <option>individual</option>
-                                    <option>Escuderias</option>
+                                    <option value="1">Individual</option>
+                                    <option value="2">Escuderias</option>
                                 </select>
                             </div>
                         </div>

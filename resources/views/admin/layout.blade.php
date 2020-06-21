@@ -44,7 +44,7 @@
             active
           @endif
           ">
-                        <a class="nav-link" href="/admin/campeonatos">
+                        <a class="nav-link" href="{{ route ('campeonatos.create') }}">
                             <i class="material-icons">language</i>
                             <p>Campeonato</p>
                         </a>

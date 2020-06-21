@@ -31,6 +31,7 @@ class CampeonatoController extends Controller
     {
         //
         $campeonatos = Campeonato::all();
+        //dd($campeonatos);
         return view('admin/campeonato', compact('campeonatos'));
 
     }
@@ -252,14 +253,29 @@ and escuderias.id   = campeonato_participante.escuderia_id
 
 
                   
- */                                                                                                                      
+ */       
+/* Mysql 8.0 */     
+
+/*                                                                                                          
         return DB::table(DB::raw( 'carrera_participante, campeonato_carrera, carreras, lista_puntos, participantes, puntos, lista_puntos puntosEsc, campeonatos,
 escuderias, ( 
     select  escuderias.id, escuderias.nombre escuderia, sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos,
                   rank() over ( order by sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) desc ) posicion 
                 from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante where (`carrera_participante`.`carrera_id` = `campeonato_carrera`.`carrera_id` and `carrera_participante`.`posicion` = `lista_puntos`.`posicion` and `carrera_participante`.`carrera_id` = `campeonato_carrera`.`carrera_id` and `carrera_participante`.`campeonato_id` = `campeonato_carrera`.`campeonato_id` and `campeonato_participante`.`participante_id` = `carrera_participante`.`participante_id` and `campeonato_carrera`.`campeonato_id` = `campeonatos`.`id` and `escuderias`.`id` = `campeonato_participante`.`escuderia_id` and `puntos`.`id` = `lista_puntos`.`punto_id` and `campeonato_participante`.`campeonato_id` = `campeonato_carrera`.`campeonato_id`) and (`carrera_participante`.`campeonato_id` = 1) group by `escuderias`.`id`, `escuderias`.`nombre` order by `puntos` desc
     ) posicionEsc,
+campeonato_participante ') )*/
+
+ return DB::table(DB::raw( 'carrera_participante, campeonato_carrera, carreras, lista_puntos, participantes, puntos, lista_puntos puntosEsc, campeonatos,
+escuderias, ( 
+    select id, escuderia, @rowid:=@rowid+1 as posicion, puntos
+from (
+select  escuderias.id, escuderias.nombre escuderia, 
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante 
+where (carrera_participante.carrera_id = campeonato_carrera.carrera_id and carrera_participante.posicion = lista_puntos.posicion and carrera_participante.carrera_id = campeonato_carrera.carrera_id and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id and campeonato_participante.participante_id = carrera_participante.participante_id and campeonato_carrera.campeonato_id = campeonatos.id and escuderias.id = campeonato_participante.escuderia_id and puntos.id = lista_puntos.punto_id and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id) and (carrera_participante.campeonato_id = 1) group by escuderias.id, escuderias.nombre order by puntos desc) esc,  (SELECT @rowid:=0) as init
+     ) posicionEsc,
 campeonato_participante ') )
+
                 ->leftjoin('pilotos', 'pilotos.id', '=', 'campeonato_participante.piloto_id')  
                     
                 ->select((DB::raw(' participantes.id, participantes.apodo, escuderias.nombre escuderia, pilotos.nombre piloto, 
@@ -290,6 +306,8 @@ campeonato_participante ') )
                 ->groupBy('participantes.id', 'participantes.apodo', 'escuderias.nombre', 'pilotos.nombre', 'puntosEsc.puntos','posicionEsc.posicion')
                 ->orderBy('puntosTotales','desc')
                 ->get();
+ 
+
         }
         else{
      
@@ -343,6 +361,8 @@ campeonato_participante ') )
             group by escuderia
         */
 
+        /* MYSQL 8 */
+        /*
       return DB::table(DB::raw( 'escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante') )
                 ->select((DB::raw(' escuderias.id, escuderias.nombre escuderia, sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos,
             rank() over ( order by sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) desc ) posicion') ) )
@@ -363,6 +383,31 @@ campeonato_participante ') )
                 ->groupBy('escuderias.id',  'escuderias.nombre')
                 ->orderBy('puntos','desc')
                 ->get();
+                */
+        /* MYSQL 5,6 */
+
+        
+        return DB::table( DB::raw('(
+select escuderias.id, escuderias.nombre escuderia, carrera_participante.campeonato_id,
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante 
+where carrera_participante.carrera_id = campeonato_carrera.carrera_id
+ and carrera_participante.posicion = lista_puntos.posicion 
+ and carrera_participante.carrera_id = campeonato_carrera.carrera_id 
+ and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id 
+ and campeonato_participante.participante_id = carrera_participante.participante_id 
+ and campeonato_carrera.campeonato_id = campeonatos.id 
+ and escuderias.id = campeonato_participante.escuderia_id 
+ and puntos.id = lista_puntos.punto_id 
+ and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id
+ group by escuderias.id, escuderias.nombre, carrera_participante.campeonato_id order by puntos desc) escuderias,
+ (SELECT @rowid:=0) as init'))
+    ->select( DB::raw('@rowid:=@rowid+1 as posicion, id , escuderia, puntos, campeonato_id') )
+    ->where( [
+        ['campeonato_id', '=', $campeonato->id],   
+    ]
+    )
+    ->get();
 
        
 
