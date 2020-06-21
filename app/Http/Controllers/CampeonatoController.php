@@ -7,9 +7,15 @@ use App\Campeonato;
 use Illuminate\Http\Request;
 use App\Punto;
 use App\Participante;
+use App\Escuderia;
 
 class CampeonatoController extends Controller
 {
+    /*
+    public function __construct(){
+        //$this->middleware('auth')->except('index', 'show' , 'piloto', 'escuderia');
+        $this->middleware('auth')->only('create', 'store' , 'update', 'edit','destroy');
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -91,7 +97,7 @@ class CampeonatoController extends Controller
 
     public function piloto(Campeonato $campeonato, Participante $participante)
     {
-        //DB::enableQueryLog(); // Enable query log
+       // DB::enableQueryLog(); // Enable query log
 
                 
         $listaCarreras = $this->getResultadoPiloto( $participante,  $campeonato);
@@ -100,6 +106,19 @@ class CampeonatoController extends Controller
         $apodos = $campeonato->participantes;
         return view('campeonatos/piloto', compact('listaCarreras', 'campeonato' , 'participante', 'apodos'));
     }
+
+    public function escuderia(Campeonato $campeonato, Escuderia $escuderia)
+    {
+        //DB::enableQueryLog(); // Enable query log
+
+                
+        $listaCarreras = $this->getResultadoEscuderia( $campeonato, $escuderia);
+        //dd($campeonato->participantes);
+        //dd(DB::getQueryLog());
+        $escuderias =  $this->getClasificacionEscuderias($campeonato);
+        return view('campeonatos/escuderia', compact('listaCarreras', 'campeonato' , 'escuderia', 'escuderias'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -166,6 +185,81 @@ order by campeonato_carrera.orden asc
                ->orderBy('campeonato_carrera.orden','asc')
                 ->get();
     }
+
+    public function getResultadoEscuderia($campeonato, $escuderia){
+        /*select escuderia_id,  escuderia, campeonato_id, carrera_id
+ , case when @name = carrera_id
+ THEN @id := @id +1
+ else @id := 1
+ end
+ ,@name:= carrera_id AS esc
+
+from
+(select escuderias.id escuderia_id, escuderias.nombre escuderia, carrera_participante.campeonato_id, carrera_participante.carrera_id,
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante 
+where carrera_participante.carrera_id = campeonato_carrera.carrera_id
+ and carrera_participante.posicion = lista_puntos.posicion 
+ and carrera_participante.carrera_id = campeonato_carrera.carrera_id 
+ and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id 
+ and campeonato_participante.participante_id = carrera_participante.participante_id 
+ and campeonato_carrera.campeonato_id = campeonatos.id 
+ and escuderias.id = campeonato_participante.escuderia_id 
+ and puntos.id = lista_puntos.punto_id 
+ and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id
+ -- and campeonato_participante.campeonato_id = 1
+ group by escuderias.id, escuderias.nombre, carrera_participante.campeonato_id , carrera_participante.carrera_id
+ order by  carrera_participante.campeonato_id, carrera_id asc, puntos desc) orden, (SELECT @name:=NULL, @id:=0) t*/
+
+ return DB::table(DB::raw( '( 
+
+select escuderia_id,  escuderia, campeonato_id, carrera_id, participante, carrera
+ , case when @name = carrera_id
+ THEN @id := @id +1
+ else @id := 1
+ end posicion
+ ,@name:= carrera_id AS esc
+
+from(
+
+select escuderias.id escuderia_id, escuderias.nombre escuderia, carrera_participante.campeonato_id,  carrera_participante.carrera_id ,
+carreras.nombre carrera, participantes.nombre participante,
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante, 
+carreras, participantes
+where carrera_participante.carrera_id = campeonato_carrera.carrera_id
+ and carrera_participante.posicion = lista_puntos.posicion 
+ and carrera_participante.carrera_id = campeonato_carrera.carrera_id 
+ and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id 
+ and campeonato_participante.participante_id = carrera_participante.participante_id 
+ and campeonato_carrera.campeonato_id = campeonatos.id 
+ and escuderias.id = campeonato_participante.escuderia_id 
+ and puntos.id = lista_puntos.punto_id 
+ and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id
+ 
+ and carreras.id = carrera_participante.carrera_id
+ and carrera_participante.participante_id = participantes.id
+ 
+ 
+ group by escuderias.id, escuderias.nombre, carrera_participante.campeonato_id , carrera_participante.carrera_id ,  
+ carreras.nombre,  participantes.nombre
+ order by  carrera_participante.campeonato_id, carrera_id asc, puntos desc
+ 
+
+  )orden, (SELECT @name:=NULL, @id:=0) t)
+ resultado ') )
+                //->select((DB::raw(' escuderia_id,  escuderia, campeonato_id, carrera_id, posicion, carrera, participante ') ) )
+                ->select('escuderia_id',  'escuderia', 'campeonato_id', 'carrera_id', 'posicion', 'carrera', 'participante' )
+                ->where( [
+                        ['campeonato_id', '=', $campeonato->id],  
+                        ['escuderia_id', '=', $escuderia->id],    
+                ])
+                ->get();
+
+
+    }
+
+
     public function  getClasificacionCarrera($campeonato, $carrera)
     {
 

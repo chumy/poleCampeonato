@@ -201,7 +201,8 @@
                                 <th scope="row">{{$loop->iteration}}</th>
                                 <td>{{ $clasifEsc->escuderia }}</td>
                                 <td>{{ $clasifEsc->posicion }} </td>
-                                <td><a href="/campeonato/escuderia/{{$clasifEsc->id}}"><i
+                                <td><a
+                                        href="{{ route('campeonato.escuderia', [ 'campeonato' =>$campeonato->id ,'escuderia' => $clasifEsc->id ]) }}"><i
                                             class="material-icons">timer</i></a></td>
                             </tr>
 

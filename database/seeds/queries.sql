@@ -17,7 +17,7 @@ where carrera_participante.carrera_id = campeonato_carrera.carrera_id
  and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id
  group by escuderias.id, escuderias.nombre, carrera_participante.campeonato_id order by puntos desc) escuderias,
  (SELECT @rowid:=0) as init
-  where carrera_participante.campeonato_id = 1;
+  where escuderias.campeonato_id = 1;
 
   /* Campeonato tipo 2 */ 
 
@@ -97,3 +97,37 @@ and escuderias.id   = campeonato_participante.escuderia_id
   and puntosEsc.posicion = posicionEsc.posicion
 )
 where (`carrera_participante`.`campeonato_id` = 1) group by `participantes`.`id`, `participantes`.`apodo`, `posicionEsc`.`puntos`, `pilotos`.`nombre`, `posicionEsc`.`posicion`, `puntosEsc`.`puntos` order by `puntosTotales` desc)
+
+
+
+-- Resultados escuderias
+
+select  escuderia_id,  escuderia, campeonato_id, carrera_id, posicion, participante_id
+from (
+select escuderia_id,  escuderia, campeonato_id, carrera_id, participante_id
+ , case when @name = carrera_id
+ THEN @id := @id +1
+ else @id := 1
+ end posicion
+ ,@name:= carrera_id AS esc
+
+from
+(select escuderias.id escuderia_id, escuderias.nombre escuderia, carrera_participante.campeonato_id, carrera_participante.carrera_id, carrera_participante.participante_id,
+sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) puntos
+/*, rank() over ( order by sum( if(carrera_participante.abandono, 0, carrera_participante.posicion ) ) desc ) posicion*/
+from escuderias, carrera_participante, campeonato_carrera, lista_puntos, campeonatos, puntos, campeonato_participante 
+where carrera_participante.carrera_id = campeonato_carrera.carrera_id
+ and carrera_participante.posicion = lista_puntos.posicion 
+ and carrera_participante.carrera_id = campeonato_carrera.carrera_id 
+ and carrera_participante.campeonato_id = campeonato_carrera.campeonato_id 
+ and campeonato_participante.participante_id = carrera_participante.participante_id 
+ and campeonato_carrera.campeonato_id = campeonatos.id 
+ and escuderias.id = campeonato_participante.escuderia_id 
+ and puntos.id = lista_puntos.punto_id 
+ and campeonato_participante.campeonato_id = campeonato_carrera.campeonato_id
+ -- and campeonato_participante.campeonato_id = 1
+ group by escuderias.id, escuderias.nombre, carrera_participante.campeonato_id , carrera_participante.carrera_id, carrera_participante.participante_id
+ order by  carrera_participante.campeonato_id, carrera_id asc, puntos desc) orden, (SELECT @name:=NULL, @id:=0) t) 
+ resultado
+ where campeonato_id = 1
+ and escuderia_id  = 1

@@ -21,7 +21,7 @@
 
 
                     <span class="navbar-brand mb-0 h1 "><a href="/campeonato" class=" badge badge-light">
-                            <h5>Campeonato 1</h5>
+                            <h5>{{$campeonato->nombre}}</h5>
                         </a></span>
 
                     <div class="navbar" id="navbarSupportedContent">
@@ -31,12 +31,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Escuderia 1
+                                    {{$escuderia->nombre}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach ($escuderias as $esc)
+                                    @if ($esc->escuderia <> $escuderia->nombre)
 
-                                    <a class="dropdown-item" href="#">Escuderia 2</a>
-                                    <a class="dropdown-item" href="#">Escuderia 3</a>
+                                        <a class="dropdown-item" href="#">{{$esc->escuderia}}</a>
+                                        @endif
+                                        @endforeach
                                 </div>
                             </li>
                         </ul>
@@ -70,32 +73,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($listaCarreras as $car)
 
                         <tr>
-                            <th scope="row" rowspan="2">1</th>
-                            <td rowspan="2">Carrera 1</td>
-                            <td>1</td>
-                            <td>Apodo 1</td>
-                        </tr>
-                        <tr>
-
-
-                            <td>3</td>
-                            <td>Apodo 2</td>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$car->carrera}}</td>
+                            <td>{{$car->posicion}}</td>
+                            <td>{{$car->participante}}</td>
                         </tr>
 
-                        <tr>
-                            <th scope="row" rowspan="2">2</th>
-                            <td rowspan="2">Carrera 2</td>
-                            <td>4</td>
-                            <td>Apodo 1</td>
-                        </tr>
-                        <tr>
+                        @endforeach
 
 
-                            <td>2</td>
-                            <td>Apodo 2</td>
-                        </tr>
 
 
 

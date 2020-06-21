@@ -24,30 +24,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('/campeonato', 'CampeonatoController@index')->name('campeonato.index');
 
 Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campeonato.show');
 
-Route::get('/campeonato/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
+Route::get('/campeonato/piloto/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
 
 
-Route::get('/campeonato2', function () {
-    return view('campeonatos/campeonato_ind');
-});
-
-
-Route::get('/campeonato3', function () {
-    return view('campeonatos/campeonato_esc');
-});
-
-
-Route::get('/campeonato/piloto', function () {
-    return view('campeonatos/piloto');
-});
-
-Route::get('/campeonato/escuderia', function () {
-    return view('campeonatos/escuderia');
-});
+Route::get('/campeonato/escuderia/{campeonato}/{escuderia}', 'CampeonatoController@escuderia')->name('campeonato.escuderia');
 
 Route::get('/pilotos', function () {
     return view('pilotos/pilotos');
@@ -77,9 +63,6 @@ Route::get('/admin', 'CampeonatoController@create')->name('campeonatos.create');
 
 //Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonato.create');
 
-
-
-
 Route::get('/admin/pilotos', function (){
     return view('admin/piloto');
 });
@@ -100,6 +83,7 @@ Route::get('/admin/participantes', function (){
 Route::get('/admin/escuderias', function (){
     return view('admin/escuderia');
 });
+
 
 Route::get('/admin/campeonato/1/carreras', function (){
     return view('admin/campeonato_carrera');
