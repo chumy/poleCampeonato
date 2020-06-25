@@ -15,6 +15,8 @@ class EscuderiaController extends Controller
     public function index()
     {
         //
+        $escuderias = Escuderia::all();
+        return view('admin/escuderia' , compact('escuderias'));
     }
 
     /**
@@ -25,6 +27,8 @@ class EscuderiaController extends Controller
     public function create()
     {
         //
+        $escuderias = Escuderia::all();
+        return view('admin/escuderia' , compact('escuderias'));
     }
 
     /**
@@ -36,6 +40,13 @@ class EscuderiaController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[ 'nombre'=>'required']);
+        $escuderia= Escuderia::create($request->all());
+        $escuderia->visible = $request->has('visible');
+        $escuderia->save();
+   
+        return redirect()->route('escuderias.create')->with('success','Registro creado satisfactoriamente');
+    
     }
 
     /**
@@ -58,6 +69,8 @@ class EscuderiaController extends Controller
     public function edit(Escuderia $escuderia)
     {
         //
+        $escuderias = Escuderia::all();
+        return view('admin/escuderia' , compact('escuderias','escuderia'));
     }
 
     /**
@@ -70,6 +83,13 @@ class EscuderiaController extends Controller
     public function update(Request $request, Escuderia $escuderia)
     {
         //
+         $this->validate($request,[ 'nombre'=>'required']);
+        $escuderia->update($request->all());
+        $escuderia->visible = $request->has('visible');
+        $escuderia->save();
+        
+        return redirect()->route('escuderias.create')->with('success','Registro actualizado satisfactoriamente');
+ 
     }
 
     /**

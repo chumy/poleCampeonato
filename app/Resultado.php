@@ -7,11 +7,53 @@ use Illuminate\Database\Eloquent\Model;
 class Resultado extends Model
 {
     //
-    protected $table = 'carrera_participante';
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'posicion', 'abandono',
+    ];
+
+
     public function participante()
     {
         return $this->belongsTo('App\Participante');
     }
 
+    /*public function carrera(){
+        return $this->belongsToMany('App\Carrera');
+    }*/
+
+    public function carrera()
+    {
+        return $this->belongsTo('App\Carrera');
+    }
+
+    public function inscrito()
+    {
+        return $this->belongsTo('App\Inscrito');
+    }
+
+    public function puntos()
+    {
+        return $this->carrera->puntos->puntos->where('posicion', $this->posicion)->first()->puntos;
+    }
+
+    public function puntuacion()
+    {
+        return $this->carrera->puntos;
+    }
+
+    /*
+     public function inscrito(){
+        return $this->belongsToMany('App\Inscrito','inscritos');
+    }*/
+
+    /*public function setResultado(Inscrito $inscrito, Carrera $carrera, $posicion, $abandono = null )
+    {
+        $abandono = ($abandono == 1 ) ? 1 : 0;
+        return $this->inscrito()->attach($inscrito,[ 'carrera_id' => $carrera->id , 'posicion'=>$posicion, 'abandono'=> $abandono]);
+    }*/
 }

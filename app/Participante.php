@@ -11,30 +11,41 @@ class Participante extends Model
         'nombre', 'apodo', 'visible',
     ];
 
-        protected $casts = [
+    protected $casts = [
         'visible' => 'boolean',
     ];
 
 
-    public function carreras(){
-        return $this->belongsToMany('App\Carrera', 'carrera_participante')
-                ->withPivot(['posicion', 'abandono','participacion','campeonato_id']);
+    public function carreras()
+    {
+        return $this->belongsToMany('App\Circuito', 'carreras');
     }
 
-    public function campeonatos(){
-        return $this->belongsToMany('App\Campeonato','campeonato_participante');
+    public function campeonatos()
+    {
+        return $this->belongsToMany('App\Campeonato', 'inscritos');
     }
 
-    public function escuderias(){
-        return $this->belongsToMany('App\Escuderia','campeonato_participante')
-                ->withPivot(['campeonato_id']);
+    public function escuderias()
+    {
+        return $this->belongsToMany('App\Escuderia', 'inscritos');
     }
 
-    public function pilotos(){
-        return $this->belongsToMany('App\Piloto','campeonato_participante')
-                ->withPivot(['campeonato_id']);
+    public function pilotos()
+    {
+        return $this->belongsToMany('App\Piloto', 'inscritos');
     }
 
+    public function inscripciones()
+    {
+        return $this->hasMany('App\Inscrito');
+    }
 
-
+    /*
+    public function inscribir(Campeonato $campeonato, Escuderia $escuderia = null , Piloto $piloto = null){
+        $pilotoId = ($piloto == null) ? 0 : $piloto->id;
+        $escuderiaId = ($escuderia == null) ? 0 : $escuderia->id;
+       
+        return $this->campeonatos()->attach($campeonato, ['escuderia_id' =>$escuderiaId ,  'piloto_id'=>$pilotoId]);
+    }*/
 }

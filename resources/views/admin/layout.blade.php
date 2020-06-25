@@ -73,7 +73,7 @@
             active
           @endif
           ">
-                        <a class="nav-link" href="/admin/escuderias">
+                        <a class="nav-link" href="{{ route ('escuderias.create') }}">
                             <i class="material-icons">content_paste</i>
                             <p>Escuderias</p>
                         </a>

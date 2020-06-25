@@ -33,30 +33,28 @@
                                 <td>{{ $car->nombre }}</td>
 
                                 <td>
+
+                                    <a rel="tooltip" href="{{ action('CarreraController@edit', $car->id) }}"
+                                        title="Editar Carrera" class="btn btn-primary btn-link btn-sm">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+
+                                    <a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
+                                        class="btn btn-primary btn-link btn-sm">
+                                        <i
+                                            class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>
+                                    </a>
                                     <form action="{{ action('CarreraController@destroy', $car->id)}}" method="post">
                                         {{csrf_field()}}
-
-                                        <a rel="tooltip" href="{{ action('CarreraController@edit', $car->id) }}"
-                                            title="Editar Carrera" class="btn btn-primary btn-link btn-sm">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-
-                                        <a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
-                                            class="btn btn-primary btn-link btn-sm">
-                                            <i
-                                                class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>
-                                        </a>
-                                        <form action="{{ action('CarreraController@destroy', $car->id)}}" method="post">
-                                            {{csrf_field()}}
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" rel="tooltip" title="Eliminar Carrera"
-                                                class="btn btn-danger btn-link btn-sm">
-                                                <i class="material-icons">close</i>
-                                            </button>
-
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" rel="tooltip" title="Eliminar Carrera"
+                                            class="btn btn-danger btn-link btn-sm">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </form>
 
                                 </td>
-                                </form>
+
                             </tr>
                             @endforeach
 

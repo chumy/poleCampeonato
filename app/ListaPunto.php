@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ListaPunto extends Model
 {
     //
-    protected $table='lista_puntos';
+    protected $table = 'lista_puntos';
 
     public function puntuacion()
     {
-        return $this->hasOne('App\Punto');
+        return $this->belongsTo('App\Punto', 'punto_id');
     }
 }

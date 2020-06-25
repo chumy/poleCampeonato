@@ -73,6 +73,7 @@ Route::get('/admin/campeonatos', function (){
 });
 
 Route::resource('/admin/carreras', 'CarreraController');
+Route::resource('/admin/escuderias', 'EscuderiaController');
 
 
 //Route::get('/admin/carreras', 'CarreraController@index');

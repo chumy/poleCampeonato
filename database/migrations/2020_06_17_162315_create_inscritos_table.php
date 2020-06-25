@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarreraParticipanteTable extends Migration
+class CreateInscritosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCarreraParticipanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('carrera_participante', function (Blueprint $table) {
+        Schema::create('inscritos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer("posicion")->default(6);
-            $table->boolean('abandono')->default(false);
-            $table->boolean('participacion')->default(false);
             $table->integer("campeonato_id")->unsigned();
-            $table->integer("carrera_id")->unsigned();
             $table->integer("participante_id")->unsigned();
+            $table->integer("escuderia_id")->unsigned()->default(0);
+            $table->integer("piloto_id")->unsigned()->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateCarreraParticipanteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carrera_participante');
+        Schema::dropIfExists('inscritos');
     }
 }

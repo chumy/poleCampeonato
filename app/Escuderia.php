@@ -19,4 +19,8 @@ class Escuderia extends Model
         return $this->belongsToMany('App\Campeonato','campeonato_participante');
     }
 
+    public function inscritos(){
+        return $this->hasMany('App\Inscrito');
+    }
+
 }

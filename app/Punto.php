@@ -8,17 +8,23 @@ class Punto extends Model
 {
     //
     protected $fillable = [
-        'nombre',  'penalizacion', 
+        'nombre',  'penalizacion',
     ];
 
 
     public function puntos()
     {
-     
+
         return $this->hasMany('App\ListaPunto');
     }
 
-    public function campeonatos(){
+    public function campeonatos()
+    {
         return $this->hasMany('App\Campeonato');
+    }
+
+    public function toText()
+    {
+        return $this->puntos()->orderBy('posicion')->pluck('puntos')->implode('-');
     }
 }

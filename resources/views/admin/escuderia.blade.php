@@ -6,115 +6,133 @@
 
 <div class="row">
 
-<div class="col-md-6">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Listado de Escuderias</h4>
-                  <p class="card-category"> Gestión de todas la escuderias disponibles</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Nombre
-                        </th>
-                        <th>
-                        </th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Escuderia 1
-                          </td>
-                  
-                          <td>
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Change visibity" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">visibility</i>
-                              </button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Escuderia 2
-                          </td>
-                          
-                          <td>
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Change visibity" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">visibility_off</i>
-                              </button>
-                          </td>
-                          
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-        <div class="col-md-6">
-              
+    <div class="col-md-6">
         <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Nueva Escuderia</h4>
-                  <p class="card-category">Rellena informacion de una nueva escuderia</p>
-                </div>
-               
-                <div class="card-body">
-                  
-                  <div class="row">
-                  <div class="col-md-8">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Nombre</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Visible</label>
-                          <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                        </div>
-                      </div>
-                  
-</div>
-                  
-                 
-                  <a href="javascript:;" class="btn btn-primary btn-round">Nueva Escuderia</a>
-                </div>
-              </div>
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Listado de Escuderias</h4>
+                <p class="card-category"> Gestión de todas la escuderias disponibles</p>
             </div>
-          </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                            </th>
+                        </thead>
+                        <tbody>
+                            @foreach ($escuderias as $esc)
+                            <tr>
+                                <td>
+                                    {{$esc->id}}
+                                </td>
+                                <td>
+                                    {{$esc->nombre}}
+                                </td>
 
-          @endsection
+                                <td>
+                                    <div id="row">
+                                        <form action="{{ action('EscuderiaController@destroy', $esc->id)}}"
+                                            method="post">
+                                            <a rel="tooltip" title="Edit Task" class="btn btn-primary btn-link"
+                                                href="{{ action('EscuderiaController@edit', $esc->id) }}">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+
+                                            {{csrf_field()}}
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button type="submit" rel="tooltip" title="Remove"
+                                                class="btn btn-danger btn-link btn-sm">
+                                                <i class="material-icons">close</i>
+                                            </button>
+
+                                            <a rel="tooltip" title="Change visibity" href=""
+                                                class="btn btn-primary btn-link btn-sm">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Nueva Escuderia</h4>
+                <p class="card-category">Rellena informacion de una nueva escuderia</p>
+            </div>
+
+            <div class="card-body">
+                @if(isset($carrera))
+                <form method="POST" action="{{ route('escuderias.update',$carrera->id) }}" role="form">
+
+                    <input name="_method" type="hidden" value="PATCH">
+                    @else
+                    <form method="POST" action="{{ route('escuderias.store') }}" role="form">
+                        @endif
+
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre"
+                                        value="{{  (isset($escuderia->nombre) ? $escuderia->nombre : ''  ) }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Visible</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="visible" id="visible"
+                                                value="{{  (isset($carrera->visible) ? $carrera->visible : '0'  ) }}"
+                                                {{ (isset($carrera->visible) && ($carrera->visible)) ? 'checked="checked"' : '' }}>
+
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-round">
+                            {{  (isset($escuderia->nombre) ? 'Modificar Escuderia': 'Nueva Escuderia'  ) }}</button>
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> Revise los campos obligatorios.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

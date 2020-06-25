@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCampeonatoCarreraTable extends Migration
+class CreateResultadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,16 @@ class CreateCampeonatoCarreraTable extends Migration
      * @return void
      */
     public function up()
-    {/*
-        Schema::create('campeonato_carrera', function (Blueprint $table) {
+    {
+        Schema::create('resultados', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer("orden")->default(1);
-            $table->integer("campeonato_id")->unsigned();
+            $table->integer("posicion")->default(6);
+            $table->boolean('abandono')->default(false);
+            $table->boolean('participacion')->default(false);
             $table->integer("carrera_id")->unsigned();
-            $table->integer("punto_id")->unsigned()->default(0);
+            $table->integer("inscrito_id")->unsigned();
             $table->timestamps();
-        });*/
+        });
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateCampeonatoCarreraTable extends Migration
      */
     public function down()
     {
-       // Schema::dropIfExists('campeonato_carrera');
+        Schema::dropIfExists('resultados');
     }
 }
