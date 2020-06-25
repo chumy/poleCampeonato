@@ -112,11 +112,11 @@ class CampeonatoController extends Controller
         //DB::enableQueryLog(); // Enable query log
 
 
-        $listaCarreras = $this->getResultadoEscuderia($campeonato, $escuderia);
+        //$listaCarreras = $this->getResultadoEscuderia($campeonato, $escuderia);
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
-        $escuderias =  $this->getClasificacionEscuderias($campeonato);
-        return view('campeonatos/escuderia', compact('listaCarreras', 'campeonato', 'escuderia', 'escuderias'));
+        //$escuderias =  $this->getClasificacionEscuderias($campeonato);
+        return view('campeonatos/escuderia', compact('campeonato', 'escuderia'));
     }
 
     /**

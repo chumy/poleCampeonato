@@ -34,11 +34,11 @@
                                     {{$escuderia->nombre}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @foreach ($escuderias as $esc)
-                                    @if ($esc->escuderia <> $escuderia->nombre)
+                                    @foreach ($campeonato->escuderias()->get() as $esc)
+                                    @if ($esc->id <> $escuderia->id)
 
                                         <a class="dropdown-item"
-                                            href="{{ route ('campeonato.escuderia',  [ 'campeonato' =>$campeonato->id , 'escuderia' => $esc->id, ] ) }}">{{$esc->escuderia}}</a>
+                                            href="{{ route ('campeonato.escuderia',  [ 'campeonato' =>$campeonato->id , 'escuderia' => $esc->id, ] ) }}">{{$esc->nombre}}</a>
                                         @endif
                                         @endforeach
                                 </div>
@@ -68,19 +68,19 @@
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Carrera</th>
-                            <th scope="col">Posicion</th>
-                            <th scope="col">Nombre</th>
+                            <th scope="col">Puntos</th>
+                            
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($listaCarreras as $car)
+                        @foreach ($campeonato->getResultadosEscuderias()->where('escuderia',$escuderia) as $car)
 
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$car->carrera}}</td>
-                            <td>{{$car->posicion}}</td>
-                            <td>{{$car->participante}}</td>
+                            <td>{{$car->carrera->circuito->nombre}}</td>
+                            <td>{{$car->puntos}}</td>
+                            
                         </tr>
 
                         @endforeach

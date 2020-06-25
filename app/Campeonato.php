@@ -29,7 +29,7 @@ class Campeonato extends Model
 
     public function escuderias()
     {
-        return $this->belongsToMany('App\Escuderia', 'inscritos');
+        return $this->belongsToMany('App\Escuderia', 'inscritos')->distinct();
     }
 
     public function resultados()
@@ -229,45 +229,55 @@ class Campeonato extends Model
         return collect($clasificacion)->sortBy('posicion');
     }
 
-    public function getClasificacionEscuderias2()
+    public function getResultadosEscuderias()
     {
 
         // Calculo de puntuaciones de pilotos por escuderia
-
-        $resultados = $this->getClasificacionPilotos()->groupBy('inscrito.escuderia_id');
-        //$c = collect();
+        $listaPuntos =  $this->getPuntuacionesEscuderias;
         $c = [];
-        foreach ($resultados as $parciales) {
+
+        foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
-            foreach ($parciales as $parcial) {
-                $puntos += $parcial['puntos'];
-                $escuderia = $parcial['inscrito']->escuderia;
+            foreach ($resultadosInscritos as $parcial) {
+                $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                $escuderia = $parcial->inscrito->escuderia;
                 //array_push($c, array('escuderia' => $escuderia));
+                array_push($c, ((object) array(
+                    'puntos' => $puntos,
+                    'escuderia' => $escuderia,
+                    'carrera_id' => $parcial->carrera_id,
+
+                )));
             }
             //$escuderia = $parciales['inscrito']->escuderia;
 
-            array_push($c, (array(
-                'puntos' => $puntos,
-                'escuderia' => $escuderia,
+        }
+        //return  collect($c)->sortby('puntos');
 
-            )));
+        $resultados = collect($c)->groupby('carrera_id')->sortby('carrera_id');
+        $clasificacion = [];
+        //return $resultados;
+        foreach ($resultados as $resultadoEsc) { //Carreras
+
+            foreach ($resultadoEsc->groupby('escuderia.id') as $parciales) { //resultados por escuderias
+                $puntos = 0;
+                foreach ($parciales as $parcial) {
+                    $puntos += $parcial->puntos;
+                }
+                //1;
+                array_push($clasificacion, ((object) array(
+                    'puntos' => $puntos,
+                    'escuderia' => $parcial->escuderia,
+                    'carrera_id' => $parcial->carrera_id,
+                    'carrera' => Carrera::find($parcial->carrera_id),
+
+                )));
+            }
         }
 
         // Asigancion de puntos por clasificacion
-        $lista = collect($c)->sortByDesc('puntos');
-        $clasificacion = [];
-        $listaPuntos =  $this->getPuntuacionesEscuderias->puntos->sortBy('posicion');
-        for ($i = 0; $i < $lista->count(); $i++) {
-            //$clasificacion[$i]['posicion'] = $i;
-            array_push($clasificacion, (array(
-                'puntos' => $listaPuntos[$i]->puntos,
-                'escuderia' => $lista[$i]['escuderia'],
-                'posicion' => $i + 1,
-
-            )));
-        }
 
 
-        return collect($clasificacion)->sortBy('posicion');
+        return collect($clasificacion);
     }
 }
