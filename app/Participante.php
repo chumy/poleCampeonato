@@ -41,6 +41,7 @@ class Participante extends Model
         return $this->hasMany('App\Inscrito');
     }
 
+
     /*
     public function inscribir(Campeonato $campeonato, Escuderia $escuderia = null , Piloto $piloto = null){
         $pilotoId = ($piloto == null) ? 0 : $piloto->id;

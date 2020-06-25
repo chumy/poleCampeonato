@@ -34,7 +34,7 @@ class Campeonato extends Model
 
     public function resultados()
     {
-        return $this->hasManyThrough('App\Resultado', 'App\Carrera');;
+        return $this->hasManyThrough('App\Resultado', 'App\Carrera')->orderBy('carreras.orden');
     }
 
     public function carreras()
@@ -104,18 +104,18 @@ class Campeonato extends Model
 
             for ($i = 0; $i < $listaPilotos->count(); $i++) {
 
-                $inscrito = $listaPilotos[$i]['inscrito'];
+                $inscrito = $listaPilotos[$i]->inscrito;
                 $punto_esc = $listaEscuderias
-                    ->where('escuderia.id', $inscrito->escuderia_id)->first()['puntos'];
+                    ->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
                 $item = [
                     'inscrito' => $inscrito,
-                    'puntos_pilotos' =>  $listaPilotos[$i]['puntos'],
+                    'puntos_pilotos' =>  $listaPilotos[$i]->puntos,
                     'puntos_esc' => $punto_esc,
-                    'puntos' => $listaPilotos[$i]['puntos'] + $punto_esc,
+                    'puntos' => $listaPilotos[$i]->puntos + $punto_esc,
                 ];
 
 
-                array_push($clasificacion, $item);
+                array_push($clasificacion, (object) $item);
             }
             return collect($clasificacion)->sortByDesc('puntos');
         } else {
@@ -141,12 +141,13 @@ class Campeonato extends Model
             }
             array_push(
                 $c,
-                (array(
+                ((object) array(
                     'inscrito' => $resultadoInscrito->inscrito,
                     'puntos' => $puntos,
                 ))
             );
         }
+        //return $c;
         return collect($c)->sortByDesc('puntos');
         //return $this->resultados->groupBy('inscrito_id');
     }
@@ -174,7 +175,7 @@ class Campeonato extends Model
 
             array_push(
                 $c,
-                (array(
+                ((object) array(
                     'inscrito' => $resultadoInscrito->inscrito,
                     'puntos_escuderia' => $puntos,
                     // 'puntos_escuderia' => $puntosEsc,
@@ -193,13 +194,13 @@ class Campeonato extends Model
         foreach ($resultados as $parciales) {
             $puntos = 0;
             foreach ($parciales as $parcial) {
-                $puntos += $parcial['puntos_escuderia'];
-                $escuderia = $parcial['inscrito']->escuderia;
+                $puntos += $parcial->puntos_escuderia;
+                $escuderia = $parcial->inscrito->escuderia;
                 //array_push($c, array('escuderia' => $escuderia));
             }
             //$escuderia = $parciales['inscrito']->escuderia;
 
-            array_push($c, (array(
+            array_push($c, ((object) array(
                 'puntos_escuderia' => $puntos,
                 'escuderia' => $escuderia,
 
@@ -214,11 +215,11 @@ class Campeonato extends Model
         $listaPuntos =  $this->getPuntuacionesEscuderias->puntos->sortBy('posicion');
         for ($i = 0; $i < $lista->count(); $i++) {
             //$clasificacion[$i]['posicion'] = $i;
-            array_push($clasificacion, (array(
+            array_push($clasificacion, ((object) array(
                 'puntos' => $listaPuntos[$i]->puntos,
-                'escuderia' => $lista[$i]['escuderia'],
+                'escuderia' => $lista[$i]->escuderia,
                 'puntos_escuderia' =>
-                $lista[$i]['puntos_escuderia'],
+                $lista[$i]->puntos_escuderia,
                 'posicion' => $i + 1,
 
             )));

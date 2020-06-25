@@ -28,23 +28,23 @@
                             @foreach($campeonato->getClasificacion() as $clasif)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{$clasif['inscrito']->participante->apodo}}</td>
+                                <td>{{$clasif->inscrito->participante->apodo}}</td>
                                 @if ($campeonato->pilotos)
-                                <td>{{$clasif['inscrito']->piloto->nombre}}</td>
+                                <td>{{$clasif->inscrito->piloto->nombre}}</td>
                                 @endif
                                 @if ($campeonato->escuderias)
-                                <td>{{$clasif['inscrito']->escuderia->nombre}}</td>
+                                <td>{{$clasif->inscrito->escuderia->nombre}}</td>
                                 @endif
                                 @if ($campeonato->tipo == 2)
 
-                                <td>{{$clasif['puntos']}}
-                                    ({{$clasif['puntos_pilotos']}}+{{$clasif['puntos_esc']}}) </td>
+                                <td>{{$clasif->puntos}}
+                                    ({{$clasif->puntos_pilotos}}+{{$clasif->puntos_esc}}) </td>
 
                                 @else
                                 <td>{{$clasif->puntos}}</td>
                                 @endif
                                 <td><a
-                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $clasif['inscrito']->participante->id]) }}"><i
+                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $clasif->inscrito->participante->id]) }}"><i
                                             class="material-icons">timer</i></a>
                                 </td>
                             </tr>
@@ -75,10 +75,10 @@
                             @foreach($campeonato->getClasificacionEscuderias() as $clasifEsc)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{ $clasifEsc['escuderia']->nombre }}</td>
-                                <td>{{ $clasifEsc['puntos']}} ({{$clasifEsc['puntos_escuderia'] }}) </td>
+                                <td>{{ $clasifEsc->escuderia->nombre }}</td>
+                                <td>{{ $clasifEsc->puntos}} ({{$clasifEsc->puntos_escuderia }}) </td>
                                 <td><a
-                                        href="{{ route('campeonato.escuderia', [ 'campeonato' =>$campeonato->id ,'escuderia' => $clasifEsc['escuderia']->id  ]) }}"><i
+                                        href="{{ route('campeonato.escuderia', [ 'campeonato' =>$campeonato->id ,'escuderia' => $clasifEsc->escuderia->id  ]) }}"><i
                                             class="material-icons">timer</i></a></td>
                             </tr>
 

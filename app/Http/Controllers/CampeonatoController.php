@@ -99,11 +99,12 @@ class CampeonatoController extends Controller
         // DB::enableQueryLog(); // Enable query log
 
 
-        $listaCarreras = $this->getResultadoPiloto($participante,  $campeonato);
+        // $listaCarreras = $this->getResultadoPiloto($participante,  $campeonato);
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
-        $apodos = $campeonato->participantes;
-        return view('campeonatos/piloto', compact('listaCarreras', 'campeonato', 'participante', 'apodos'));
+        //$apodos = $campeonato->participantes;
+        $clasificacion = $campeonato->resultados->where('inscrito_id', $participante->inscripciones->where('campeonato_id', 1)->first()->id);
+        return view('campeonatos/piloto', compact('campeonato', 'participante', 'clasificacion'));
     }
 
     public function escuderia(Campeonato $campeonato, Escuderia $escuderia)

@@ -72,12 +72,12 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($listaCarreras as $carrera)
+                        @foreach ($clasificacion as $carrera)
                         <tr>
                             <th scope="row">{{$loop->iteration }}</th>
-                            <td>{{$carrera->nombre}}</td>
+                            <td>{{$carrera->carrera->circuito->nombre}}</td>
                             <td>{{$carrera->posicion}}</td>
-                            <td>{{$carrera->puntos}}</td>
+                            <td>{{$carrera->puntos()}}</td>
                         </tr>
 
                         @endforeach
@@ -88,7 +88,7 @@
                 </table>
 
                 <div class="text-right">
-                    <h3> <span class="badge badge-secondary">Total: {{$listaCarreras->sum('puntos')}} puntos</span>
+                    <h3> <span class="badge badge-secondary">Total: {{$clasificacion->sum(function($value){ return $value->puntos(); }) }} puntos</span>
                     </h3>
                 </div>
 
