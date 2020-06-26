@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1 "><a href="/campeonato" class=" badge badge-light">
+                    <span class="navbar-brand mb-0 h1 "><a href="{{ Route ('campeonato.index',['campeonato' => $campenato->id ]) }}" class=" badge badge-light">
                             <h5>{{$campeonato->nombre}}</h5>
                         </a></span>
 

@@ -30,19 +30,15 @@
                     </thead>
                     <tbody>
 
+                        @foreach ($escuderias->sortby('nombre') as $esc)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Escuderia 1</td>
+                        <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$esc->nombre}}</td>
 
-                            <td><a href="/escuderias/resultado"><i class="material-icons">timer</i></a></td>
+                            <td><a href="{{route('escuderia.show', ['escuderia'=>$esc->id, ])}}"><i class="material-icons">timer</i></a></td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Escuderia 2</td>
-
-                            <td><a href="/escuderias/resultado"><i class="material-icons">timer</i></a></td>
-                        </tr>
-
+                        @endforeach
+        
 
 
                     </tbody>

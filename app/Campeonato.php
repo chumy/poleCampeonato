@@ -102,8 +102,8 @@ class Campeonato extends Model
                 $this->getClasificacionEscuderias();
             $clasificacion = [];
 
-            for ($i = 0; $i < $listaPilotos->count(); $i++) {
-
+            /*for ($i = 0; $i < $listaPilotos->count(); $i++) {
+                
                 $inscrito = $listaPilotos[$i]->inscrito;
                 $punto_esc = $listaEscuderias
                     ->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
@@ -112,8 +112,21 @@ class Campeonato extends Model
                     'puntos_pilotos' =>  $listaPilotos[$i]->puntos,
                     'puntos_esc' => $punto_esc,
                     'puntos' => $listaPilotos[$i]->puntos + $punto_esc,
+                    'posicion' => $i + 1,
+                ];*/
+            $i = 0;
+            foreach ($listaPilotos as $piloto) {
+                $i++;
+                $inscrito = $piloto->inscrito;
+                $punto_esc = $listaEscuderias
+                    ->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
+                $item = [
+                    'inscrito' => $inscrito,
+                    'puntos_pilotos' =>  $piloto->puntos,
+                    'puntos_esc' => $punto_esc,
+                    'puntos' => $piloto->puntos + $punto_esc,
+                    'posicion' => $i,
                 ];
-
 
                 array_push($clasificacion, (object) $item);
             }

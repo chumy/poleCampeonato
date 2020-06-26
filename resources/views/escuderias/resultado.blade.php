@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
-                    <span class="navbar-brand mb-0 h1 d-none d-sm-block">Escuderia </span>
+                <span class="navbar-brand mb-0 h1 d-none d-sm-block"><a href="{{ route('escuderia.index')}}" class="badge badge-light"><h5>Escuderia</h5></a> </span>
 
                     <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
@@ -29,12 +29,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Escuderia 1
+                                    {{$escuderia->nombre}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="/escuderias/resultado">Escuderia 2</a>
-                                    <a class="dropdown-item" href="/escuderias/resultado">Escuderia 3</a>
+                                    @foreach($escuderias as $esc)
+                                    <a class="dropdown-item" href="{{ route('escuderia.show',['escuderia'=>$esc->id])}}">{{$esc->nombre}}</a>
+                                    @endforeach
+                                    
                                 </div>
                             </li>
                         </ul>
@@ -63,22 +64,21 @@
                             <th scope="col">#</th>
                             <th scope="col">Campeonato</th>
                             <th scope="col">Posicion</th>
+                            <th scope="col">Puntos</th>
 
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($escuderia->puntuacionCampeonatos() as $clas)
 
                         <tr>
                             <th scope="row">1</th>
-                            <td><a href="/campeonato3" class="text-dark"> Campeonato Verano 2020</a></td>
-                            <td>1</td>
+                            <td><a href="{{ route('campeonato.show',['campeonato'=>$clas->campeonato->id , ]) }}" class="text-dark">{{$clas->campeonato->nombre}}</a></td>
+                        <td>{{$clas->posicion}}</td>
+                        <td>{{$clas->puntos_escuderia}}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><a href="/campeonato3" class="text-dark"> Campeonato Escuderias 2020</a></td>
-                            <td>2</td>
-                        </tr>
-
+                        @endforeach
+                        
 
 
                     </tbody>

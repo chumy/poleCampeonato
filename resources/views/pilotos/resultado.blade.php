@@ -73,21 +73,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($puntuaciones as $puntuacion)
+                        @foreach ($participante->puntuacionCampeonatos() as $puntuacion)
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td><a href="/campeonato/piloto" class="text-dark"> {{$puntuacion->campeonato}}</a>
+                            <td><a href="{{ Route ('campeonato.piloto', ['campeonato' => $puntuacion->inscrito->campeonato_id , 'participante' => $participante->id ])}}" class="text-dark"> {{$puntuacion->inscrito->campeonato->nombre}}</a>
                             </td>
-                            <td>1</td>
-                            <td>40</td>
+                            <td>{{$puntuacion->posicion}}</td>
+                        <td>{{$puntuacion->puntos}}</td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><a href="/campeonato/piloto" class="text-dark"> Campeonato Escuderias 2020</a></td>
-                            <td>2</td>
-                            <td>38</td>
-                        </tr>
 
 
 

@@ -41,6 +41,24 @@ class Participante extends Model
         return $this->hasMany('App\Inscrito');
     }
 
+    public function puntuacionCampeonatos()
+    {
+        $resultado = [];
+
+        foreach ($this->campeonatos as $campeonato) {
+            // listado de campeonatos
+            $i = 0;
+            foreach ($campeonato->getClasificacion() as $clasificacion) {
+                $i++;
+                if ($clasificacion->inscrito->participante_id == $this->id) {
+
+                    array_push($resultado, $clasificacion);
+                }
+            }
+        }
+
+        return collect($resultado);
+    }
 
     /*
     public function inscribir(Campeonato $campeonato, Escuderia $escuderia = null , Piloto $piloto = null){

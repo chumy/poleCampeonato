@@ -20,6 +20,7 @@ Route::get('/', function () {
 */
 
 /* -----------------  RUTAS PUBLICAS  -------------------- */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,14 +41,17 @@ Route::get('/pilotos', 'ParticipanteController@index')->name('piloto.index');
 Route::get('/pilotos/{participante}', 'ParticipanteController@show')->name('piloto.show');
 
 
+Route::get('/escuderias', 'EscuderiaController@index')->name('escuderia.index');
+
+Route::get('/escuderias/{escuderia}', 'EscuderiaController@show')->name('escuderia.show');
+
+
+
 Route::get('/pilotos/resultado', function () {
     return view('pilotos/resultado');
 });
 
 
-Route::get('/escuderias', function () {
-    return view('escuderias/escuderias');
-});
 
 Route::get('/escuderias/resultado', function () {
     return view('escuderias/resultado');
@@ -64,11 +68,11 @@ Route::get('/admin', 'CampeonatoController@create')->name('campeonatos.create');
 
 //Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonato.create');
 
-Route::get('/admin/pilotos', function (){
+Route::get('/admin/pilotos', function () {
     return view('admin/piloto');
 });
 
-Route::get('/admin/campeonatos', function (){
+Route::get('/admin/campeonatos', function () {
     return view('admin/campeonato');
 });
 
@@ -78,28 +82,28 @@ Route::resource('/admin/escuderias', 'EscuderiaController');
 
 //Route::get('/admin/carreras', 'CarreraController@index');
 
-Route::get('/admin/participantes', function (){
+Route::get('/admin/participantes', function () {
     return view('admin/participante');
 });
 
-Route::get('/admin/escuderias', function (){
+Route::get('/admin/escuderias', function () {
     return view('admin/escuderia');
 });
 
 
-Route::get('/admin/campeonato/1/carreras', function (){
+Route::get('/admin/campeonato/1/carreras', function () {
     return view('admin/campeonato_carrera');
 });
 
-Route::get('/admin/campeonato/1/participantes', function (){
+Route::get('/admin/campeonato/1/participantes', function () {
     return view('admin/campeonato_participante');
 });
 
-Route::get('/admin/coches', function (){
+Route::get('/admin/coches', function () {
     return view('admin/coche');
 });
 
-Route::get('/admin/puntuaciones', function (){
+Route::get('/admin/puntuaciones', function () {
     return view('admin/puntuacion');
 });
 

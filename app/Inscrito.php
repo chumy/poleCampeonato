@@ -21,4 +21,9 @@ class Inscrito extends Model
     {
         return $this->belongsTo('App\Piloto');
     }
+
+    public function campeonato()
+    {
+        return $this->belongsTo('App\Campeonato');
+    }
 }

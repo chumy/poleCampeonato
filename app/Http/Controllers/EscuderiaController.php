@@ -16,7 +16,7 @@ class EscuderiaController extends Controller
     {
         //
         $escuderias = Escuderia::all();
-        return view('admin/escuderia' , compact('escuderias'));
+        return view('escuderias/escuderias', compact('escuderias'));
     }
 
     /**
@@ -28,7 +28,7 @@ class EscuderiaController extends Controller
     {
         //
         $escuderias = Escuderia::all();
-        return view('admin/escuderia' , compact('escuderias'));
+        return view('admin/escuderia', compact('escuderias'));
     }
 
     /**
@@ -40,13 +40,12 @@ class EscuderiaController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[ 'nombre'=>'required']);
-        $escuderia= Escuderia::create($request->all());
+        $this->validate($request, ['nombre' => 'required']);
+        $escuderia = Escuderia::create($request->all());
         $escuderia->visible = $request->has('visible');
         $escuderia->save();
-   
-        return redirect()->route('escuderias.create')->with('success','Registro creado satisfactoriamente');
-    
+
+        return redirect()->route('escuderias.create')->with('success', 'Registro creado satisfactoriamente');
     }
 
     /**
@@ -58,6 +57,8 @@ class EscuderiaController extends Controller
     public function show(Escuderia $escuderia)
     {
         //
+        $escuderias = Escuderia::all();
+        return view('escuderias.resultado', compact('escuderias', 'escuderia'));
     }
 
     /**
@@ -70,7 +71,7 @@ class EscuderiaController extends Controller
     {
         //
         $escuderias = Escuderia::all();
-        return view('admin/escuderia' , compact('escuderias','escuderia'));
+        return view('admin/escuderia', compact('escuderias', 'escuderia'));
     }
 
     /**
@@ -83,13 +84,12 @@ class EscuderiaController extends Controller
     public function update(Request $request, Escuderia $escuderia)
     {
         //
-         $this->validate($request,[ 'nombre'=>'required']);
+        $this->validate($request, ['nombre' => 'required']);
         $escuderia->update($request->all());
         $escuderia->visible = $request->has('visible');
         $escuderia->save();
-        
-        return redirect()->route('escuderias.create')->with('success','Registro actualizado satisfactoriamente');
- 
+
+        return redirect()->route('escuderias.create')->with('success', 'Registro actualizado satisfactoriamente');
     }
 
     /**
