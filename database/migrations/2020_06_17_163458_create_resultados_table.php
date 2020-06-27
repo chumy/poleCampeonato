@@ -15,11 +15,13 @@ class CreateResultadosTable extends Migration
     {
         Schema::create('resultados', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer("posicion")->default(6);
+            $table->integer("posicion")->default(10);
             $table->boolean('abandono')->default(false);
             $table->boolean('participacion')->default(false);
-            $table->integer("carrera_id")->unsigned();
-            $table->integer("inscrito_id")->unsigned();
+
+            $table->unsignedBigInteger('carrera_id');
+            $table->unsignedBigInteger('inscrito_id');
+
             $table->timestamps();
         });
     }

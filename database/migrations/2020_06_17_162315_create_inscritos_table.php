@@ -15,10 +15,12 @@ class CreateInscritosTable extends Migration
     {
         Schema::create('inscritos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer("campeonato_id")->unsigned();
-            $table->integer("participante_id")->unsigned();
-            $table->integer("escuderia_id")->unsigned()->default(0);
-            $table->integer("piloto_id")->unsigned()->default(0);
+
+            $table->unsignedBigInteger('campeonato_id');
+            $table->unsignedBigInteger('participante_id');
+            $table->unsignedBigInteger('escuderia_id')->nullable();
+            $table->unsignedBigInteger('piloto_id')->nullable();
+
             $table->timestamps();
         });
     }

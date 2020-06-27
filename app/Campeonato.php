@@ -143,6 +143,8 @@ class Campeonato extends Model
         //$c->add(new Post);
         $c = [];
 
+        //Calculo de resultado con penalizacion 
+
         foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
@@ -161,7 +163,16 @@ class Campeonato extends Model
             );
         }
         //return $c;
-        return collect($c)->sortByDesc('puntos');
+        //asignamos posicion
+        $resultado = [];
+        $i = 0;
+        foreach (collect($c)->sortByDesc('puntos') as $clasificacion) {
+            $i++;
+            $clasificacion->posicion = $i;
+            array_push($resultado, $clasificacion);
+        }
+
+        return collect($resultado)->sortByDesc('puntos');
         //return $this->resultados->groupBy('inscrito_id');
     }
 
@@ -221,23 +232,19 @@ class Campeonato extends Model
         }
 
         // -----------------   //
-        // Asigancion de puntos por clasificacion
+        // Asigancion de puntos por clasificacion y posicion
         // -----------------   //
         $lista = collect($c)->sortByDesc('puntos_escuderia');
         $clasificacion = [];
+
         $listaPuntos =  $this->getPuntuacionesEscuderias->puntos->sortBy('posicion');
-        for ($i = 0; $i < $lista->count(); $i++) {
-            //$clasificacion[$i]['posicion'] = $i;
-            array_push($clasificacion, ((object) array(
-                'puntos' => $listaPuntos[$i]->puntos,
-                'escuderia' => $lista[$i]->escuderia,
-                'puntos_escuderia' =>
-                $lista[$i]->puntos_escuderia,
-                'posicion' => $i + 1,
-
-            )));
+        $i = 0;
+        foreach ($lista as $parcial) {
+            $i++;
+            $parcial->puntos = $listaPuntos->where('posicion', $i)->first()->puntos;
+            $parcial->posicion = $i;
+            array_push($clasificacion,  $parcial);
         }
-
 
         return collect($clasificacion)->sortBy('posicion');
     }

@@ -19,7 +19,7 @@ class Resultado extends Model
 
     public function participante()
     {
-        return $this->belongsTo('App\Participante');
+        return $this->inscrito->participante;
     }
 
     /*public function carrera(){
@@ -35,6 +35,13 @@ class Resultado extends Model
     {
         return $this->belongsTo('App\Inscrito');
     }
+
+
+    public function campeonato()
+    {
+        return $this->carrera->campeonato;
+    }
+
 
     public function puntos()
     {

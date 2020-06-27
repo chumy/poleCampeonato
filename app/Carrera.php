@@ -59,26 +59,27 @@ class Carrera extends Model
 
     public function getResultado()
     {
-        $resultados = $this->resultados;
-        /*foreach ($resultados as &$resultados) {
-            $resultados['puntuacion'] = $this->puntos
-                ->puntos()
-                ->where('posicion', $resultados->posicion)
-                ->pluck('puntos')->first();
-        }*/
-
+        //$resultados = $this->resultados;
+        /*
         $resultados->map(function ($resultado) {
-            $resultado['puntuacion'] = $this->puntos
+            $resultado->puntuacion = $this->puntos
                 ->puntos()
                 ->where('posicion', $resultado->posicion)
                 ->pluck('puntos')->first();
-            return $resultado;
-        });
-        /*
-        $posts->map(function ($post) {
-            $post['url'] = 'http://your.url/here';
-            return $post;
+            //return $resultado;
         });*/
-        return $resultados->sortByDesc('posicion');;
+
+        $resultados = [];
+        foreach ($this->resultados as $resultado) {
+            $resultado->puntuacion = $this->puntos
+                ->puntos()
+                ->where('posicion', $resultado->posicion)
+                ->pluck('puntos')->first();
+
+            array_push($resultados, $resultado);
+        }
+
+
+        return collect($resultados)->sortBy('posicion');
     }
 }

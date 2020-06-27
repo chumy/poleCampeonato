@@ -31,13 +31,13 @@
                     <div class="dropdown show">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{$carrera->nombre}}
+                            {{$carrera->circuito->nombre}}
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            @foreach ($campeonato->carreras()->get() as $car)
+                            @foreach ($campeonato->carreras as $car)
                             <a class="dropdown-item"
-                                href="{{ route('resultados.show', [ 'campeonato' =>$campeonato->id , 'carrera' => $car->id, ]) }}">{{$car->nombre}}</a>
+                                href="{{ route('resultados.show', [ 'campeonato' =>$campeonato->id , 'carrera' => $car->id, ]) }}">{{$car->circuito->nombre}}</a>
                             @endforeach
 
                         </div>
@@ -71,31 +71,28 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($parrilla as $pos)
+                            @foreach ($carrera->getResultado() as $pos)
                             <tr>
                                 <td>
                                     {{$pos->posicion}}
                                 </td>
                                 <td>
-                                    {{$pos->participante->apodo}}
+                                    {{$pos->participante()->apodo}}
                                 </td>
 
                                 <td>
-                                    @if ($pos->participante->pilotos->where('pivot.campeonato_id', $campeonato->id
-                                    )->count() > 0)
-                                    {{$pos->participante->pilotos->where('pivot.campeonato_id',$campeonato->id)->first()->nombre}}
+                                    @if ($pos->inscrito->piloto)
+                                    {{$pos->inscrito->piloto->nombre}}
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($pos->participante->escuderias->where('pivot.campeonato_id',
-                                    $campeonato->id)->count() > 0)
-                                    {{$pos->participante->escuderias->where('pivot.campeonato_id',
-                                    $campeonato->id)->first()->nombre}}
+                                    @if ($pos->inscrito->escuderia)
+                                    {{$pos->inscrito->escuderia->nombre}}
                                     @endif
                                 </td>
                                 <td>
                                     <form
-                                        action="{{ route('resultados.participacion',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        action="{{ route('resultados.participacion',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'resultado' => $pos->id , ] ) }}"
                                         method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="PATCH">
@@ -116,7 +113,7 @@
                                 </td>
                                 <td>
                                     <form
-                                        action="{{ route('resultados.abandono',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        action="{{ route('resultados.abandono',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'resultado' => $pos->id , ] ) }}"
                                         method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="PATCH">
@@ -138,7 +135,7 @@
                                 <td>
 
                                     <form
-                                        action="{{ route('resultados.up',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        action="{{ route('resultados.up',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'resultado' => $pos->id , ] ) }}"
                                         method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="PATCH">
@@ -148,7 +145,7 @@
                                         </button>
                                     </form>
                                     <form
-                                        action="{{ route('resultados.down',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'participante' => $pos->participante_id , ] ) }}"
+                                        action="{{ route('resultados.down',  [ 'campeonato' =>$campeonato->id , 'carrera' => $carrera->id, 'resultado' => $pos->id , ] ) }}"
                                         method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="PATCH">

@@ -21,14 +21,14 @@ class CreateCarrerasTable extends Migration
 
             $table->bigIncrements('id');
             $table->integer("orden")->default(1);
-            $table->integer("campeonato_id")->unsigned();
-            $table->integer("circuito_id")->unsigned();
-            $table->integer("punto_id")->unsigned()->default(0);
+            $table->boolean("visible")->default(true);
+
+            $table->unsignedBigInteger('campeonato_id');
+            $table->unsignedBigInteger('circuito_id');
+            $table->unsignedBigInteger('punto_id');
+
             $table->timestamps();
         });
-
-        
-
     }
 
     /**

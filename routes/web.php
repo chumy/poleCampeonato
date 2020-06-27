@@ -111,10 +111,10 @@ Route::get('/admin/resultados', 'ResultadoController@create')->name('resultados.
 
 Route::get('/admin/resultados/{campeonato}/{carrera?}', 'ResultadoController@show')->name('resultados.show');
 
-Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{participante}', 'ResultadoController@up')->name('resultados.up');
+Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{resultado}', 'ResultadoController@up')->name('resultados.up');
 
-Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{participante}', 'ResultadoController@down')->name('resultados.down');
+Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{resultado}', 'ResultadoController@down')->name('resultados.down');
 
-Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{participante}', 'ResultadoController@abandono')->name('resultados.abandono');
+Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{resultado}', 'ResultadoController@abandono')->name('resultados.abandono');
 
-Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{participante}', 'ResultadoController@participacion')->name('resultados.participacion');
+Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{resultado}', 'ResultadoController@participacion')->name('resultados.participacion');
