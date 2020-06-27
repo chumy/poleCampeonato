@@ -26,21 +26,22 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($campeonatos as $campeonato)
+                            @foreach ($campeonatos as $camp)
                             <tr>
                                 <td>
-                                    {{ $campeonato->id}}
+                                    {{ $camp->id}}
                                 </td>
                                 <td>
-                                    {{ $campeonato->nombre}}
+                                    {{ $camp->nombre}}
                                 </td>
 
                                 <td>
 
-                                    <button type="button" rel="tooltip" title="Edit Task"
+                                    <a rel="tooltip" href="{{ action('CampeonatoController@edit', $camp->id) }}" 
+                                        title="Editar Campeonato"
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
-                                    </button>
+                                </a>
                                     <button type="button" rel="tooltip" title="Añadir Carreras"
                                         class="btn btn-primary btn-link btn-sm"
                                         onclick="window.location.href='/admin/campeonato/1/carreras'">
@@ -61,10 +62,14 @@
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">visibility</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Eliminar"
-                                        class="btn btn-danger btn-link btn-sm">
-                                        <i class="material-icons">close</i>
-                                    </button>
+                                    <form action="{{ action('CampeonatoController@destroy', $camp->id)}}" method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" rel="tooltip" title="Eliminar Campeonato"
+                                            class="btn btn-danger btn-link btn-sm">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </form>
 
                                 </td>
                             </tr>
@@ -104,15 +109,15 @@
                             <div class="form-group">
                                 <label class="bmd-label-floating">Nombre</label>
                                 <input type="text" name="nombre" class="form-control"
-                                values={{  (isset($campeonato->nombre) ? $campeonato->nombre : ''  ) }}>
+                                value="{{  (isset($campeonato->nombre) ? $campeonato->nombre : ''  ) }}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleSelect1" class="bmd-label-floating">Tipo</label>
                                 <select class="form-control" id="exampleSelect1" name="tipo">
-                                    <option value="1">Individual</option>
-                                    <option value="2">Escuderias</option>
+                                    <option value="1" {{  ( ( isset($campeonato->tipo) && ($campeonato->tipo == 1 ) ) ? 'selected' : ''  ) }}>Individual</option>
+                                    <option value="2" {{  ( ( isset($campeonato->tipo) && ($campeonato->tipo == 2 ) ) ? 'selected' : ''  ) }}>Escuderias</option>
                                 </select>
                             </div>
                         </div>
@@ -122,7 +127,7 @@
                             <div class="form-group">
                                 <label class="bmd-label-floating">Numero de coches</label>
                                 <input type="text" name="num_coches" class="form-control"
-                                values={{  (isset($campeonato->num_coches) ? $campeonato->num_coches : ''  ) }}>
+                                value={{  (isset($campeonato->num_coches) ? $campeonato->num_coches : ''  ) }}>
                             </div>
                         </div>
 
@@ -130,14 +135,14 @@
                             <div class="form-group">
                                 <label class="bmd-label-floating">Numero de carreras</label>
                                 <input type="text" name="num_carreras"  class="form-control"
-                                values={{  (isset($campeonato->num_carreras) ? $campeonato->num_carreras : ''  ) }}>
+                                value={{  (isset($campeonato->num_carreras) ? $campeonato->num_carreras : ''  ) }}>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Numero de vueltas</label>
                                 <input type="text" name="num_vueltas" class="form-control"
-                                values={{  (isset($campeonato->num_vueltas) ? $campeonato->num_vueltas : ''  ) }}>
+                                value={{  (isset($campeonato->num_vueltas) ? $campeonato->num_vueltas : ''  ) }}>
                             </div>
                         </div>
                     </div>
@@ -150,7 +155,9 @@
                                 <select class="form-control" id="exampleSelect2" name="punto_id">
                                     @foreach ($puntos as $punto)
                                     
-                                <option value="{{$punto->id}}">{{$punto->nombre}} - {{$punto->toText()}}</option>
+                                <option value="{{$punto->id}}"
+                                    {{  ( ( isset($campeonato->punto_id) && ($campeonato->punto_id == $punto->id ) ) ? 'selected' : ''  ) }}
+                                    >{{$punto->nombre}} - {{$punto->toText()}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -195,7 +202,9 @@
                                 <label>Descripcion</label>
                                 <div class="form-group">
                                     <label class="bmd-label-floating"> Descripcion del Camepeonato.</label>
-                                    <textarea class="form-control" rows="5" name="descripcion"></textarea>
+                                    <textarea class="form-control" rows="5" name="descripcion">
+                                        {{ (isset($campeonato->descripcion) )  ? $campeonato->descripcion : '' }}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -207,11 +216,13 @@
                         <div class="col-md-8">
 
                             <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Puntuacion por Equipos</label>
-                                <select class="form-control" id="exampleSelect2" name="punto_escuderia_id">
+                                <label for="puntos_escuderia" class="bmd-label-floating">Puntuacion por Equipos</label>
+                                <select class="form-control" id="puntos_escuderia" name="punto_escuderia_id">
                                        @foreach ($puntos as $punto)
                                     
-                                <option value="{{$punto->id}}">{{$punto->nombre}} - {{$punto->toText()}}</option>
+                                <option value="{{$punto->id}}"
+                                      {{  ( ( isset($campeonato->punto_escuderia_id) && ($campeonato->punto_escuderia_id == $punto->id ) ) ? 'selected' : ''  ) }}
+                                    >{{$punto->nombre}} - {{$punto->toText()}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -220,8 +231,18 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary pull-right">Nuevo Campeonato</button>
+                    <button type="submit" class="btn btn-primary pull-right">{{  (isset($campeonato->nombre) ? 'Modificar Campeonato': 'Nuevo Campeonato'  ) }}</button>
                     <div class="clearfix"></div>
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> Revise los campos obligatorios.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                 </form>
             </div>
         </div>

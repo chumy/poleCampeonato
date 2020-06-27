@@ -66,8 +66,8 @@ Route::get('/escuderias/resultado', function () {
 
 Route::get('/admin', 'ResultadoController@create')->name('resultados.create');
 
-Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.create');
-Route::post('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.store');
+//Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.create');
+//Route::post('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.store');
 
 Route::get('/admin/pilotos', function () {
     return view('admin/piloto');
@@ -81,6 +81,7 @@ Route::get('/admin/campeonatos', function () {
 
 Route::resource('/admin/circuitos', 'CircuitoController');
 Route::resource('/admin/escuderias', 'EscuderiaController');
+Route::resource('/admin/campeonatos', 'CampeonatoController');
 
 
 //Route::get('/admin/carreras', 'CarreraController@index');

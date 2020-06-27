@@ -39,9 +39,8 @@ class CampeonatoController extends Controller
         //
         $campeonatos = Campeonato::all();
         $puntos = Punto::all();
-        $campeonato = [];
         //dd($campeonatos);
-        return view('admin/campeonato', compact('campeonatos', 'puntos', 'campeonato'));
+        return view('admin/campeonato', compact('campeonatos', 'puntos'));
     }
 
     /**
@@ -53,6 +52,7 @@ class CampeonatoController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
         $this->validate($request, ['nombre' => 'required']);
         $campeonato = Campeonato::create($request->all());
         $campeonato->save();
@@ -135,6 +135,10 @@ class CampeonatoController extends Controller
     public function edit(Campeonato $campeonato)
     {
         //
+        $campeonatos = Campeonato::all();
+        $puntos = Punto::all();
+        //dd($campeonatos);
+        return view('admin/campeonato', compact('campeonatos', 'puntos', 'campeonato'));
     }
 
     /**
@@ -147,6 +151,12 @@ class CampeonatoController extends Controller
     public function update(Request $request, Campeonato $campeonato)
     {
         //
+        $this->validate($request, ['nombre' => 'required']);
+        $campeonato->update($request->all());
+        $campeonato->visible = $request->has('visible');
+        $campeonato->save();
+
+        return redirect()->route('campeonatos.create')->with('success', 'Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -158,5 +168,8 @@ class CampeonatoController extends Controller
     public function destroy(Campeonato $campeonato)
     {
         //
+        $campeonato->delete();
+
+        return redirect()->route('campeonatos.create')->with('success', 'Registro eliminado satisfactoriamente');
     }
 }
