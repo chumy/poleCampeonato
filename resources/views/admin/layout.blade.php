@@ -54,9 +54,9 @@
             active
           @endif
 ">
-                        <a class="nav-link" href="{{ route ('carreras.create') }}">
+                        <a class="nav-link" href="{{ route ('circuitos.create') }}">
                             <i class="material-icons">location_ons</i>
-                            <p>Carreras</p>
+                            <p>Circuitos</p>
                         </a>
                     </li>
                     <li class="nav-item  
@@ -88,16 +88,7 @@
                             <p>Participantes</p>
                         </a>
                     </li>
-                    <li class="nav-item 
-          @if (trim($__env->yieldContent('title')) == 'Coches')
-            active
-          @endif
-          ">
-                        <a class="nav-link" href="/admin/coches">
-                            <i class="material-icons">directions_car</i>
-                            <p>Coches</p>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item 
           @if (trim($__env->yieldContent('title')) == 'Puntuaciones')
             active

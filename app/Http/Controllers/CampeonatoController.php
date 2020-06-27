@@ -38,8 +38,10 @@ class CampeonatoController extends Controller
     {
         //
         $campeonatos = Campeonato::all();
+        $puntos = Punto::all();
+        $campeonato = [];
         //dd($campeonatos);
-        return view('admin/campeonato', compact('campeonatos'));
+        return view('admin/campeonato', compact('campeonatos', 'puntos', 'campeonato'));
     }
 
     /**
@@ -51,6 +53,11 @@ class CampeonatoController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, ['nombre' => 'required']);
+        $campeonato = Campeonato::create($request->all());
+        $campeonato->save();
+
+        return redirect()->route('campeonatos.create')->with('success', 'Registro creado satisfactoriamente');
     }
 
     /**

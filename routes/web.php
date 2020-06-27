@@ -64,19 +64,22 @@ Route::get('/escuderias/resultado', function () {
 
 /* -------------  RUTAS ADMINISTRACION ---------------- */
 
-Route::get('/admin', 'CampeonatoController@create')->name('campeonatos.create');
+Route::get('/admin', 'ResultadoController@create')->name('resultados.create');
 
-//Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonato.create');
+Route::get('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.create');
+Route::post('/admin/campeonatos', 'CampeonatoController@create')->name('campeonatos.store');
 
 Route::get('/admin/pilotos', function () {
     return view('admin/piloto');
 });
 
+/*
 Route::get('/admin/campeonatos', function () {
     return view('admin/campeonato');
-});
+});*/
 
-Route::resource('/admin/carreras', 'CarreraController');
+
+Route::resource('/admin/circuitos', 'CircuitoController');
 Route::resource('/admin/escuderias', 'EscuderiaController');
 
 
