@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Punto;
 use App\Participante;
 use App\Escuderia;
+use App\Circuito;
 
 class CampeonatoController extends Controller
 {
@@ -171,5 +172,12 @@ class CampeonatoController extends Controller
         $campeonato->delete();
 
         return redirect()->route('campeonatos.create')->with('success', 'Registro eliminado satisfactoriamente');
+    }
+
+    public function carrera(Campeonato $campeonato)
+    {
+        $circuitos = Circuito::all();
+        $puntos = Punto::all();
+        return view('admin/campeonato_carrera', compact('campeonato', 'circuitos', 'puntos'));
     }
 }

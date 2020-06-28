@@ -42,9 +42,9 @@
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                 </a>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
+                                    <a type="button" rel="tooltip" title="Añadir Carreras"
                                         class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/campeonato/1/carreras'">
+                                        href="{{ route('campeonatos.carrera', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">location_ons</i>
                                     </button>
                                     <button type="button" rel="tooltip" title="Añadir Participantes"

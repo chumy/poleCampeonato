@@ -83,6 +83,14 @@ Route::resource('/admin/circuitos', 'CircuitoController');
 Route::resource('/admin/escuderias', 'EscuderiaController');
 Route::resource('/admin/campeonatos', 'CampeonatoController');
 
+Route::get('/admin/campeonato/{campeonato}/carreras', 'CampeonatoController@carrera')->name('campeonatos.carrera');
+
+Route::patch('/admin/carreras/{carrera}', 'CarreraController@update')->name('carreras.update');
+Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store');
+Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up');
+Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down');
+Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy');
+
 
 //Route::get('/admin/carreras', 'CarreraController@index');
 

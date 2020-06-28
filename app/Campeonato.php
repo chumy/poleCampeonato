@@ -43,7 +43,7 @@ class Campeonato extends Model
 
     public function carreras()
     {
-        return $this->hasMany('App\Carrera');
+        return $this->hasMany('App\Carrera')->orderby('orden');
     }
 
     public function participantes()

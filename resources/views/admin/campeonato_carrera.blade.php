@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title ">Listado de Carreras del Campeonato 1</h4>
+            <h4 class="card-title ">Listado de Carreras del Campeonato {{$campeonato->nombre}}</h4>
                 <p class="card-category"> Gestión de todas la carreras disponibles para el campeonato</p>
             </div>
             <div class="card-body">
@@ -28,58 +28,52 @@
                             </th>
                         </thead>
                         <tbody>
+                            @foreach ($campeonato->carreras as $car)
                             <tr>
-                                <td>1</td>
+                                <td>{{$car->orden}}</td>
                                 <td>
-                                    Carrera 1
+                                    {{$car->circuito->nombre}}
                                 </td>
-                                <td>Puntuacion 1 - 25-18-15-10-9 </td>
+                                <td>{{$car->puntos->nombre}} {{$car->puntos->toText()}}</td>
                                 <td>
 
-                                    <button type="button" rel="tooltip" title="Edit Task"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_upward</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_downward</i>
-                                    </button>
+                                    <form
+                                        action="{{ route('carreras.up',  [ 'carrera' =>$car->id  ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <button type="submit" rel="tooltip" title="Subir Posicion"
+                                            class="btn btn-primary btn-link btn-sm">
+                                            <i class="material-icons">arrow_upward</i>
+                                        </button>
+                                    </form>
 
-                                    <button type="button" rel="tooltip" title="Remove"
-                                        class="btn btn-danger btn-link btn-sm">
-                                        <i class="material-icons">close</i>
-                                    </button>
+                                    <form
+                                        action="{{ route('carreras.down',  [ 'carrera' =>$car->id  ] ) }}"
+                                        method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="PATCH">
+                                        <button type="submit" rel="tooltip" title="Bajar Posicion"
+                                            class="btn btn-primary btn-link btn-sm">
+                                            <i class="material-icons">arrow_downward</i>
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ action('CarreraController@destroy', $car->id)}}" method="post">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" rel="tooltip" title="Eliminar Carrera"
+                                            class="btn btn-danger btn-link btn-sm">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </form>
 
 
                                 </td>
 
                             </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Carrera 2
-                                </td>
-                                <td>Puntuacion 1 - 25-18-15-10-9 </td>
-                                <td>
-                                    <button type="button" rel="tooltip" title="Edit Task"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_upward</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Añadir Carreras"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i class="material-icons">arrow_downward</i>
-                                    </button>
-
-                                    <button type="button" rel="tooltip" title="Remove"
-                                        class="btn btn-danger btn-link btn-sm">
-                                        <i class="material-icons">close</i>
-                                    </button>
-
-                                </td>
-
-                            </tr>
+                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -93,31 +87,44 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title">Agregar Carrera al Campeonato 1</h4>
+            <h4 class="card-title">Agregar Carrera al {{$campeonato->nombre}}</h4>
                 <p class="card-category">Añadir carreras al campeonato</p>
             </div>
             <div class="card-body">
-                <form>
+                @if(isset($carrera))
+                    <form method="POST" action="{{ route('carreras.update',['carrera' => $carrera->id]) }}" role="form">
+                    <input name="_method" type="hidden" value="PATCH">
+                @else
+                    <form method="POST" action="{{ route('carreras.store') }}" role="form">
+                @endif
+                        {{ csrf_field() }}
 
-
+                    <input name="campeonato_id" type="hidden" value="{{$campeonato->id}}">
                     <div class="row">
                         <div class="col-md-5">
 
                             <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Carrera</label>
-                                <select class="form-control" id="exampleSelect2">
-                                    <option>Dakota Rice</option>
-                                    <option>Minnesota Spring</option>
+                                <label for="circuito_id" class="bmd-label-floating">Carrera</label>
+
+                                <select class="form-control" id="circuito_id">
+                                    @foreach ($circuitos as $cir)
+                                    <option value="{{$cir->id}}">{{$cir->nombre}}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="exampleSelect2" class="bmd-label-floating">Modelo de Puntuacion</label>
-                                <select class="form-control" id="exampleSelect2">
-                                    <option>Puntuacion 1 - 25-18-15-10-8</option>
-                                    <option>Puntuacion 2 - 5-3-2-1</option>
+                                <label for="punto_id" class="bmd-label-floating">Modelo de Puntuacion</label>
+                                <select class="form-control" id="punto_id">
+                                    @foreach ($puntos as $punto)
+                                    <option value={{$punto->id}}
+                                        @if ($campeonato->punto_id == $punto->id)
+                                         selected
+                                        @endif
+                                        >{{$punto->nombre}} - {{$punto->toText()}}</option>
+                                     @endforeach
                                 </select>
                             </div>
 
