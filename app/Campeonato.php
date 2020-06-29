@@ -9,9 +9,11 @@ class Campeonato extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'tipo', 'num_coches', 'num_carreras', 'punto_id',
+        'nombre', 'tipo', 'num_coches', 'num_carreras', 'num_vueltas', 'punto_id',
         'pilotos', 'escuderias', 'descripcion', 'punto_escuderia_id'
     ];
+
+
 
     public function calendario()
     {

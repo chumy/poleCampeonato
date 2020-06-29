@@ -83,14 +83,22 @@ Route::resource('/admin/circuitos', 'CircuitoController');
 Route::resource('/admin/escuderias', 'EscuderiaController');
 Route::resource('/admin/campeonatos', 'CampeonatoController');
 
-Route::get('/admin/campeonato/{campeonato}/carreras', 'CampeonatoController@carrera')->name('campeonatos.carrera');
 
+/** CARRERAS  */
+Route::get('/admin/carreras/{campeonato}', 'CarreraController@show')->name('carreras.show');
 Route::patch('/admin/carreras/{carrera}', 'CarreraController@update')->name('carreras.update');
 Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store');
 Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up');
 Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down');
 Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy');
 
+/* INSCRITOS */
+Route::get('/admin/inscritos/{campeonato}', 'InscritoController@show')->name('inscritos.show');
+Route::patch('/admin/inscritos/{inscrito}', 'InscritoController@update')->name('inscritos.update');
+Route::post('/admin/inscritos', 'InscritoController@store')->name('inscritos.store');
+Route::delete('/admin/inscritos/{inscrito}', 'InscritoController@destroy')->name('inscritos.destroy');
+Route::patch('/admin/inscritos/{inscrito}/edit', 'InscritoController@update')->name('inscritos.update');
+Route::get('/admin/inscritos/{inscrito}/edit', 'InscritoController@edit')->name('inscritos.edit');
 
 //Route::get('/admin/carreras', 'CarreraController@index');
 

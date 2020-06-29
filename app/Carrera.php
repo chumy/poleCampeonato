@@ -14,7 +14,7 @@ class Carrera extends Model
      * @var array
      */
     protected $fillable = [
-        'posicion', 'abandono',
+        'orden', 'campeonato_id', 'circuito_id', 'punto_id',
     ];
 
     /*  protected $casts = [
@@ -42,7 +42,7 @@ class Carrera extends Model
         return $this->belongsTo('App\Punto', 'punto_id');
     }
 
-    public function setResultado(Participante $participante, $posicion, $abandono = 0, $participacion = 1)
+    public function setResultado(Participante $participante, $posicion, $abandono, $participacion)
     {
         $abandono = ($abandono == 1) ? 1 : 0;
         $participacion = ($participacion == 0) ? 0 : 1;

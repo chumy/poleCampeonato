@@ -26,7 +26,8 @@ class CampeonatoController extends Controller
     public function index()
     {
         //
-        $campeonato = Campeonato::find(1);
+        $campeonato = Campeonato::all()->first();
+
         return redirect()->route('campeonato.show', $campeonato);
     }
 
@@ -73,32 +74,14 @@ class CampeonatoController extends Controller
 
         $campeonatos = Campeonato::all()->where('visible', 1);
 
-        $clasificacionEscuderias = [];
-        // Obtener datos de escuderias
-        /*if ($campeonato->tipo == 2) {
 
-            $clasificacionEscuderias =  $this->getClasificacionEscuderias($campeonato);
-        }*/
-        //dd($clasificacionEscuderias[0]["id"]);
-        //DB::enableQueryLog();
-        $puntosEspeciales = [];
 
-        /* $carreasEspeciales = $this->getCarrerasEspeciales($campeonato);
-        if (sizeof($carreasEspeciales) > 0) {
-            foreach ($carreasEspeciales as $carr) {
-                $puntosEspeciales[] = Punto::find($carr->punto_id);
-            }
-        }*/
-        // dd(DB::getQueryLog());
-        //$clasificacionCampeonato =  $this->getClasificacionCampeonato($campeonato);
-        $clasificacionCampeonato = [];
 
         return view('campeonatos/campeonato', compact(
             'campeonatos',
             'campeonato',
-            'clasificacionCampeonato',
-            'clasificacionEscuderias',
-            'puntosEspeciales'
+
+
         ));
     }
 
@@ -153,8 +136,12 @@ class CampeonatoController extends Controller
     {
         //
         $this->validate($request, ['nombre' => 'required']);
-        $campeonato->update($request->all());
+        //dd($request->all());
+        $campeonato->fill($request->all());
         $campeonato->visible = $request->has('visible');
+        $campeonato->pilotos = $request->has('pilotos');
+        $campeonato->escuderias = $request->has('escuderias');
+
         $campeonato->save();
 
         return redirect()->route('campeonatos.create')->with('success', 'Registro actualizado satisfactoriamente');
@@ -172,12 +159,5 @@ class CampeonatoController extends Controller
         $campeonato->delete();
 
         return redirect()->route('campeonatos.create')->with('success', 'Registro eliminado satisfactoriamente');
-    }
-
-    public function carrera(Campeonato $campeonato)
-    {
-        $circuitos = Circuito::all();
-        $puntos = Punto::all();
-        return view('admin/campeonato_carrera', compact('campeonato', 'circuitos', 'puntos'));
     }
 }

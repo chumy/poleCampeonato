@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Carrera;
+use App\Punto;
+use App\Circuito;
+use App\Campeonato;
 
 class CarreraController extends Controller
 {
@@ -37,17 +40,50 @@ class CarreraController extends Controller
     {
         //
 
+        /*$campeonato = Campeonato::find($request->input('campeonato_id'));
+        $orden = $campeonato->carreras->count() + 1;
+        $punto = Punto::find($request->input('punto_id'));
+        $circuito = Circuito::find($request->input('circuito_id'));
+        $campeonato->setCarrera($circuito, $orden, $punto);*/
+
+        $carrera = Carrera::create($request->all());
+        $campeonato = $carrera->campeonato;
+        $orden = $campeonato->carreras->count();
+        $carrera->orden = $orden;
+        //$carrera->campeonato()->attach($campeonato);
+        //$campeonato->carreras()->attach($carrera);
+        $carrera->save();
+
+
+
+
+
+        //generar Resultados
+        $i = 0;
+        foreach ($campeonato->participantes as $participante) {
+            $i++;
+            $carrera->setResultado($participante, $i, 0, 0);
+        }
+
+
+
+        return redirect()->route('carreras.show', compact('campeonato'))
+            ->with('success', 'Registro creado satisfactoriamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Carrera  $carrera
+     * @param  Campeonato  $campeonato
      * @return \Illuminate\Http\Response
      */
-    public function show(Carrera $id)
+    public function show(Campeonato $campeonato)
     {
         //
+        $circuitos = Circuito::all();
+        $puntos = Punto::all();
+
+        return view('admin/carrera', compact('campeonato', 'circuitos', 'puntos'));
     }
 
     /**
@@ -76,7 +112,7 @@ class CarreraController extends Controller
         $carrera->update($request->all());
         $carrera->save();
 
-        return redirect()->route('campeonatos.carrera', compact('campeonato'))
+        return redirect()->route('carreras.show', compact('campeonato'))
             ->with('success', 'Registro actualizado satisfactoriamente');
     }
 
@@ -92,7 +128,7 @@ class CarreraController extends Controller
         $campeonato = $carrera->campeonato;
         $carrera->delete();
 
-        return redirect()->route('campeonatos.carrera', compact('campeonato'))
+        return redirect()->route('carreras.show', compact('campeonato'))
             ->with('success', 'Registro eliminado satisfactoriamente');
     }
 
@@ -118,7 +154,7 @@ class CarreraController extends Controller
             $carrera->save();
         }
 
-        return redirect()->route('campeonatos.carrera', compact('campeonato'));
+        return redirect()->route('carreras.show', compact('campeonato'));
     }
 
     public function down(Carrera $carrera)
@@ -138,6 +174,6 @@ class CarreraController extends Controller
             $carrera->save();
         }
 
-        return redirect()->route('campeonatos.carrera', compact('campeonato'));
+        return redirect()->route('carreras.show', compact('campeonato'));
     }
 }

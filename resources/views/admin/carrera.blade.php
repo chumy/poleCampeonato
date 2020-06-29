@@ -13,7 +13,7 @@
                 <p class="card-category"> Gestión de todas la carreras disponibles para el campeonato</p>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                     <table class="table">
                         <thead class=" text-primary">
                             <th>
@@ -36,7 +36,7 @@
                                 </td>
                                 <td>{{$car->puntos->nombre}} {{$car->puntos->toText()}}</td>
                                 <td>
-
+                                    <div class="row">
                                     <form
                                         action="{{ route('carreras.up',  [ 'carrera' =>$car->id  ] ) }}"
                                         method="post">
@@ -67,7 +67,7 @@
                                             <i class="material-icons">close</i>
                                         </button>
                                     </form>
-
+</div>
 
                                 </td>
 
@@ -106,7 +106,7 @@
                             <div class="form-group">
                                 <label for="circuito_id" class="bmd-label-floating">Carrera</label>
 
-                                <select class="form-control" id="circuito_id">
+                                <select class="form-control" id="circuito_id" name="circuito_id">
                                     @foreach ($circuitos as $cir)
                                     <option value="{{$cir->id}}">{{$cir->nombre}}</option>
                                     @endforeach
@@ -117,7 +117,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="punto_id" class="bmd-label-floating">Modelo de Puntuacion</label>
-                                <select class="form-control" id="punto_id">
+                                <select class="form-control" id="punto_id" name="punto_id">
                                     @foreach ($puntos as $punto)
                                     <option value={{$punto->id}}
                                         @if ($campeonato->punto_id == $punto->id)

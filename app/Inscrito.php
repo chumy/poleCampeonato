@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inscrito extends Model
 {
+    protected $fillable = [
+        'campeonato_id', 'participante_id', 'escuderia_id', 'piloto_id'
+    ];
     //
     public function escuderia()
     {
@@ -25,5 +28,18 @@ class Inscrito extends Model
     public function campeonato()
     {
         return $this->belongsTo('App\Campeonato');
+    }
+
+    public function setResultado(Carrera $carrera, $posicion, $abandono, $participacion)
+    {
+        $abandono = ($abandono == 1) ? 1 : 0;
+        $participacion = ($participacion == 0) ? 0 : 1;
+
+        $resultado = new Resultado(['abandono' => $abandono, 'participacion' => $participacion, 'posicion' => $posicion]);
+
+        $resultado->carrera()->associate($carrera);
+        $resultado->inscrito()->associate($this);
+
+        return $resultado->save();
     }
 }

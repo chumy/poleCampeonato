@@ -12,7 +12,7 @@
                 <p class="card-category"> Gestión de todos los campeonatos disponibles</p>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                     <table class="table">
                         <thead class=" text-primary">
                             <th>
@@ -36,7 +36,7 @@
                                 </td>
 
                                 <td>
-
+<div class="row">
                                     <a rel="tooltip" href="{{ action('CampeonatoController@edit', $camp->id) }}" 
                                         title="Editar Campeonato"
                                         class="btn btn-primary btn-link btn-sm">
@@ -44,14 +44,15 @@
                                 </a>
                                     <a type="button" rel="tooltip" title="Añadir Carreras"
                                         class="btn btn-primary btn-link btn-sm"
-                                        href="{{ route('campeonatos.carrera', ['campeonato' => $camp->id]) }}">
+                                        href="{{ route('carreras.show', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">location_ons</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Añadir Participantes"
+                                    <a type="button" rel="tooltip" title="Añadir Participantes"
                                         class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/campeonato/1/participantes'">
+                                        href="{{ route('inscritos.show', ['campeonato' => $camp->id]) }}">
+                                        
                                         <i class="material-icons">person</i>
-                                    </button>
+                                </a>
 
                                     <button type="button" rel="tooltip" title="Resultados"
                                         class="btn btn-primary btn-link btn-sm"
@@ -71,6 +72,7 @@
                                         </button>
                                     </form>
 
+                                   </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -202,8 +204,7 @@
                                 <label>Descripcion</label>
                                 <div class="form-group">
                                     <label class="bmd-label-floating"> Descripcion del Camepeonato.</label>
-                                    <textarea class="form-control" rows="5" name="descripcion">
-                                        {{ (isset($campeonato->descripcion) )  ? $campeonato->descripcion : '' }}
+                                    <textarea class="form-control" rows="5" name="descripcion">{{ (isset($campeonato->descripcion) )  ? $campeonato->descripcion : '' }}
                                     </textarea>
                                 </div>
                             </div>
