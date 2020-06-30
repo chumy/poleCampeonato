@@ -55,7 +55,10 @@ class CampeonatoController extends Controller
     {
         //
         //dd($request);
-        $this->validate($request, ['nombre' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required',
+            'descripcion' => 'required'
+        ]);
         $campeonato = Campeonato::create($request->all());
         $campeonato->save();
 
@@ -73,9 +76,6 @@ class CampeonatoController extends Controller
         //
 
         $campeonatos = Campeonato::all()->where('visible', 1);
-
-
-
 
         return view('campeonatos/campeonato', compact(
             'campeonatos',
@@ -135,7 +135,10 @@ class CampeonatoController extends Controller
     public function update(Request $request, Campeonato $campeonato)
     {
         //
-        $this->validate($request, ['nombre' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required',
+            'descripcion' => 'required'
+        ]);
         //dd($request->all());
         $campeonato->fill($request->all());
         $campeonato->visible = $request->has('visible');

@@ -12,31 +12,25 @@ class CircuitosSeeder extends Seeder
      */
     public function run()
     {
-         Circuito::create([
-            'nombre' => 'Circuito 1',
-            'visible' => true,
-        ]);
-        
         Circuito::create([
-            'nombre' => 'Circuito 2',
-            'visible' => true,
+            'nombre' => 'Silverstone',
+        ]);
+
+        Circuito::create([
+            'nombre' => 'Montmelo',
         ]);
         Circuito::create([
-            'nombre' => 'Circuito 3',
-            'visible' => true,
+            'nombre' => 'Shanghai',
         ]);
         Circuito::create([
-            'nombre' => 'Circuito 4',
-            'visible' => true,
+            'nombre' => 'Interlagos',
         ]);
         Circuito::create([
             'nombre' => 'Circuito 5',
-            'visible' => true,
         ]);
 
         Circuito::create([
             'nombre' => 'Circuito 6',
-            'visible' => true,
         ]);
     }
 }

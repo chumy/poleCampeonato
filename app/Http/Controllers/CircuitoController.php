@@ -40,9 +40,9 @@ class CircuitoController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request, ['nombre' => 'required']);
         $circuito = Circuito::create($request->all());
-        $circuito->visible = $request->has('visible');
         $circuito->save();
 
         return redirect()->route('circuitos.create')->with('success', 'Registro creado satisfactoriamente');
@@ -81,9 +81,9 @@ class CircuitoController extends Controller
     public function update(Request $request, Circuito $circuito)
     {
         //
+        //dd($circuito);
         $this->validate($request, ['nombre' => 'required']);
-        $circuito->update($request->all());
-        $circuito->visible = $request->has('visible');
+        $circuito->fill($request->all());
         $circuito->save();
 
         return redirect()->route('circuitos.create')->with('success', 'Registro actualizado satisfactoriamente');

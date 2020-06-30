@@ -103,8 +103,8 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" name="visible" id="visible"
-                                                value="{{  (isset($carrera->visible) ? $carrera->visible : '0'  ) }}"
-                                                {{ (isset($carrera->visible) && ($carrera->visible)) ? 'checked="checked"' : '' }}>
+                                                value="{{  (isset($escuderia->visible) ? $escuderia->visible : '0'  ) }}"
+                                                {{ (isset($escuderia->visible) && ($escuderia->visible)) ? 'checked="checked"' : '' }}>
 
                                             <span class="form-check-sign">
                                                 <span class="check"></span>

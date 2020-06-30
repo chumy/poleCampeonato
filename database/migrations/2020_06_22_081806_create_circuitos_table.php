@@ -13,10 +13,9 @@ class CreateCircuitosTable extends Migration
      */
     public function up()
     {
-         Schema::create('circuitos', function (Blueprint $table) {
+        Schema::create('circuitos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('nombre');
-            $table->boolean('visible')->default(true);
             $table->timestamps();
         });
     }

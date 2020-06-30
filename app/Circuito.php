@@ -8,10 +8,10 @@ class Circuito extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'visible',
+        'nombre',
     ];
 
-      /*  protected $casts = [
+    /*  protected $casts = [
         'visible' => 'boolean',
     ];*/
 
@@ -25,5 +25,4 @@ class Circuito extends Model
         return $this->belongsToMany('App\Participante', 'carrera_participante')
             ->withPivot( ['posicion', 'abandono', 'campeonato_id']); 
     }*/
-    
 }

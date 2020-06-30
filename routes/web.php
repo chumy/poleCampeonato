@@ -82,6 +82,8 @@ Route::get('/admin/campeonatos', function () {
 Route::resource('/admin/circuitos', 'CircuitoController');
 Route::resource('/admin/escuderias', 'EscuderiaController');
 Route::resource('/admin/campeonatos', 'CampeonatoController');
+Route::resource('/admin/pilotos', 'PilotoController');
+Route::resource('/admin/participantes', 'ParticipanteController');
 
 
 /** CARRERAS  */

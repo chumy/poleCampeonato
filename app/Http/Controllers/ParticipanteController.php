@@ -28,6 +28,8 @@ class ParticipanteController extends Controller
     public function create()
     {
         //
+        $participantes = Participante::all();
+        return view('admin/participante', compact('participantes'));
     }
 
     /**
@@ -39,6 +41,12 @@ class ParticipanteController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, ['nombre' => 'required', 'apodo' => 'required']);
+        $participante = Participante::create($request->all());
+        $participante->visible = $request->has('visible');
+        $participante->save();
+
+        return redirect()->route('participantes.create')->with('success', 'Registro creado satisfactoriamente');
     }
 
     /**
@@ -64,6 +72,8 @@ class ParticipanteController extends Controller
     public function edit(Participante $participante)
     {
         //
+        $participantes = Participante::all();
+        return view('admin/participante', compact('participantes', 'participante'));
     }
 
     /**
@@ -76,6 +86,12 @@ class ParticipanteController extends Controller
     public function update(Request $request, Participante $participante)
     {
         //
+        $this->validate($request, ['nombre' => 'required', 'apodo' => 'required']);
+        $participante->fill($request->all());
+        $participante->visible = $request->has('visible');
+        $participante->save();
+
+        return redirect()->route('participantes.create')->with('success', 'Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -88,7 +104,7 @@ class ParticipanteController extends Controller
     {
         //
     }
-    public function getPuntuacionCampeonatos(Participante $participante)
+    /*public function getPuntuacionCampeonatos(Participante $participante)
     {
 
         // tipo 1
@@ -115,5 +131,5 @@ class ParticipanteController extends Controller
             ->groupBy('carrera_participante.campeonato_id', 'participantes.id', 'participantes.apodo', 'escuderias.nombre', 'pilotos.nombre')
             ->orderBy('puntos', 'desc')
             ->get();
-    }
+    }*/
 }

@@ -64,7 +64,7 @@
             active
           @endif
            ">
-                        <a class="nav-link" href="/admin/pilotos">
+                        <a class="nav-link" href="{{ route ('pilotos.create') }}">
                             <i class="material-icons">assignment_ind</i>
                             <p>Pilotos</p>
                         </a>
@@ -83,7 +83,7 @@
             active
           @endif
           ">
-                        <a class="nav-link" href="/admin/participantes">
+                        <a class="nav-link" href="{{ route ('participantes.create') }}">
                             <i class="material-icons">person</i>
                             <p>Participantes</p>
                         </a>

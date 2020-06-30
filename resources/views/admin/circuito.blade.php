@@ -10,11 +10,11 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title ">Listado de Carreras</h4>
-                <p class="card-category"> Gestión de todas la carreras disponibles</p>
+                <h4 class="card-title ">Listado de Circuitos</h4>
+                <p class="card-category"> Gestión de todos los circuitos disponibles</p>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                     <table class="table">
                         <thead class=" text-primary">
                             <th>
@@ -29,21 +29,17 @@
                         <tbody>
                             @foreach ($circuitos as $car)
                             <tr>
-                                <td>{{ $car->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $car->nombre }}</td>
 
                                 <td>
-
+                                    <div class="row">
                                     <a rel="tooltip" href="{{ action('CircuitoController@edit', $car->id) }}"
                                         title="Editar Circuito" class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                     </a>
 
-                                    <a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
-                                        class="btn btn-primary btn-link btn-sm">
-                                        <i
-                                            class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>
-                                    </a>
+                                   
                                     <form action="{{ action('CircuitoController@destroy', $car->id)}}" method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="DELETE">
@@ -52,7 +48,7 @@
                                             <i class="material-icons">close</i>
                                         </button>
                                     </form>
-
+</div>
                                 </td>
 
                             </tr>
@@ -76,12 +72,12 @@
             </div>
 
             <div class="card-body">
-                @if(isset($campeonato))
-                <form method="POST" action="{{ route('campeonatos.update',$campeonato->id) }}" role="form">
+                @if(isset($circuito))
+                <form method="POST" action="{{ route('circuitos.update',$circuito->id) }}" role="form">
 
                     <input name="_method" type="hidden" value="PATCH">
                     @else
-                    <form method="POST" action="{{ route('campeonatos.store') }}" role="form">
+                    <form method="POST" action="{{ route('circuitos.store') }}" role="form">
                         @endif
 
                         {{ csrf_field() }}
@@ -94,21 +90,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Visible</label>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="visible" id="visible"
-                                                value="{{  (isset($circuito->visible) ? $circuito->visible : '0'  ) }}"
-                                                {{ (isset($circuito->visible) && ($circuito->visible)) ? 'checked="checked"' : '' }}>
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                           
 
                         </div>
 

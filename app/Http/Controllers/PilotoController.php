@@ -15,6 +15,8 @@ class PilotoController extends Controller
     public function index()
     {
         //
+        $pilotos = Piloto::all();
+        return view('admin/piloto', compact('pilotos'));
     }
 
     /**
@@ -25,6 +27,8 @@ class PilotoController extends Controller
     public function create()
     {
         //
+        $pilotos = Piloto::all();
+        return view('admin/piloto', compact('pilotos'));
     }
 
     /**
@@ -36,6 +40,13 @@ class PilotoController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $this->validate($request, ['nombre' => 'required', 'descripcion' => 'required']);
+        $piloto = Piloto::create($request->all());
+        $piloto->visible = $request->has('visible');
+        $piloto->save();
+
+        return redirect()->route('pilotos.create')->with('success', 'Registro creado satisfactoriamente');
     }
 
     /**
@@ -58,6 +69,8 @@ class PilotoController extends Controller
     public function edit(Piloto $piloto)
     {
         //
+        $pilotos = Piloto::all();
+        return view('admin/piloto', compact('pilotos', 'piloto'));
     }
 
     /**
@@ -70,6 +83,12 @@ class PilotoController extends Controller
     public function update(Request $request, Piloto $piloto)
     {
         //
+        $this->validate($request, ['nombre' => 'required']);
+        $piloto->fill($request->all());
+        $piloto->visible = $request->has('visible');
+        $piloto->save();
+
+        return redirect()->route('pilotos.create')->with('success', 'Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -81,5 +100,8 @@ class PilotoController extends Controller
     public function destroy(Piloto $piloto)
     {
         //
+        $piloto->delete();
+
+        return redirect()->route('pilotos.create')->with('success', 'Registro eliminado satisfactoriamente');
     }
 }

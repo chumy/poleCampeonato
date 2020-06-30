@@ -29,12 +29,22 @@
 
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
-
+                        
                         <dt class="col-sm-3">Puntuación</dt>
-                        <dd class="col-sm-9">
+                        <dd
+                        @if ($campeonato->getPuntuacionesEscuderias)
+                        class="col-sm-3"
+                        @else
+                        class="col-sm-9"
+                        @endif  
+                        >
                            {{ $campeonato->puntuaciones->toText() }}
 
                         </dd>
+                         @if ($campeonato->getPuntuacionesEscuderias)
+                         <dt class="col-sm-3">Puntuación de Escuderías</dt>
+                        <dd class="col-sm-3">{{$campeonato->getPuntuacionesEscuderias->toText()}}
+                         @endif
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
                         @foreach ($campeonato->getPuntuacionesCarreras as $carreasEspeciales )
