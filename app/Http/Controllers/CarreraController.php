@@ -95,6 +95,11 @@ class CarreraController extends Controller
     public function edit(Carrera $carrera)
     {
         //
+        $campeonato = $carrera->campeonato;
+
+        $circuitos = Circuito::all();
+        $puntos = Punto::all();
+        return view('admin/carrera', compact('campeonato', 'circuitos', 'puntos', 'carrera'));
     }
 
     /**
@@ -108,7 +113,6 @@ class CarreraController extends Controller
     {
         //
         $campeonato = $carrera->campeonato;
-        $this->validate($request, ['nombre' => 'required']);
         $carrera->update($request->all());
         $carrera->save();
 

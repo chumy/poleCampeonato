@@ -91,6 +91,7 @@ Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store'
 Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up');
 Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down');
 Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy');
+Route::get('/admin/carreras/{carrera}/edit', 'CarreraController@edit')->name('carreras.edit');
 
 /* INSCRITOS */
 Route::get('/admin/inscritos/{campeonato}', 'InscritoController@show')->name('inscritos.show');

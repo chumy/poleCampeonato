@@ -37,6 +37,11 @@
                                 <td>{{$car->puntos->nombre}} {{$car->puntos->toText()}}</td>
                                 <td>
                                     <div class="row">
+                                          <a rel="tooltip" href="{{ action('CarreraController@edit', $car->id) }}" 
+                                        title="Editar Carrera"
+                                        class="btn btn-primary btn-link btn-sm">
+                                        <i class="material-icons">edit</i>
+                                </a>
                                     <form
                                         action="{{ route('carreras.up',  [ 'carrera' =>$car->id  ] ) }}"
                                         method="post">
@@ -108,7 +113,11 @@
 
                                 <select class="form-control" id="circuito_id" name="circuito_id">
                                     @foreach ($circuitos as $cir)
-                                    <option value="{{$cir->id}}">{{$cir->nombre}}</option>
+                                    <option value="{{$cir->id}}"
+                                         @if ( (isset($carrera)) && ($carrera->circuito->id == $cir->id) )
+                                        selected
+                                         @endif
+                                        >{{$cir->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -120,8 +129,9 @@
                                 <select class="form-control" id="punto_id" name="punto_id">
                                     @foreach ($puntos as $punto)
                                     <option value={{$punto->id}}
-                                        @if ($campeonato->punto_id == $punto->id)
+                                        @if ( ( (!isset($carrera)) && ($campeonato->punto_id == $punto->id) ) || (isset($carrera) && ($carrera->puntos->id == $punto->id) ) )
                                          selected
+                                         
                                         @endif
                                         >{{$punto->nombre}} - {{$punto->toText()}}</option>
                                      @endforeach
@@ -131,8 +141,20 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">Añadir Carrera</button>
+                    
+                    <button type="submit" class="btn btn-primary pull-right">{{  (isset($carrera) ? 'Modificar Carrera': 'Añadir Carrera'  ) }}</button>
                     <div class="clearfix"></div>
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> Revise los campos obligatorios.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    
 
 
                 </form>
