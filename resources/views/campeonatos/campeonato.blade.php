@@ -34,7 +34,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach($campeonatos as $camplist)
                                     <a class="dropdown-item"
-                                        href="{{ route('campeonato.show', ['id' => $camplist->id ]) }}">{{$camplist->nombre}}</a>
+                                        href="{{ route('campeonato.show', ['id' => $camplist->slug ]) }}">{{$camplist->nombre}}</a>
                                     @endforeach
                                 </div>
                             </li>

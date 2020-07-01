@@ -15,13 +15,16 @@ class CreateCampeonatosTable extends Migration
     {
         Schema::create('campeonatos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('nombre');
+            $table->string('nombre');
             $table->integer('num_coches')->default(6);
             $table->integer('num_vueltas')->default(12);
             $table->integer('num_carreras')->default(6);
             $table->boolean('pilotos')->default(false);
             $table->boolean('escuderias')->default(false);
             $table->text('descripcion');
+
+            $table->string('slug')->unique();
+
             $table->integer('punto_escuderia_id')->unsigned()->default(0);
             $table->integer("tipo")->unsigned();
 

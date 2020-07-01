@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Campeonato;
-
+use Illuminate\Support\Str as Str;
 
 class CampeonatosSeeder extends Seeder
 {
@@ -21,6 +21,7 @@ class CampeonatosSeeder extends Seeder
             'num_coches' => '6',
             'num_carreras' => '6',
             'num_vueltas' => '12',
+            'slug' => Str::slug('Torneo LABSK por Escuderias Verano 2020'),
             'pilotos' => false,
             'escuderias' => true,
             'punto_escuderia_id' => 4,
@@ -100,6 +101,7 @@ class CampeonatosSeeder extends Seeder
             'num_coches' => '6',
             'num_carreras' => '5',
             'num_vueltas' => '12',
+            'slug' => Str::slug('Campeonato pilotos Verano 2020'),
             'pilotos' => true,
             'escuderias' => true,
             'descripcion' => 'Bienvenido al campeonato veraniego de 2020. Un campeonato individual donde podrás elegir que piloto ocupará tu monoplaza y a que escudería pertenece. Escoge sabiamente',

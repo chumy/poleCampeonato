@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::get('/campeonato', 'CampeonatoController@index')->name('campeonato.index');
 
-Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campeonato.show');
+Route::get('/campeonato/{slug}', 'CampeonatoController@show')->name('campeonato.show');
 
 Route::get('/campeonato/piloto/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
 

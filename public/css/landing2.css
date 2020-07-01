@@ -59,9 +59,10 @@ header.masthead .overlay {
     opacity: 0.4;
 }
 
+/*
 header.masthead.portada {
     background: url("../images/casco_fondo.jpg") no-repeat center center;
-}
+}*/
 
 /*
 header.masthead .overlay.portada {
@@ -78,6 +79,7 @@ header.masthead .overlay.clasificacion {
   width: 100%;
 }*/
 
+/*
 header.masthead.portada {
     background: url("../images/Eaat2AqXsAAZCwe.jpeg") no-repeat 40% 60%;
     top: 30%;
@@ -103,7 +105,7 @@ header.masthead.escuderias {
     background: url("../images/escuderias.jpg") no-repeat center 15%;
     top: 30%;
 }
-
+*/
 header.masthead.campeonato {
     /*background: url("../images/campeonato2.jpg") no-repeat 10% 60%;*/
     background: url("../images/campeonato2.jpg") no-repeat center 55%;

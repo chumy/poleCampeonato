@@ -28,7 +28,7 @@ class CampeonatoController extends Controller
         //
         $campeonato = Campeonato::all()->first();
 
-        return redirect()->route('campeonato.show', $campeonato);
+        return redirect()->route('campeonato.show', $campeonato->slug);
     }
 
     /**
@@ -71,9 +71,11 @@ class CampeonatoController extends Controller
      * @param  \App\Campeonato  $campeonato
      * @return \Illuminate\Http\Response
      */
-    public function show(Campeonato $campeonato)
+    public function show($slug)
     {
         //
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
 
         $campeonatos = Campeonato::all()->where('visible', 1);
 

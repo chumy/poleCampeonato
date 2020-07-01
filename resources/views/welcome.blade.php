@@ -4,6 +4,7 @@
 
 @section('content')
 <!-- Masthead -->
+
 <header class="masthead text-white text-center portada">
     <div class="overlay portada"></div>
     <div class="container"></div>
