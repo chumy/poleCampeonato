@@ -13,15 +13,14 @@ class CreateListaPuntosTable extends Migration
      */
     public function up()
     {
-        Schema::create('lista_puntos', function (Blueprint $table) {
+        Schema::create('listapuntos', function (Blueprint $table) {
             //
-            
+
             $table->bigIncrements('id');
             $table->integer('posicion')->default(1);
             $table->integer('puntos')->default(0);
-            $table->integer('punto_id')->unsigned();
+            $table->unsignedBigInteger('punto_id');
             $table->timestamps();
-
         });
     }
 
@@ -32,6 +31,6 @@ class CreateListaPuntosTable extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('lista_puntos');
+        Schema::dropIfExists('listapuntos');
     }
 }

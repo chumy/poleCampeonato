@@ -27,4 +27,9 @@ class Punto extends Model
     {
         return $this->puntos()->orderBy('posicion')->pluck('puntos')->implode('-');
     }
+
+    public function getPunto(int $posicion)
+    {
+        return $this->puntos->where('posicion', $posicion)->first();
+    }
 }

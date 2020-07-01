@@ -36,7 +36,8 @@
                                 </td>
 
                                 <td>
-<div class="row">
+<form action="{{ action('CampeonatoController@destroy', $camp->id)}}" method="post">
+                                        {{csrf_field()}}
                                     <a rel="tooltip" href="{{ action('CampeonatoController@edit', $camp->id) }}" 
                                         title="Editar Campeonato"
                                         class="btn btn-primary btn-link btn-sm">
@@ -63,8 +64,7 @@
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">visibility</i>
                                     </button>
-                                    <form action="{{ action('CampeonatoController@destroy', $camp->id)}}" method="post">
-                                        {{csrf_field()}}
+                                    
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" rel="tooltip" title="Eliminar Campeonato"
                                             class="btn btn-danger btn-link btn-sm">
@@ -72,7 +72,7 @@
                                         </button>
                                     </form>
 
-                                   </div>
+                                   
                                 </td>
                             </tr>
                             @endforeach

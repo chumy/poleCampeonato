@@ -14,7 +14,7 @@
                 <p class="card-category"> Gestión de todos los circuitos disponibles</p>
             </div>
             <div class="card-body">
-                <div class="">
+                <div class="table-responsive">
                     <table class="table">
                         <thead class=" text-primary">
                             <th>
@@ -33,14 +33,19 @@
                                 <td>{{ $car->nombre }}</td>
 
                                 <td>
-                                    <div class="row">
+                                   <form action="{{ action('CircuitoController@destroy', $car->id)}}" method="post">
                                     <a rel="tooltip" href="{{ action('CircuitoController@edit', $car->id) }}"
                                         title="Editar Circuito" class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                     </a>
 
+                                     <a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
+                                            class="btn btn-primary btn-link btn-sm">
+                                                <i class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>
+                                            </a>
+
                                    
-                                    <form action="{{ action('CircuitoController@destroy', $car->id)}}" method="post">
+                                    
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" rel="tooltip" title="Eliminar Carrera"
@@ -48,7 +53,7 @@
                                             <i class="material-icons">close</i>
                                         </button>
                                     </form>
-</div>
+
                                 </td>
 
                             </tr>

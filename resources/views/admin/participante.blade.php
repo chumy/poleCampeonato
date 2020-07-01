@@ -6,7 +6,7 @@
 
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col-md-8">
     <div class="card">
       <div class="card-header card-header-primary">
         <h4 class="card-title ">Listado de Participantes</h4>
@@ -15,7 +15,7 @@
       <div class="card-body">
         <div class="table-responsive">
           <table class="table">
-            <thead class=" text-primary">
+            <thead class="text-primary">
               <th>ID</th>
               <th>Nombre</th>
               <th>Apodo</th>
@@ -28,8 +28,10 @@
               <td>{{$par->nombre}}</td>
               <td>{{$par->apodo}} </td>
               <td>
-                <div id="row">
-                  <a rel="tooltip" title="Edit Task" class="btn btn-primary btn-link"
+                <form action="{{ action('ParticipanteController@destroy', $par->id)}}" method="post">
+                    {{csrf_field()}}
+                
+                  <a rel="tooltip" title="Editar Participante" class="btn btn-primary btn-link btn-sm"
                   href="{{ action('ParticipanteController@edit', $par->id) }}">
                     <i class="material-icons">edit</i>
                   </a>
@@ -37,14 +39,14 @@
                   class="btn btn-primary btn-link btn-sm">
                     <i class="material-icons">{{ ($par->visible) ? 'visibility' : 'visibility_off' }}</i>
                   </a>
-                  <form action="{{ action('ParticipanteController@destroy', $par->id)}}" method="post">
-                    {{csrf_field()}}
+                  
                     <input name="_method" type="hidden" value="DELETE">
                     <button type="submit" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
                       <i class="material-icons">close</i>
                     </button>                                       
-                  </form>
-                </div>
+                  
+                
+                </form>
               </td>
 
             </tr>
@@ -56,7 +58,7 @@
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
 
     <div class="card">
       <div class="card-header card-header-primary">

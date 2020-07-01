@@ -16,7 +16,7 @@
                   <p class="card-category"> Gestión de todas la carreras disponibles</p>
                 </div>
                 <div class="card-body">
-                  <div class="">
+                  <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
@@ -35,7 +35,7 @@
                                 <td>{{ $pil->nombre }}</td>
 
                                 <td>
-                                    <div class="row">
+                                  <form action="{{ action('PilotoController@destroy', $pil->id)}}" method="post">
                                     <a rel="tooltip" href="{{ action('PilotoController@edit', $pil->id) }}"
                                         title="Editar Circuito" class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
@@ -46,7 +46,7 @@
                                         <i
                                             class="material-icons">{{ ($pil->visible) ? 'visibility' : 'visibility_off' }}</i>
                                     </a>
-                                    <form action="{{ action('PilotoController@destroy', $pil->id)}}" method="post">
+                                    
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" rel="tooltip" title="Eliminar Carrera"
@@ -54,7 +54,7 @@
                                             <i class="material-icons">close</i>
                                         </button>
                                     </form>
-</div>
+
                                 </td>
 
                             </tr>

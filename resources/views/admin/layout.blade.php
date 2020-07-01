@@ -94,7 +94,7 @@
             active
           @endif
           ">
-                        <a class="nav-link" href="/admin/puntuaciones">
+                        <a class="nav-link" href="{{ route ('puntos.create') }}">
                             <i class="material-icons">calculate</i>
                             <p>Puntuaciones</p>
                         </a>

@@ -19,11 +19,11 @@ class UpdateFkInscrito extends Migration
                 ->references('id')->on('campeonatos')
                 ->onDelete('cascade');
 
-            /*$table->foreign('escuderia_id')
-                ->references('id')->on('escuderias')
+            $table->foreign('participante_id')
+                ->references('id')->on('participantes')
                 ->onDelete('cascade');
 
-            $table->foreign('piloto_id')
+            /*$table->foreign('piloto_id')
                 ->references('id')->on('pilotos')
                 ->onDelete('cascade');*/
         });
@@ -39,7 +39,7 @@ class UpdateFkInscrito extends Migration
         Schema::table('inscritos', function (Blueprint $table) {
             //
             $table->dropForeign('inscritos_campeonato_id_foreign');
-            //$table->dropForeign('inscritos_escuderia_id_foreign');
+            $table->dropForeign('inscritos_participante_id_foreign');
             //$table->dropForeign('inscritos_piloto_id_foreign');
         });
     }

@@ -17,6 +17,7 @@ class CreatePuntosTable extends Migration
             $table->bigIncrements('id');
             $table->text('nombre');
             $table->decimal('penalizacion', 3, 2)->default(1.00);
+            $table->boolean('visible')->default(true);
             $table->timestamps();
         });
     }

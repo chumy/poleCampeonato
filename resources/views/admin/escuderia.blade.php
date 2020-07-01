@@ -36,12 +36,19 @@
                                 </td>
 
                                 <td>
-                                    <div id="row">
+                                   
                                         <form action="{{ action('EscuderiaController@destroy', $esc->id)}}"
                                             method="post">
                                             <a rel="tooltip" title="Edit Task" class="btn btn-primary btn-link"
                                                 href="{{ action('EscuderiaController@edit', $esc->id) }}">
                                                 <i class="material-icons">edit</i>
+                                            </a>
+
+                                            
+
+                                            <a rel="tooltip" title="{{ ($esc->visible) ? 'Visible' : 'No visible' }}"
+                                            class="btn btn-primary btn-link btn-sm">
+                                                <i class="material-icons">{{ ($esc->visible) ? 'visibility' : 'visibility_off' }}</i>
                                             </a>
 
                                             {{csrf_field()}}
@@ -50,13 +57,8 @@
                                                 class="btn btn-danger btn-link btn-sm">
                                                 <i class="material-icons">close</i>
                                             </button>
-
-                                            <a rel="tooltip" title="Change visibity" href=""
-                                                class="btn btn-primary btn-link btn-sm">
-                                                <i class="material-icons">visibility</i>
-                                            </a>
                                         </form>
-                                    </div>
+                                    
                                 </td>
 
                             </tr>

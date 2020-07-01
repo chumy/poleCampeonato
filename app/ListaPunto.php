@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ListaPunto extends Model
 {
     //
-    protected $table = 'lista_puntos';
+    protected $table = 'listapuntos';
+
+    protected $fillable = [
+        'posicion',  'puntos', 'punto_id'
+    ];
 
     public function puntuacion()
     {
