@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Participante;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Traits\UploadTrait;
 
 class ParticipanteController extends Controller
 {
+    use UploadTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +44,29 @@ class ParticipanteController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, ['nombre' => 'required', 'apodo' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required', 'apodo' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
         $participante = Participante::create($request->all());
+
+        if ($request->has('imagenfile')) {
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $participante->imagen = $filePath;
+        }
+
         $participante->visible = $request->has('visible');
         $participante->save();
 
@@ -86,7 +110,36 @@ class ParticipanteController extends Controller
     public function update(Request $request, Participante $participante)
     {
         //
-        $this->validate($request, ['nombre' => 'required', 'apodo' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required', 'apodo' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->has('imagenfile')) {
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            // Borrado de imagen previa
+            if ($participante->imagen) {
+                $this->deleteOne($participante->imagen);
+            }
+
+            //dd($escuderia->imagen);
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $participante->imagen = $filePath;
+        }
+
+
+
         $participante->fill($request->all());
         $participante->visible = $request->has('visible');
         $participante->save();
@@ -103,33 +156,8 @@ class ParticipanteController extends Controller
     public function destroy(Participante $participante)
     {
         //
-    }
-    /*public function getPuntuacionCampeonatos(Participante $participante)
-    {
+        $participante->delete();
 
-        // tipo 1
-        return DB::table(DB::raw('carrera_participante, campeonato_carrera, carreras, lista_puntos, participantes, puntos, campeonatos, campeonato_participante'))
-            ->leftjoin('pilotos', 'pilotos.id', '=', 'campeonato_participante.piloto_id')
-            ->leftjoin('escuderias', 'escuderias.id', '=', 'campeonato_participante.escuderia_id')
-            ->select((DB::raw(' participantes.id, participantes.apodo, campeonatos.nombre campeonato, escuderias.nombre escuderia, pilotos.nombre piloto, floor ( sum( if(carrera_participante.abandono, lista_puntos.puntos * puntos.penalizacion, lista_puntos.puntos ) ) ) puntos   ')))
-            ->whereColumn([
-                ['carrera_participante.carrera_id',  'campeonato_carrera.carrera_id'],
-                ['carrera_participante.carrera_id',  'carreras.id'],
-                ['carrera_participante.posicion',  'lista_puntos.posicion'],
-                ['carrera_participante.participante_id', 'participantes.id'],
-                ['campeonato_carrera.punto_id',  'puntos.id'],
-                ['campeonato_participante.participante_id',  'participantes.id'],
-                ['campeonato_carrera.carrera_id', 'carreras.id'],
-                ['puntos.id', 'lista_puntos.punto_id'],
-                ['carrera_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                ['campeonato_participante.campeonato_id',  'campeonato_carrera.campeonato_id'],
-                ['campeonato_participante.campeonato_id',  'campeonatos.id'],
-            ])
-            ->where([
-                ['carrera_participante.participante_id', '=', $participante->id],
-            ])
-            ->groupBy('carrera_participante.campeonato_id', 'participantes.id', 'participantes.apodo', 'escuderias.nombre', 'pilotos.nombre')
-            ->orderBy('puntos', 'desc')
-            ->get();
-    }*/
+        return redirect()->route('participantes.create')->with('success', 'Registro actualizado satisfactoriamente');
+    }
 }

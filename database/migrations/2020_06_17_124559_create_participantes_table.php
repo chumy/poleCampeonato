@@ -17,6 +17,7 @@ class CreateParticipantesTable extends Migration
             $table->bigIncrements('id');
             $table->text('nombre');
             $table->text('apodo');
+            $table->text('imagen')->nullable();
             $table->boolean('visible')->default(true);
             $table->timestamps();
         });

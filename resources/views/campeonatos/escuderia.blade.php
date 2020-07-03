@@ -48,7 +48,7 @@
 
                 <div class="card flex-row flex-wrap card-escuderia">
                     <div class="card-header border-0 card-escuderia-image">
-                       <img src="../../../images/lotus.png" alt="" style="height: 200px;">
+                       <img src="{{ ($escuderia->imagen) ? $escuderia->imagen : asset('images/person_8x10.png') }}" alt="" style="height: 200px;">
                     </div>
                     <div class="card-block px-2">
                         <h4 class="card-title">{{$escuderia->nombre}}</h4>

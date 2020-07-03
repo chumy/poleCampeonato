@@ -82,12 +82,12 @@
             </div>
 
             <div class="card-body">
-                @if(isset($carrera))
-                <form method="POST" action="{{ route('escuderias.update',$carrera->id) }}" role="form">
+                @if(isset($escuderia))
+                <form method="POST" action="{{ route('escuderias.update',$escuderia->id) }}" role="form" enctype="multipart/form-data">
 
                     <input name="_method" type="hidden" value="PATCH">
                     @else
-                    <form method="POST" action="{{ route('escuderias.store') }}" role="form">
+                    <form method="POST" action="{{ route('escuderias.store') }}" role="form" enctype="multipart/form-data">
                         @endif
 
                         {{ csrf_field() }}
@@ -117,6 +117,33 @@
                             </div>
 
                         </div>
+                       <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descripcion</label>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating"> Descripcion</label>
+                                    <textarea class="form-control" rows="5" name="descripcion">{{ (isset($escuderia->descripcion) )  ? $escuderia->descripcion : '' }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                           
+
+                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail img-raised">
+                            <img src="{{(isset($escuderia->imagen) ) ? $escuderia->imagen : asset('images/person.png')  }}" height="200px">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                            <div>
+                                <span class="btn btn-raised btn-round btn-default btn-file">
+                                    <input type="file" name="imagenfile" />
+                                </span>
+                                <!--a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                    <i class="fa fa-times"></i> Remove</a-->
+                            </div>
+                        </div>
+                       
                         <button type="submit" class="btn btn-primary btn-round">
                             {{  (isset($escuderia->nombre) ? 'Modificar Escuderia': 'Nueva Escuderia'  ) }}</button>
                         @if (count($errors) > 0)

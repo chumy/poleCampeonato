@@ -17,6 +17,7 @@ class CreateEscuderiasTable extends Migration
             $table->bigIncrements('id');
             $table->text('nombre');
             $table->text('descripcion');
+            $table->text('imagen')->nullable();
             $table->boolean('visible')->default(true);
             $table->timestamps();
         });

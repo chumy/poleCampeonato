@@ -43,7 +43,7 @@
 
                 <div class="card flex-row  card-escuderia">
                     <div class="card-header border-0 card-escuderia-image">
-                       <img src="../../../images/casco_rojo.png" alt="" style="height: 200px;">
+                       <img src="{{ ($participante->imagen) ? $participante->imagen : asset('images/person_8x10.png') }}" alt="" style="height: 200px;">
                     </div>
                     
                     <div class="card-block px-2">

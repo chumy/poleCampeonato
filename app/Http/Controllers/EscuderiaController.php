@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Escuderia;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+//use Illuminate\Http\UploadedFile;
+//use Illuminate\Support\Facades\Storage;
 
 class EscuderiaController extends Controller
 {
+    use UploadTrait;
+
+    public function __construct()
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +49,37 @@ class EscuderiaController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, ['nombre' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $escuderia = Escuderia::create($request->all());
         $escuderia->visible = $request->has('visible');
+
+
+        if ($request->has('imagenfile')) {
+
+
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            //dd($escuderia->imagen);
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $escuderia->imagen = $filePath;
+        }
+
+
         $escuderia->save();
 
         return redirect()->route('escuderias.create')->with('success', 'Registro creado satisfactoriamente');
@@ -84,7 +121,40 @@ class EscuderiaController extends Controller
     public function update(Request $request, Escuderia $escuderia)
     {
         //
-        $this->validate($request, ['nombre' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+
+
+        if ($request->has('imagenfile')) {
+
+
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            // Borrado de imagen previa
+            if ($escuderia->imagen) {
+                $this->deleteOne($escuderia->imagen);
+            }
+
+            //dd($escuderia->imagen);
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $escuderia->imagen = $filePath;
+        }
+
+
         $escuderia->update($request->all());
         $escuderia->visible = $request->has('visible');
         $escuderia->save();
@@ -101,5 +171,17 @@ class EscuderiaController extends Controller
     public function destroy(Escuderia $escuderia)
     {
         //
+        $escuderia->delete();
+
+        return redirect()->route('escuderias.create')->with('success', 'Registro eliminado satisfactoriamente');
     }
+
+    /*public function uploadOne(UploadedFile $uploadedFile, $folder = null, $disk = 'public', $filename = null)
+    {
+        $name = !is_null($filename) ? $filename : Str::random(25);
+
+        $file = $uploadedFile->storeAs($folder, $name . '.' . $uploadedFile->getClientOriginalExtension(), $disk);
+
+        return $file;
+    }*/
 }

@@ -38,7 +38,8 @@
       </div>
       <ul class="list-group list-group-flush list-f1" >
           @foreach($carreras as $car)
-          <li class="list-group-item ">{{$car->fecha}} - {{$car->circuito->nombre}}</li>
+          <li class="list-group-item ">
+              <a class="list-f1" href="{{route ('campeonato.show', ['campeonato'=>$car->campeonato->slug]) }}">{{$car->fecha}} - {{$car->circuito->nombre}}</a></li>
           @endforeach
          
         </ul>

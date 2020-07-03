@@ -24,6 +24,7 @@ class CreateCarrerasTable extends Migration
             $table->boolean("visible")->default(true);
             $table->date("fecha")->nullable();
 
+
             $table->unsignedBigInteger('campeonato_id');
             $table->unsignedBigInteger('circuito_id');
             $table->unsignedBigInteger('punto_id');

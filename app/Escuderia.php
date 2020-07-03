@@ -8,7 +8,7 @@ class Escuderia extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'descripcion', 'visible',
+        'nombre', 'descripcion', 'visible', 'imagen',
     ];
 
     protected $casts = [

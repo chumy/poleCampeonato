@@ -89,7 +89,8 @@
         </a>
         
       </div>
-      <div class="col-sm-4"> <!-- Separacion -->
+      <!-- Pilotos -->
+      <div class="col-sm-4"> 
         <a href="{{route ('campeonato.pilotos',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="../images/pilotos.jpg" alt="Card image cap">
@@ -102,10 +103,11 @@
             </div>
         </a>
       </div>
-    <!-- Carreras-->  
+
+    <!-- Escuderias-->  
      
         <div class="col col-sm-4">
-            <!-- Gap -->
+           
             <a href="{{route ('campeonato.escuderias',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="../images/escuderias.jpg" alt="Card image cap">
