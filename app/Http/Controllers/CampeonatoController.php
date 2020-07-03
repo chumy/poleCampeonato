@@ -77,18 +77,58 @@ class CampeonatoController extends Controller
 
         $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
 
-        $campeonatos = Campeonato::all()->where('visible', 1);
+        //$campeonatos = Campeonato::all()->where('visible', 1);
 
-        return view('campeonatos/campeonato', compact(
-            'campeonatos',
+        return view('campeonatos/descripcion', compact(
             'campeonato',
-
-
         ));
     }
 
-    public function piloto(Campeonato $campeonato, Participante $participante)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function clasificacion($slug)
     {
+        //
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+
+        //$campeonatos = Campeonato::all()->where('visible', 1);
+
+        return view('campeonatos/clasificacion', compact(
+            'campeonato',
+        ));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function pilotos($slug)
+    {
+        //
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+        $pilotos = $campeonato->participantes;
+
+        //$campeonatos = Campeonato::all()->where('visible', 1);
+
+        return view('pilotos/pilotos', compact(
+            'campeonato',
+            'pilotos'
+        ));
+    }
+
+    public function piloto(String $slug, Participante $participante)
+    {
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+
         // DB::enableQueryLog(); // Enable query log
 
 
@@ -100,11 +140,34 @@ class CampeonatoController extends Controller
         return view('campeonatos/piloto', compact('campeonato', 'participante', 'clasificacion'));
     }
 
-    public function escuderia(Campeonato $campeonato, Escuderia $escuderia)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function escuderias($slug)
+    {
+        //
+
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+        $escuderias = $campeonato->escuderias()->get();
+
+        //$campeonatos = Campeonato::all()->where('visible', 1);
+
+        return view('escuderias/escuderias', compact(
+            'campeonato',
+            'escuderias'
+        ));
+    }
+
+
+    public function escuderia(String $slug, Escuderia $escuderia)
     {
         //DB::enableQueryLog(); // Enable query log
 
-
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
         //$listaCarreras = $this->getResultadoEscuderia($campeonato, $escuderia);
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,26 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
 
 /* -----------------  RUTAS PUBLICAS  -------------------- */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'PortadaController@index')->name('index');
+Route::get('/home', 'PortadaController@index')->name('index');
 
 
 Route::get('/campeonato', 'CampeonatoController@index')->name('campeonato.index');
 
-Route::get('/campeonato/{slug}', 'CampeonatoController@show')->name('campeonato.show');
+Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campeonato.show');
+Route::get('/campeonato/{campeonato}/clasificacion', 'CampeonatoController@clasificacion')->name('campeonato.clasificacion');
 
 Route::get('/campeonato/piloto/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
-
+Route::get('/campeonato/{campeonato}/pilotos', 'CampeonatoController@pilotos')->name('campeonato.pilotos');
+Route::get('/campeonato/{campeonato}/escuderias', 'CampeonatoController@escuderias')->name('campeonato.escuderias');
 
 Route::get('/campeonato/escuderia/{campeonato}/{escuderia}', 'CampeonatoController@escuderia')->name('campeonato.escuderia');
 
@@ -60,7 +56,7 @@ Route::get('/escuderias/resultado', function () {
 
 
 
-//Auth::routes();
+Auth::routes();
 
 /* -------------  RUTAS ADMINISTRACION ---------------- */
 
@@ -68,73 +64,35 @@ Route::get('/escuderias/resultado', function () {
 Route::get('/admin', 'ResultadoController@create')->name('resultados.create');
 
 
-Route::resource('/admin/circuitos', 'CircuitoController');
-Route::resource('/admin/escuderias', 'EscuderiaController');
-Route::resource('/admin/campeonatos', 'CampeonatoController');
-Route::resource('/admin/pilotos', 'PilotoController');
-Route::resource('/admin/participantes', 'ParticipanteController');
-Route::resource('/admin/puntos', 'PuntoController');
+Route::resource('/admin/circuitos', 'CircuitoController')->middleware('auth');
+Route::resource('/admin/escuderias', 'EscuderiaController')->middleware('auth');
+Route::resource('/admin/campeonatos', 'CampeonatoController')->middleware('auth');
+Route::resource('/admin/pilotos', 'PilotoController')->middleware('auth');
+Route::resource('/admin/participantes', 'ParticipanteController')->middleware('auth');
+Route::resource('/admin/puntos', 'PuntoController')->middleware('auth');
 
 
 /** CARRERAS  */
-Route::get('/admin/carreras/{campeonato}', 'CarreraController@show')->name('carreras.show');
-Route::patch('/admin/carreras/{carrera}', 'CarreraController@update')->name('carreras.update');
-Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store');
-Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up');
-Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down');
-Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy');
-Route::get('/admin/carreras/{carrera}/edit', 'CarreraController@edit')->name('carreras.edit');
+Route::get('/admin/carreras/{campeonato}', 'CarreraController@show')->name('carreras.show')->middleware('auth');
+Route::patch('/admin/carreras/{carrera}', 'CarreraController@update')->name('carreras.update')->middleware('auth');
+Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store')->middleware('auth');
+Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up')->middleware('auth');
+Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down')->middleware('auth');
+Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy')->middleware('auth');
+Route::get('/admin/carreras/{carrera}/edit', 'CarreraController@edit')->name('carreras.edit')->middleware('auth');
 
 /* INSCRITOS */
-Route::get('/admin/inscritos/{campeonato}', 'InscritoController@show')->name('inscritos.show');
-Route::patch('/admin/inscritos/{inscrito}', 'InscritoController@update')->name('inscritos.update');
-Route::post('/admin/inscritos', 'InscritoController@store')->name('inscritos.store');
-Route::delete('/admin/inscritos/{inscrito}', 'InscritoController@destroy')->name('inscritos.destroy');
-Route::patch('/admin/inscritos/{inscrito}/edit', 'InscritoController@update')->name('inscritos.update');
-Route::get('/admin/inscritos/{inscrito}/edit', 'InscritoController@edit')->name('inscritos.edit');
+Route::get('/admin/inscritos/{campeonato}', 'InscritoController@show')->name('inscritos.show')->middleware('auth');
+Route::patch('/admin/inscritos/{inscrito}', 'InscritoController@update')->name('inscritos.update')->middleware('auth');
+Route::post('/admin/inscritos', 'InscritoController@store')->name('inscritos.store')->middleware('auth');
+Route::delete('/admin/inscritos/{inscrito}', 'InscritoController@destroy')->name('inscritos.destroy')->middleware('auth');
+Route::patch('/admin/inscritos/{inscrito}/edit', 'InscritoController@update')->name('inscritos.update')->middleware('auth');
+Route::get('/admin/inscritos/{inscrito}/edit', 'InscritoController@edit')->name('inscritos.edit')->middleware('auth');
 
 /* RESULTADOS */
-Route::get('/admin/resultados', 'ResultadoController@create')->name('resultados.create');
-Route::get('/admin/resultados/{campeonato}/{carrera?}', 'ResultadoController@show')->name('resultados.show');
-Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{resultado}', 'ResultadoController@up')->name('resultados.up');
-Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{resultado}', 'ResultadoController@down')->name('resultados.down');
-Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{resultado}', 'ResultadoController@abandono')->name('resultados.abandono');
-Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{resultado}', 'ResultadoController@participacion')->name('resultados.participacion');
-
-
-/***** MOCKUP  ********/
-/*
-
-Route::get('/admin/pilotos', function () {
-    return view('admin/piloto');
-});
-
-
-Route::get('/admin/campeonatos', function () {
-    return view('admin/campeonato');
-});
-
-Route::get('/admin/participantes', function () {
-    return view('admin/participante');
-});
-
-Route::get('/admin/escuderias', function () {
-    return view('admin/escuderia');
-});
-
-
-Route::get('/admin/campeonato/1/carreras', function () {
-    return view('admin/campeonato_carrera');
-});
-
-Route::get('/admin/campeonato/1/participantes', function () {
-    return view('admin/campeonato_participante');
-});
-
-Route::get('/admin/coches', function () {
-    return view('admin/coche');
-});
-
-Route::get('/admin/puntuaciones', function () {
-    return view('admin/puntuacion');
-});*/
+Route::get('/admin/resultados', 'ResultadoController@create')->name('resultados.create')->middleware('auth');
+Route::get('/admin/resultados/{campeonato}/{carrera?}', 'ResultadoController@show')->name('resultados.show')->middleware('auth');
+Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{resultado}', 'ResultadoController@up')->name('resultados.up')->middleware('auth');
+Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{resultado}', 'ResultadoController@down')->name('resultados.down')->middleware('auth');
+Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{resultado}', 'ResultadoController@abandono')->name('resultados.abandono')->middleware('auth');
+Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{resultado}', 'ResultadoController@participacion')->name('resultados.participacion')->middleware('auth');

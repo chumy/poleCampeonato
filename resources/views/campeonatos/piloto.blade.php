@@ -4,31 +4,22 @@
 
 @section('content')
 
-<!-- Masthead -->
-<header class="masthead text-white text-center pilotos">
-    <div class="overlay pilotos"></div>
-    <div class="container"></div>
-</header>
 
-<section class="campeonatos lista bg-light">
+
+<section class="campeonatos lista">
 
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-4">
+            <!--div class="col-lg-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                
+         
 
-
-                    <span class="navbar-brand mb-0 h1"><a href="{{ route('campeonato.index', ['campeonato' =>$campeonato->id])}}" class=" badge badge-light">
-                            <h5>{{ $campeonato->nombre }}</h5></a></span>
-
-                    <div class="navbar" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <div class="navbar ">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item dropdown grad">
+                                <a class="dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{$participante->nombre}}
                                 </a>
@@ -36,7 +27,7 @@
                                     @foreach ($campeonato->participantes as $part)
                                     @if ($part->id != $participante->id )
                                     <a class="dropdown-item"
-                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $part->id ]) }}">{{$part->apodo}}</a>
+                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $part->id ]) }}">{{$part->apodo}}</a>
                                     @endif
                                     @endforeach
                                 </div>
@@ -45,7 +36,27 @@
                     </div>
 
 
+            </div-->
+
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+
+                <div class="card flex-row  card-escuderia">
+                    <div class="card-header border-0 card-escuderia-image">
+                       <img src="../../../images/casco_rojo.png" alt="" style="height: 200px;">
+                    </div>
+                    
+                    <div class="card-block px-2">
+                        <h4 class="card-title">{{$participante->nombre}}</h4>
+                        
+                    </div>
+                    
+                </div>
+
             </div>
+            <div class="col-sm-3"></div>
+        </div> 
+
         </div>
     </div>
 
@@ -55,13 +66,14 @@
 </section>
 
 
-<section class="secciones-portada bg-light text-center">
+<section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
 
 
-                <table class="table table-hover table-light">
+                <table class="table table-hover">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
@@ -97,7 +109,7 @@
 
 
         </div>
-
+<div class="col-sm-1"></div>
     </div>
 </section>
 

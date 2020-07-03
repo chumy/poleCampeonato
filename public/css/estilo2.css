@@ -1,0 +1,231 @@
+/*!
+ * Start Bootstrap - Landing Page v5.0.7 (https://startbootstrap.com/template-overviews/landing-page)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
+ */
+
+body {
+    font-family: "f1Font", "Lato", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+
+    /* Location of the image */
+    background-image: url("../images/f1.jpg");
+
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+
+    /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+    background-attachment: fixed;
+
+    /* This is what makes the background image rescale based
+     on the container's size */
+    background-size: cover;
+
+    /* Set a background color that will be displayed
+     while the background image is loading */
+    background-color: #464646;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "f1Font", "Lato", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+    font-weight: 700;
+}
+
+a {
+    color: #6c757d !important;
+}
+
+a:hover {
+    /*color: #6c757d !important;*/
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 110%;
+}
+
+.grad {
+    background-image: linear-gradient(
+        to right,
+        rgb(121, 121, 121),
+        rgb(49, 49, 49)
+    );
+}
+
+.navbar {
+    opacity: 0.93;
+    margin-bottom: 20px;
+}
+
+a.navbar-brand {
+    color: white !important;
+    font-family: f1Font;
+    font-weight: bold;
+}
+
+a.navbar-brand:hover {
+    color: white !important;
+    font-family: f1Font;
+    font-weight: bold;
+    font-size: 130%;
+}
+
+@font-face {
+    font-family: f1Font;
+    src: url("../fonts/Formula1\ Display\ Regular.ttf");
+}
+
+div.gap-up {
+    padding-top: 20px;
+    display: block;
+}
+
+.f1 {
+    font-family: "f1Font";
+}
+
+.title-f1 {
+    font-family: "f1Font";
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+}
+
+.card-f1-title {
+    background-image: linear-gradient(
+        to right,
+        rgb(121, 121, 121),
+        rgb(49, 49, 49)
+    );
+    opacity: 0.95;
+    background-color: rgb(126, 126, 126);
+    color: white;
+}
+
+.list-f1 {
+    background-color: rgb(126, 126, 126);
+    opacity: 0.8;
+}
+
+a.list-f1 {
+    color: black !important;
+    background-color: transparent;
+}
+/*
+.row {
+    height: 100%;
+    display: table-row;
+}
+
+.row .no-float {
+  display: table-cell;
+  float: none;
+}*/
+
+header.masthead.pilotos {
+    background: url("../images/pilotos.jpg") no-repeat center 50%;
+    top: 30%;
+}
+
+header.masthead.piloto {
+    background: url("../images/podium.jpg") no-repeat center 30%;
+    top: 30%;
+}
+
+header.masthead.escuderia {
+    background: url("../images/escuderia.jpg") no-repeat center 20%;
+    top: 30%;
+}
+
+header.masthead.escuderias {
+    background: url("../images/escuderias.jpg") no-repeat center 15%;
+    top: 30%;
+}
+
+header.masthead.campeonato {
+    /*background: url("../images/campeonato2.jpg") no-repeat 10% 60%;*/
+    background: url("../images/campeonato2.jpg") no-repeat center 55%;
+    top: 30%;
+}
+
+.secciones-portada {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+footer.footer {
+    padding-top: 1rem;
+    /*padding-bottom: 1rem;*/
+}
+
+.icon_clima {
+    height: 30px;
+    width: 30px;
+}
+
+a.nav-link {
+    color: #6c757d !important;
+}
+
+a.nav-link:hover {
+    color: white !important;
+}
+
+.blog-main {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    opacity: 0.9;
+}
+
+table {
+    background: transparent;
+}
+
+tbody tr {
+    background-color: white;
+    opacity: 0.9;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: rgb(216, 216, 216);
+}
+
+.card {
+    background: transparent;
+}
+
+.card-body {
+    opacity: 0.9;
+}
+
+.card-escuderia {
+    opacity: 0.9;
+    background-color: rgb(230, 227, 227);
+    color: black;
+    padding: 1em;
+}
+
+.card-escuderia-image {
+    background-image: linear-gradient(
+        to right,
+        rgb(121, 121, 121),
+        rgb(49, 49, 49)
+    );
+
+    background-color: rgb(126, 126, 126);
+    color: white;
+}

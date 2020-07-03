@@ -13,13 +13,14 @@
 
 
 
-<section class="secciones-portada bg-light text-center">
+<section class="secciones-portada  text-center">
     <div class="container">
         <div class="row">
+            <div class="col-sm-1"></div>
             <div class="col-lg-10">
 
 
-                <table class="table table-hover table-light">
+                <table class="table table-hover">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
@@ -34,7 +35,9 @@
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$piloto->apodo}}</td>
 
-                            <td><a href="{{ route('piloto.show', ['participante' => $piloto->id, ])}}"><i
+                            <td><a 
+                                  href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $piloto->id]) }}"><i
+                                      ><i
                                         class="material-icons">timer</i></a></td>
 
                         </tr>
@@ -49,6 +52,7 @@
 
 
         </div>
+        <div class="col-sm-1"></div>
 
     </div>
 </section>

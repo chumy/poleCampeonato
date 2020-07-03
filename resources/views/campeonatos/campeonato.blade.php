@@ -53,7 +53,7 @@
 
 @include('campeonatos.descripcion')
 
-@include('campeonatos.clasificacion')
+
 
 
 

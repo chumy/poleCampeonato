@@ -1,7 +1,15 @@
-<section class="secciones-portada bg-light text-center">
-    <div class="container">
+@extends('layout')
+
+
+
+@section('content')
+
+
+<section class=" text-center">
+    <div class="container ">
         <div class="row">
-            <div class="col-md-8 blog-main">
+            <div class="col-md-12 blog-main bg-light">
+
                 <h3 class=" pb-3 mb-4 font-italic border-bottom ">
                     {{ $campeonato->nombre}}
                 </h3>
@@ -62,4 +70,63 @@
         </div>
 
 
+<div class="gap-up" ></div>
+<div class="container">
+ 
+    <div class="row justify-content-md-center " >
+      <div class="col col-sm-4 "> <!-- Campeonato-->
+
+        <a href="{{route ('campeonato.clasificacion',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="../images/campeonato2.jpg" alt="Card image cap">
+                <div class="card-body  bg-light">
+
+                    <h3>Clasificacion</h3>
+            
+
+                </div>
+            </div>
+        </a>
+        
+      </div>
+      <div class="col-sm-4"> <!-- Separacion -->
+        <a href="{{route ('campeonato.pilotos',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="../images/pilotos.jpg" alt="Card image cap">
+                <div class="card-body  bg-light">
+
+                    <h3>Pilotos</h3>
+                    
+
+                </div>
+            </div>
+        </a>
+      </div>
+    <!-- Carreras-->  
+     
+        <div class="col col-sm-4">
+            <!-- Gap -->
+            <a href="{{route ('campeonato.escuderias',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="../images/escuderias.jpg" alt="Card image cap">
+                    <div class="card-body  bg-light">
+
+                        <h3>Escuderias</h3>
+                      
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+      
+    </div>
+
+
 </section>
+
+
+
+
+
+@endsection

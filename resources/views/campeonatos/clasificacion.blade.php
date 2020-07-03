@@ -1,14 +1,26 @@
-<section class="secciones-portada bg-light text-center">
+@extends('layout')
+
+
+
+
+@section('content')
+
+<!-- Clasificacion -->
+
+
+                        
+
+<section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
 
             @if ($campeonato->tipo == 2)
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 @else
                 <div class="col-lg-10">
                     @endif
 
-                    <table class="table table-hover table-light">
+                    <table class="table table-hover ">
                         <thead>
                             <tr class="thead-dark">
                                 <th scope="col">#</th>
@@ -44,7 +56,7 @@
                                 <td>{{$clasif->puntos}}</td>
                                 @endif
                                 <td><a
-                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->id ,'participante' => $clasif->inscrito->participante->id]) }}"><i
+                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $clasif->inscrito->participante->id]) }}"><i
                                             class="material-icons">timer</i></a>
                                 </td>
                             </tr>
@@ -62,7 +74,7 @@
 
 
 
-                    <table class="table table-hover table-light">
+                    <table class="table table-hover">
                         <thead>
                             <tr class="thead-dark">
                                 <th scope="col">#</th>
@@ -78,7 +90,7 @@
                                 <td>{{ $clasifEsc->escuderia->nombre }}</td>
                                 <td>{{ $clasifEsc->puntos}} ({{$clasifEsc->puntos_escuderia }}) </td>
                                 <td><a
-                                        href="{{ route('campeonato.escuderia', [ 'campeonato' =>$campeonato->id ,'escuderia' => $clasifEsc->escuderia->id  ]) }}"><i
+                                        href="{{ route('campeonato.escuderia', [ 'campeonato' =>$campeonato->slug ,'escuderia' => $clasifEsc->escuderia->id  ]) }}"><i
                                             class="material-icons">timer</i></a></td>
                             </tr>
 
@@ -95,3 +107,9 @@
             </div>
         </div>
 </section>
+
+
+
+
+
+@endsection

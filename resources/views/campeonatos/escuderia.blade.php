@@ -4,23 +4,18 @@
 
 @section('content')
 
-<!-- Masthead -->
-<header class="masthead text-white text-center escuderias">
-    <div class="overlay "></div>
-    <div class="container"></div>
-</header>
 
-<section class="campeonatos lista bg-light">
+<section class="campeonatos lista ">
 
     <div class="container">
-        <div class="row">
+        <div class="row text-center">
 
-            <div class="col-lg-4">
+            <!--div class="col-lg-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
 
 
-                    <span class="navbar-brand mb-0 h1 "><a href="{{ Route ('campeonato.index',['campeonato' => $campenato->id ]) }}" class=" badge badge-light">
+                    <span class="navbar-brand mb-0 h1 "><a href="{{ Route ('campeonato.index',['campeonato' => $campeonato->slug ]) }}" class=" badge badge-light">
                             <h5>{{$campeonato->nombre}}</h5>
                         </a></span>
 
@@ -47,8 +42,24 @@
                     </div>
 
 
+            </div-->
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+
+                <div class="card flex-row flex-wrap card-escuderia">
+                    <div class="card-header border-0 card-escuderia-image">
+                       <img src="../../../images/lotus.png" alt="" style="height: 200px;">
+                    </div>
+                    <div class="card-block px-2">
+                        <h4 class="card-title">{{$escuderia->nombre}}</h4>
+                        <p class="card-text">{{$escuderia->descripcion}}</p>
+                    </div>
+                    <div class="w-100"></div>
+                </div>
+
             </div>
-        </div>
+            <div class="col-sm-3"></div>
+        </div> 
     </div>
 
 
@@ -57,13 +68,14 @@
 </section>
 
 
-<section class="secciones-portada bg-light text-center">
+<section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
 
 
-                <table class="table table-hover table-light">
+                <table class="table table-hover">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
@@ -94,7 +106,7 @@
 
 
             </div>
-
+<div class="col-sm-1"></div>
 
         </div>
 
