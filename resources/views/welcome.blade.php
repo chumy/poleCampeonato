@@ -30,17 +30,20 @@
      
 <div class="col col-sm-5">
     <!-- Gap -->
+    @if ($carreras->count() > 0)
     <div class="row" style="height: 60%;" ></div>
     <div class="card"  style="  background: transparent">
       <div class="card-body  card-f1-title">
           <h5 class="card-title">Proximas Carreras</h5>
       </div>
       <ul class="list-group list-group-flush list-f1" >
-          <li class="list-group-item ">2020.07.15 - Campeonato 1 - Bahrein</li>
-         <li class="list-group-item ">2020.07.15 - Campeonato 1 - Bahrein</li>
-         <li class="list-group-item ">2020.07.15 - Campeonato 1 - Bahrein</li>
+          @foreach($carreras as $car)
+          <li class="list-group-item ">{{$car->fecha}} - {{$car->circuito->nombre}}</li>
+          @endforeach
+         
         </ul>
   </div>
+  @endif
 </div>
 
       

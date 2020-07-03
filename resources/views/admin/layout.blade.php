@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item 
-          @if (trim($__env->yieldContent('title')) == 'Carreras')
+          @if (trim($__env->yieldContent('title')) == 'Circuitos')
             active
           @endif
 ">
@@ -150,7 +150,9 @@
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-    <!--script src="{{ asset('js/bootstrap-material-design.min.js') }}"></script-->
+
+    <script src="{{ asset('js/bootstrap-material-design.min.js') }}"></script>
+
 </body>
 
 </html>

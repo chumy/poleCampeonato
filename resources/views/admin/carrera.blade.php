@@ -16,16 +16,11 @@
                 <div class="">
                     <table class="table">
                         <thead class=" text-primary">
-                            <th>
-                                ID
-                            </th>
-                            <th>
-                                Nombre
-                            </th>
-                            <th>Puntuacion
-                            </th>
-                            <th>
-                            </th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Puntuacion</th>
+                            <th>Fecha</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             @foreach ($campeonato->carreras as $car)
@@ -35,6 +30,7 @@
                                     {{$car->circuito->nombre}}
                                 </td>
                                 <td>{{$car->puntos->nombre}} {{$car->puntos->toText()}}</td>
+                                <td>{{$car->fecha}}</td>
                                 <td>
                                     <div class="row">
                                           <a rel="tooltip" href="{{ action('CarreraController@edit', $car->id) }}" 
@@ -139,6 +135,15 @@
                             </div>
 
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="fecha" class="bmd-label-floating">Fecha</label>
+                                <input type="text" class="form-control" name="fecha" placeholder="YYYY-MM-DD">
+                                
+       
+                            </div>
+
+                        </div>
                     </div>
 
                     
@@ -163,8 +168,6 @@
     </div>
 
 </div>
-
-
 
 
 @endsection

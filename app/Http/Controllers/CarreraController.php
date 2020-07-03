@@ -45,7 +45,7 @@ class CarreraController extends Controller
         $punto = Punto::find($request->input('punto_id'));
         $circuito = Circuito::find($request->input('circuito_id'));
         $campeonato->setCarrera($circuito, $orden, $punto);*/
-
+        $this->validate($request, ['fecha' => 'nullable|date']);
         $carrera = Carrera::create($request->all());
         $campeonato = $carrera->campeonato;
         $orden = $campeonato->carreras->count();
@@ -112,6 +112,7 @@ class CarreraController extends Controller
     public function update(Request $request, Carrera $carrera)
     {
         //
+        $this->validate($request, ['fecha' => 'nullable|date']);
         $campeonato = $carrera->campeonato;
         $carrera->update($request->all());
         $carrera->save();

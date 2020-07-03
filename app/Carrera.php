@@ -14,7 +14,7 @@ class Carrera extends Model
      * @var array
      */
     protected $fillable = [
-        'orden', 'campeonato_id', 'circuito_id', 'punto_id',
+        'orden', 'campeonato_id', 'circuito_id', 'punto_id', 'fecha',
     ];
 
     /*  protected $casts = [
