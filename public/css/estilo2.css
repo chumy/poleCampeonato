@@ -47,7 +47,7 @@ h6 {
 }
 
 a {
-    color: #6c757d !important;
+    color: #6c757d;
 }
 
 a:hover {
@@ -239,4 +239,16 @@ td {
 
     color: white;
     padding: 1em;
+}
+
+.card-direction {
+    color: white !important;
+    font-size: 200%;
+}
+
+.card-direction:hover {
+    /*color: #6c757d !important;*/
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 200%;
 }

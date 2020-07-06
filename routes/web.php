@@ -68,12 +68,14 @@ Route::get('/admin', 'ResultadoController@create')->name('resultados.create');
 
 Route::resource('/admin/circuitos', 'CircuitoController')->middleware('auth');
 Route::resource('/admin/escuderias', 'EscuderiaController')->middleware('auth');
-Route::resource('/admin/campeonatos', 'CampeonatoController')->middleware('auth');
 Route::resource('/admin/pilotos', 'PilotoController')->middleware('auth');
 Route::resource('/admin/participantes', 'ParticipanteController')->middleware('auth');
 Route::resource('/admin/puntos', 'PuntoController')->middleware('auth');
 Route::resource('/admin/coche', 'CocheController')->middleware('auth');
 
+/** CAMPEONATOS */
+Route::resource('/admin/campeonatos', 'CampeonatoController')->middleware('auth');
+Route::patch('/admin/campeonatos/{campeonato}/visible', 'CampeonatoController@visible')->name('campeonatos.visible')->middleware('auth');
 
 /** CARRERAS  */
 Route::get('/admin/carreras/{campeonato}', 'CarreraController@show')->name('carreras.show')->middleware('auth');

@@ -11,6 +11,7 @@ use App\Participante;
 use App\Escuderia;
 use App\Carrera;
 use App\Coche;
+use Illuminate\Support\Str;
 
 class CampeonatoController extends Controller
 {
@@ -60,7 +61,12 @@ class CampeonatoController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required'
         ]);
-        $campeonato = Campeonato::create($request->all());
+        $campeonato = new Campeonato;
+        $campeonato->fill($request->all());
+        $campeonato->slug = Str::slug($campeonato->nombre);
+        $campeonato->visible = $request->has('visible');
+        $campeonato->pilotos = $request->has('pilotos');
+        $campeonato->escuderias = $request->has('escuderias');
         $campeonato->save();
 
         return redirect()->route('campeonatos.create')->with('success', 'Registro creado satisfactoriamente');
@@ -83,6 +89,79 @@ class CampeonatoController extends Controller
         return view('campeonatos/descripcion', compact(
             'campeonato',
         ));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Campeonato $campeonato)
+    {
+        //
+        $campeonatos = Campeonato::all();
+        $puntos = Punto::all();
+        //dd($campeonatos);
+        return view('admin/campeonato', compact('campeonatos', 'puntos', 'campeonato'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Campeonato $campeonato)
+    {
+        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'descripcion' => 'required'
+        ]);
+        //dd($request->all());
+        $campeonato->fill($request->all());
+        $campeonato->slug = Str::slug($campeonato->nombre);
+        $campeonato->visible = $request->has('visible');
+        $campeonato->pilotos = $request->has('pilotos');
+        $campeonato->escuderias = $request->has('escuderias');
+
+        $campeonato->save();
+
+        return redirect()->route('campeonatos.create')->with('success', 'Registro actualizado satisfactoriamente');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Campeonato $campeonato)
+    {
+        //
+        $campeonato->delete();
+
+        return redirect()->route('campeonatos.create')->with('success', 'Registro eliminado satisfactoriamente');
+    }
+
+    /**
+     * Cambia la visibilidad de un campeonato
+     *
+     * @param  \App\Campeonato  $campeonato
+     * @return \Illuminate\Http\Response
+     */
+    public function visible(Campeonato $campeonato)
+    {
+        //
+
+        $campeonato->visible = ($campeonato->visible == 1) ? 0 : 1;
+
+        $campeonato->save();
+
+
+        return redirect()->route('campeonatos.create');
     }
 
     /**
@@ -224,59 +303,5 @@ class CampeonatoController extends Controller
         //dd(DB::getQueryLog());
         //$escuderias =  $this->getClasificacionEscuderias($campeonato);
         return view('campeonatos/escuderia', compact('campeonato', 'escuderia'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campeonato $campeonato)
-    {
-        //
-        $campeonatos = Campeonato::all();
-        $puntos = Punto::all();
-        //dd($campeonatos);
-        return view('admin/campeonato', compact('campeonatos', 'puntos', 'campeonato'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Campeonato $campeonato)
-    {
-        //
-        $this->validate($request, [
-            'nombre' => 'required',
-            'descripcion' => 'required'
-        ]);
-        //dd($request->all());
-        $campeonato->fill($request->all());
-        $campeonato->visible = $request->has('visible');
-        $campeonato->pilotos = $request->has('pilotos');
-        $campeonato->escuderias = $request->has('escuderias');
-
-        $campeonato->save();
-
-        return redirect()->route('campeonatos.create')->with('success', 'Registro actualizado satisfactoriamente');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Campeonato $campeonato)
-    {
-        //
-        $campeonato->delete();
-
-        return redirect()->route('campeonatos.create')->with('success', 'Registro eliminado satisfactoriamente');
     }
 }

@@ -16,21 +16,26 @@
             <div class="col-sm-6 grad" >
 
                 <div class="card flex-row  card-calendario ">
-                    @if($previous)
-                   <div class="card-block px-2">
-                        <a class="page-link" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$previous->id]) }}">Previous</a>
-                        
-                    </div>
-                    @endif
                     
-                    <div class="card-block px-2 text-center">
-                        <h4 class="card-title">{{$carrera->circuito->nombre}}</h4>
+                   <div class="card-block px-2  text-center col-sm-3">
+                       @if($previous)
+                        <a  class="card-direction" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$previous->id]) }}">
+                         <i class="material-icons card-direction ">navigate_before</i></a>
+                        @endif
                     </div>
-                    @if($next)
-                     <div class="card-block px-2">
-                        <a class="page-link" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$next->id]) }}">Next</a>
+                    
+                    
+                    <div class="card-block px-2 text-center col-sm-6">
+                        <h4 class="card-title ">{{$carrera->fecha}} {{$carrera->circuito->nombre}}</h4>
                     </div>
-                    @endif
+                    
+                     <div class="card-block text-center align-middle px-2 col-sm-3">
+                         @if($next)
+                        <a class="card-direction" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$next->id]) }}">
+                        <i class="material-icons card-direction ">navigate_next</i></a>
+                        @endif
+                    </div>
+                    
                     
                 </div>
             </div>
@@ -50,7 +55,7 @@
             <div class="col-lg-12">
 
 
-                <table class="table table-hover table-light">
+                <table class="table table-hover ">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
