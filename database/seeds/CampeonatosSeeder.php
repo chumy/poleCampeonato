@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Campeonato;
 use App\Coche;
+use App\Escuderia;
 use Illuminate\Support\Str as Str;
 
 class CampeonatosSeeder extends Seeder
@@ -32,35 +33,34 @@ class CampeonatosSeeder extends Seeder
 
 
         // Carreras
-
         for ($i = 1; $i < 7; $i++) {
-
+            //setCarrera(Circuito $circuito, $orden = null, $punto = null, $fecha = null)
             if ($i == 3) {
-                $campeonato->setCarrera(App\Circuito::find($i), $i, $i);
+                $campeonato->setCarrera(App\Circuito::find($i), $i, $i, '2020-08-' . $i);
             } else {
-                $campeonato->setCarrera(App\Circuito::find($i), $i);
+                $campeonato->setCarrera(App\Circuito::find($i), $i, null, '2020-08-' . $i);
             }
         }
 
 
         //Inscripciones
-        $participantes = App\Participante::all()->where('id', '<', '13')->shuffle();
-        $coches = Coche::all()->shuffle();
+        $participantes = App\Participante::all()->take(12);
+        $coches = Coche::all();
+        $escuderias = Escuderia::all();
 
         //$escuderias = App\Escuderia::all()->shuffle();
         for ($i = 0; $i < $participantes->count(); $i++) {
 
-            $escuderia = App\Escuderia::all()->random();
-            $campeonato->inscribir($participantes[$i], $escuderia, null, Coche::all()->shuffle()->first());
+            $campeonato->inscribir($participantes[$i], $escuderias[$i % 6], null, $coches[$i % 6]);
         }
 
         //Resultados
-        $posiciones = range(1, 6);
+        $posiciones = range(0, 11);
         for ($j = 0; $j < 6; $j++) { //carreras
 
             shuffle($posiciones);
             for ($i = 0; $i < 6; $i++) { //resultados
-                $campeonato->carreras()->get()[$j]->setResultado($participantes[$i], $posiciones[$i], 0, 1);
+                $campeonato->carreras()->get()[$j]->setResultadoParticipante($participantes[$posiciones[$i]], $i + 1, 0, 1);
             }
         }
 

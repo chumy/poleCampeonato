@@ -83,6 +83,7 @@ Route::patch('/admin/carreras/{carrera}', 'CarreraController@update')->name('car
 Route::post('/admin/carreras', 'CarreraController@store')->name('carreras.store')->middleware('auth');
 Route::patch('/admin/carreras/{carrera}/up', 'CarreraController@up')->name('carreras.up')->middleware('auth');
 Route::patch('/admin/carreras/{carrera}/down', 'CarreraController@down')->name('carreras.down')->middleware('auth');
+Route::patch('/admin/carreras/{carrera}/visible', 'CarreraController@visible')->name('carreras.visible')->middleware('auth');
 Route::delete('/admin/carreras/{carrera}', 'CarreraController@destroy')->name('carreras.destroy')->middleware('auth');
 Route::get('/admin/carreras/{carrera}/edit', 'CarreraController@edit')->name('carreras.edit')->middleware('auth');
 

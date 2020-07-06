@@ -25,7 +25,7 @@ class CreateCampeonatosTable extends Migration
             $table->boolean('visible')->default(false);
             $table->string('slug')->unique();
 
-            $table->integer('punto_escuderia_id')->unsigned()->default(0);
+            $table->integer('punto_escuderia_id')->unsigned()->nullable();
             $table->integer("tipo")->unsigned();
 
 

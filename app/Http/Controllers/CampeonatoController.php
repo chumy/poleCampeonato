@@ -232,7 +232,7 @@ class CampeonatoController extends Controller
             array_push($listaInscritos, $inscrito->id);
         }
 
-        $clasificacion = Campeonato::find(1)->resultados->whereIn('inscrito_id', $listaInscritos);
+        $clasificacion = $campeonato->resultados->whereIn('inscrito_id', $listaInscritos);
 
         // $clasificacion = $campeonato->resultados->where('coche.id', $coche->id);
         return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion'));

@@ -230,6 +230,7 @@
                             <div class="form-group">
                                 <label for="puntos_escuderia" class="bmd-label-floating">Puntuacion por Equipos</label>
                                 <select class="form-control" id="puntos_escuderia" name="punto_escuderia_id">
+                                    <option value="">Ninguna</option>
                                        @foreach ($puntos as $punto)
                                     
                                 <option value="{{$punto->id}}"
@@ -249,8 +250,7 @@
                                 <label>Descripcion</label>
                                 <div class="form-group">
                                     <label class="bmd-label-floating"> Descripcion del Camepeonato.</label>
-                                    <textarea class="form-control" rows="5" name="descripcion">{{ (isset($campeonato->descripcion) )  ? $campeonato->descripcion : '' }}
-                                    </textarea>
+                                    <textarea class="form-control" rows="5" name="descripcion">{{ (isset($campeonato->descripcion) )  ? $campeonato->descripcion : '' }}</textarea>
                                 </div>
                             </div>
                         </div>

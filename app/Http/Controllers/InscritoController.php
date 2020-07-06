@@ -49,7 +49,7 @@ class InscritoController extends Controller
         //generar Resultados
 
         foreach ($campeonato->carreras as $carrera) {
-            $carrera->setResultado($inscrito->participante, $campeonato->inscritos->count(), 0, 0);
+            $carrera->setResultado($inscrito, $campeonato->inscritos->count(), 0, 0);
         }
 
 

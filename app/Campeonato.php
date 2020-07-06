@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Circuito;
+use Carbon\Carbon;
 
 
 class Campeonato extends Model
@@ -31,7 +32,7 @@ class Campeonato extends Model
 
     public function puntuaciones()
     {
-        return $this->hasOne('App\Punto', 'id');
+        return $this->belongsTo('App\Punto', 'punto_id');
     }
 
     public function escuderias()
@@ -59,11 +60,11 @@ class Campeonato extends Model
         return $this->belongsToMany('App\Participante', 'inscritos');
     }
 
-    public function setCarrera(Circuito $circuito, $orden = null, $punto = null)
+    public function setCarrera(Circuito $circuito, $orden = null, $punto = null, $fecha = null)
     {
         $orden = ($orden == null) ? $this->getNumCalendario() : $orden;
         $punto = ($punto == null) ? $this->puntuaciones->id : $punto;
-        return $this->calendario()->attach($circuito, ['punto_id' =>  $punto, 'orden' => $orden]);
+        return $this->calendario()->attach($circuito, ['punto_id' =>  $punto, 'orden' => $orden, 'fecha' => $fecha]);
     }
 
     public function getNumCalendario()
@@ -92,7 +93,7 @@ class Campeonato extends Model
 
     public function getPuntuacionesCarreras()
     {
-        return $this->carreras()->where('punto_id', '<>', $this->puntuaciones->id);
+        return $this->carreras()->where('punto_id', '<>', $this->punto_id);
     }
 
     public function getPuntuacionesEscuderias()
@@ -153,7 +154,7 @@ class Campeonato extends Model
             }
             return collect($clasificacion)->sortByDesc('puntos');
         } else {
-            return $this->getClasificacionInscritos();
+            return $this->getClasificacionCoches();
         }
     }
 

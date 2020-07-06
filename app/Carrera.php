@@ -42,12 +42,12 @@ class Carrera extends Model
         return $this->belongsTo('App\Punto', 'punto_id');
     }
 
-    public function setResultado(Participante $participante, $posicion, $abandono, $participacion)
+    public function setResultado(Inscrito $inscrito, $posicion, $abandono, $participacion)
     {
         $abandono = ($abandono == 1) ? 1 : 0;
         $participacion = ($participacion == 0) ? 0 : 1;
 
-        $inscrito = $participante->inscripciones()->where('campeonato_id', 1)->first();
+        //$inscrito = $participante->inscripciones()->where('campeonato_id', 1)->first();
 
         $resultado = new Resultado(['abandono' => $abandono, 'participacion' => $participacion, 'posicion' => $posicion]);
 
@@ -81,5 +81,20 @@ class Carrera extends Model
 
 
         return collect($resultados)->sortBy('posicion');
+    }
+
+    public function setResultadoParticipante(Participante $participante, $posicion, $abandono, $participacion)
+    {
+        $abandono = ($abandono == 1) ? 1 : 0;
+        $participacion = ($participacion == 0) ? 0 : 1;
+
+        $inscrito = $participante->inscripciones()->where('campeonato_id', 1)->first();
+
+        $resultado = new Resultado(['abandono' => $abandono, 'participacion' => $participacion, 'posicion' => $posicion]);
+
+        $resultado->carrera()->associate($this);
+        $resultado->inscrito()->associate($inscrito);
+
+        return $resultado->save();
     }
 }

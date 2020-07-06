@@ -41,7 +41,7 @@
                         
                         <dt class="col-sm-3">Puntuación</dt>
                         <dd
-                        @if ($campeonato->getPuntuacionesEscuderias)
+                        @if ($campeonato->puntuaciones->toText())
                         class="col-sm-3"
                         @else
                         class="col-sm-9"

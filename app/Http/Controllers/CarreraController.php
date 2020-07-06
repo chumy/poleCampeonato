@@ -40,29 +40,18 @@ class CarreraController extends Controller
     {
         //
 
-        /*$campeonato = Campeonato::find($request->input('campeonato_id'));
-        $orden = $campeonato->carreras->count() + 1;
-        $punto = Punto::find($request->input('punto_id'));
-        $circuito = Circuito::find($request->input('circuito_id'));
-        $campeonato->setCarrera($circuito, $orden, $punto);*/
         $this->validate($request, ['fecha' => 'nullable|date']);
         $carrera = Carrera::create($request->all());
         $campeonato = $carrera->campeonato;
         $orden = $campeonato->carreras->count();
         $carrera->orden = $orden;
-        //$carrera->campeonato()->attach($campeonato);
-        //$campeonato->carreras()->attach($carrera);
         $carrera->save();
-
-
-
-
 
         //generar Resultados
         $i = 0;
-        foreach ($campeonato->participantes as $participante) {
+        foreach ($campeonato->inscritos as $inscrito) {
             $i++;
-            $carrera->setResultado($participante, $i, 0, 0);
+            $carrera->setResultado($inscrito, $i, 0, 0);
         }
 
 
@@ -178,6 +167,24 @@ class CarreraController extends Controller
             $carrera->orden = $posicion + 1;
             $carrera->save();
         }
+
+        return redirect()->route('carreras.show', compact('campeonato'));
+    }
+
+    /**
+     * Cambia la visibilidad de una carrera para mostrar sus resultados
+     *
+     * @param  \App\Carrera  $carrera
+     * @return \Illuminate\Http\Response
+     */
+    public function visible(Carrera $carrera)
+    {
+        //
+        $campeonato = $carrera->campeonato;
+        $carrera->visible = ($carrera->visible == 1) ? 0 : 1;
+
+        $carrera->save();
+
 
         return redirect()->route('carreras.show', compact('campeonato'));
     }
