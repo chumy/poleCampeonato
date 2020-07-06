@@ -8,6 +8,7 @@ use App\Campeonato;
 use App\Piloto;
 use App\Escuderia;
 use App\Participante;
+use App\Coche;
 
 class InscritoController extends Controller
 {
@@ -70,10 +71,11 @@ class InscritoController extends Controller
         $escuderias = Escuderia::all();
         $pilotos = Piloto::all();
         $participantes = Participante::all()->diff($campeonato->participantes);
+        $coches = Coche::all();
 
 
 
-        return view('admin/inscrito', compact('campeonato', 'escuderias', 'pilotos', 'participantes'));
+        return view('admin/inscrito', compact('campeonato', 'escuderias', 'pilotos', 'participantes', 'coches'));
     }
 
     /**
@@ -89,9 +91,10 @@ class InscritoController extends Controller
         $campeonato = $inscrito->campeonato;
         $escuderias = Escuderia::all();
         $pilotos = Piloto::all();
+        $coches = Coche::all();
         $participantes = Participante::all()->diff($campeonato->participantes);
 
-        return view('admin/inscrito', compact('campeonato', 'escuderias', 'pilotos', 'participantes', 'inscrito'));
+        return view('admin/inscrito', compact('campeonato', 'escuderias', 'pilotos', 'participantes', 'inscrito', 'coches'));
     }
 
     /**

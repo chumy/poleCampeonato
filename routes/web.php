@@ -27,8 +27,10 @@ Route::get('/campeonato/{campeonato}', 'CampeonatoController@show')->name('campe
 Route::get('/campeonato/{campeonato}/clasificacion', 'CampeonatoController@clasificacion')->name('campeonato.clasificacion');
 
 Route::get('/campeonato/piloto/{campeonato}/{participante}', 'CampeonatoController@piloto')->name('campeonato.piloto');
+Route::get('/campeonato/coche/{campeonato}/{coche}', 'CampeonatoController@coche')->name('campeonato.coche');
 Route::get('/campeonato/{campeonato}/pilotos', 'CampeonatoController@pilotos')->name('campeonato.pilotos');
 Route::get('/campeonato/{campeonato}/escuderias', 'CampeonatoController@escuderias')->name('campeonato.escuderias');
+Route::get('/campeonato/{campeonato}/calendario/{carrera?}', 'CampeonatoController@calendario')->name('campeonato.calendario');
 
 Route::get('/campeonato/escuderia/{campeonato}/{escuderia}', 'CampeonatoController@escuderia')->name('campeonato.escuderia');
 
@@ -70,6 +72,7 @@ Route::resource('/admin/campeonatos', 'CampeonatoController')->middleware('auth'
 Route::resource('/admin/pilotos', 'PilotoController')->middleware('auth');
 Route::resource('/admin/participantes', 'ParticipanteController')->middleware('auth');
 Route::resource('/admin/puntos', 'PuntoController')->middleware('auth');
+Route::resource('/admin/coche', 'CocheController')->middleware('auth');
 
 
 /** CARRERAS  */

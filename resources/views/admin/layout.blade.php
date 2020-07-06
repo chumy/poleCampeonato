@@ -99,6 +99,16 @@
                             <p>Puntuaciones</p>
                         </a>
                     </li>
+                    <li class="nav-item 
+          @if (trim($__env->yieldContent('title')) == 'Coches')
+            active
+          @endif
+          ">
+                        <a class="nav-link" href="{{ route ('coche.create') }}">
+                            <i class="material-icons">car</i>
+                            <p>Coches</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

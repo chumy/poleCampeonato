@@ -203,6 +203,10 @@ tbody tr {
 .table-hover tbody tr:hover th {
     background-color: rgb(216, 216, 216);
 }
+td {
+    vertical-align: middle !important;
+    text-align: center;
+}
 
 .card {
     background: transparent;
@@ -228,4 +232,11 @@ tbody tr {
 
     background-color: rgb(126, 126, 126);
     color: white;
+}
+
+.card-calendario {
+    opacity: 0.9;
+
+    color: white;
+    padding: 1em;
 }

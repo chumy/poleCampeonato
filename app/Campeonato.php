@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Circuito;
 
+
 class Campeonato extends Model
 {
     //
@@ -40,7 +41,7 @@ class Campeonato extends Model
 
     public function resultados()
     {
-        return $this->hasManyThrough('App\Resultado', 'App\Carrera')->orderBy('carreras.orden');
+        return $this->hasManyThrough('App\Resultado', 'App\Carrera')->where('carreras.visible', 1)->orderBy('carreras.orden');
     }
 
     public function carreras()
@@ -71,12 +72,13 @@ class Campeonato extends Model
     }
 
 
-    public function inscribir(Participante $participante, Escuderia $escuderia = null, Piloto $piloto = null)
+    public function inscribir(Participante $participante, Escuderia $escuderia = null, Piloto $piloto = null, Coche $coche = null)
     {
         $pilotoId = ($piloto == null) ? 0 : $piloto->id;
         $escuderiaId = ($escuderia == null) ? 0 : $escuderia->id;
+        $cocheId = ($coche == null) ? 0 : $coche->id;
 
-        return $this->participantes()->attach($participante, ['escuderia_id' => $escuderiaId,  'piloto_id' => $pilotoId]);
+        return $this->participantes()->attach($participante, ['escuderia_id' => $escuderiaId,  'piloto_id' => $pilotoId, 'coche_id' => $cocheId]);
     }
 
 
@@ -102,30 +104,19 @@ class Campeonato extends Model
 
     public function getClasificacion()
     {
-        $listaPilotos = $this->getClasificacionPilotos();
-        if ($this->tipo == 2) {
-            $listaEscuderias =
-                $this->getClasificacionEscuderias();
+
+        if ($this->tipo == 3) {
+            $listaClasificacion = $this->getClasificacionInscritos();
+
+            $listaEscuderias = $this->getClasificacionEscuderias();
             $clasificacion = [];
 
-            /*for ($i = 0; $i < $listaPilotos->count(); $i++) {
-                
-                $inscrito = $listaPilotos[$i]->inscrito;
-                $punto_esc = $listaEscuderias
-                    ->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
-                $item = [
-                    'inscrito' => $inscrito,
-                    'puntos_pilotos' =>  $listaPilotos[$i]->puntos,
-                    'puntos_esc' => $punto_esc,
-                    'puntos' => $listaPilotos[$i]->puntos + $punto_esc,
-                    'posicion' => $i + 1,
-                ];*/
             $i = 0;
-            foreach ($listaPilotos as $piloto) {
+            foreach ($listaClasificacion as $piloto) {
                 $i++;
                 $inscrito = $piloto->inscrito;
-                $punto_esc = $listaEscuderias
-                    ->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
+                $punto_esc = 0;
+                //$listaEscuderias->where('escuderia.id', $inscrito->escuderia_id)->first()->puntos;
                 $item = [
                     'inscrito' => $inscrito,
                     'puntos_pilotos' =>  $piloto->puntos,
@@ -137,8 +128,32 @@ class Campeonato extends Model
                 array_push($clasificacion, (object) $item);
             }
             return collect($clasificacion)->sortByDesc('puntos');
+        } elseif ($this->tipo == 2) {
+            $listaClasificacion = $this->getClasificacionCoches();
+            $listaEscuderias = $this->getClasificacionEscuderias();
+            $clasificacion = [];
+
+            $i = 0;
+            foreach ($listaClasificacion as $clasifCoche) {
+                $i++;
+                //$inscrito = $piloto->inscrito;
+
+                $punto_esc = $listaEscuderias
+                    ->where('escuderia.id', $clasifCoche->inscritos->first()->escuderia->id)->first()->puntos;
+                $item = [
+                    'inscritos' => $clasifCoche->inscritos,
+                    'puntos_pilotos' =>  $clasifCoche->puntos,
+                    'puntos_esc' => $punto_esc,
+                    'puntos' => $clasifCoche->puntos + $punto_esc,
+                    'posicion' => $i,
+                    'coche' => $clasifCoche->coche,
+                ];
+
+                array_push($clasificacion, (object) $item);
+            }
+            return collect($clasificacion)->sortByDesc('puntos');
         } else {
-            return $listaPilotos;
+            return $this->getClasificacionInscritos();
         }
     }
 
@@ -190,7 +205,7 @@ class Campeonato extends Model
         $listaPuntos =  $this->getPuntuacionesEscuderias;
         $c = [];
 
-        foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
+        foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
                 if ($resultadoInscrito->abandono == 1) {
@@ -199,6 +214,7 @@ class Campeonato extends Model
                             * $listaPuntos->penalizacion
                     );
                 } else {
+
                     $puntos += $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos;
                 }
             }
@@ -255,6 +271,9 @@ class Campeonato extends Model
         return collect($clasificacion)->sortBy('posicion');
     }
 
+
+
+
     public function getResultadosEscuderias()
     {
 
@@ -305,5 +324,154 @@ class Campeonato extends Model
 
 
         return collect($clasificacion);
+    }
+
+
+    /* 
+
+    Funcion que retorna la clasifciacion del campeonato por Inscrito
+
+    */
+
+    public function getClasificacionInscritos()
+    {
+        //$c = collect();
+        //$c->add(new Post);
+        $c = [];
+
+        //Calculo de resultado con penalizacion 
+
+        foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
+            $puntos = 0;
+            foreach ($resultadosInscritos as $resultadoInscrito) {
+                if ($resultadoInscrito->abandono == 1) {
+                    $puntos += floor($resultadoInscrito->puntos() * $resultadoInscrito->puntuacion()->penalizacion);
+                } else {
+                    if ($resultadoInscrito->participacion == 1)
+                        $puntos += $resultadoInscrito->puntos();
+                }
+            }
+            array_push(
+                $c,
+                ((object) array(
+                    'inscrito' => $resultadoInscrito->inscrito,
+                    'puntos' => $puntos,
+                ))
+            );
+        }
+        //return $c;
+        //asignamos posicion
+        $resultado = [];
+        $i = 0;
+        foreach (collect($c)->sortByDesc('puntos') as $clasificacion) {
+            $i++;
+            $clasificacion->posicion = $i;
+            array_push($resultado, $clasificacion);
+        }
+
+        return collect($resultado)->sortByDesc('puntos');
+        //return $this->resultados->groupBy('inscrito_id');
+    }
+
+    public function coches()
+    {
+        return $this->belongsToMany('App\Coche', 'inscritos')->distinct();
+    }
+
+
+    /* 
+
+    Funcion que retorna los resultados por carrera del campeonato por Inscrito
+
+    */
+
+    public function getResultadosInscritos()
+    {
+
+        return $this->resultados->where('participacion', 1)->groupBy('inscrito_id');
+    }
+
+
+    /* 
+
+    Funcion que retorna la clasifciacion del campeonato por Inscrito
+
+    */
+
+    public function getClasificacionCoches()
+    {
+
+        $c = [];
+
+        //Calculo de resultado con penalizacion 
+
+        foreach ($this->getClasificacionInscritos()->groupBy('inscrito.coche_id') as $resultadosCoches) {
+            $puntos = 0;
+            $inscritos = [];
+            foreach ($resultadosCoches as $resultadoInscrito) {
+                $puntos += $resultadoInscrito->puntos;
+                array_push($inscritos, $resultadoInscrito->inscrito);
+            }
+            array_push(
+                $c,
+                ((object) array(
+                    'coche' => $resultadoInscrito->inscrito->coche,
+                    'puntos' => $puntos,
+                    'inscritos' => collect($inscritos),
+                ))
+            );
+        }
+        //return $c;
+        //asignamos posicion
+        $resultado = [];
+        $i = 0;
+        foreach (collect($c)->sortByDesc('puntos') as $clasificacion) {
+            $i++;
+            $clasificacion->posicion = $i;
+            array_push($resultado, $clasificacion);
+        }
+
+        return collect($resultado)->sortByDesc('puntos');
+        //return $this->resultados->groupBy('inscrito_id');
+    }
+
+    public function getResultadoCoches()
+    {
+
+        $c = [];
+        /*
+        $posts = Post::whereHas('categories', function ($q) {
+            $q->where('slug', '=', Input::get('category_slug'));
+        })->get();*/
+        //$this->resultados->whereHas('inscrito', function ($q){$q->where('id', 1)}) 
+
+        foreach ($this->resultados->whereIn('inscrito_id') as $resultadosInscritos) {
+            $puntos = 0;
+            $inscritos = [];
+            foreach ($resultadosInscritos as $resultadoInscrito) {
+                $puntos += $resultadoInscrito->puntos;
+                array_push($inscritos, $resultadoInscrito->inscrito);
+            }
+            array_push(
+                $c,
+                ((object) array(
+                    'coche' => $resultadoInscrito->inscrito->coche,
+                    'puntos' => $puntos,
+                    'inscritos' => collect($inscritos),
+                ))
+            );
+        }
+        //return $c;
+        //asignamos posicion
+        $resultado = [];
+        $i = 0;
+        foreach (collect($c)->sortByDesc('puntos') as $clasificacion) {
+            $i++;
+            $clasificacion->posicion = $i;
+            array_push($resultado, $clasificacion);
+        }
+
+        return collect($resultado)->sortByDesc('puntos');
+        //return $this->resultados->groupBy('inscrito_id');
     }
 }

@@ -6,6 +6,7 @@
 
 
 <section class=" text-center">
+
     <div class="container ">
         <div class="row">
             <div class="col-md-12 blog-main bg-light">
@@ -57,9 +58,7 @@
                         <dd class="col-sm-3"></dd>
                         @foreach ($campeonato->getPuntuacionesCarreras as $carreasEspeciales )
                         <dt class="col-sm-3">Puntuación especial Carrera {{$carreasEspeciales->orden}}</dt>
-                        <dd class="col-sm-9">
-{{$carreasEspeciales->puntos->toText() }}
-                        </dd>
+                        <dd class="col-sm-9">{{$carreasEspeciales->puntos->toText() }}</dd>
                         @endforeach
 
                     </dl>
@@ -67,18 +66,18 @@
 
                 </div><!-- /.blog-post -->
             </div>
-        </div>
-
-
+        </div> <!-- row -->
+    </div>
+    
 <div class="gap-up" ></div>
 <div class="container">
  
     <div class="row justify-content-md-center " >
-      <div class="col col-sm-4 "> <!-- Campeonato-->
 
+      <div class="col col-sm-3 "> <!-- Campeonato-->
         <a href="{{route ('campeonato.clasificacion',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="../images/campeonato2.jpg" alt="Card image cap">
+            <div class="card" >
+                <img class="card-img-top" src="{{asset ('images/campeonato1_960.jpg')}}" alt="Card image cap">
                 <div class="card-body  bg-light">
 
                     <h3>Clasificacion</h3>
@@ -87,13 +86,27 @@
                 </div>
             </div>
         </a>
-        
       </div>
+
+      <div class="col col-sm-3 "> <!-- Calendario-->
+        <a href="{{route ('campeonato.calendario',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
+            <div class="card" >
+                <img class="card-img-top" src="{{asset ('images/campeonato1_960.jpg')}}"" alt="Card image cap">
+                <div class="card-body  bg-light">
+
+                    <h3>Calendario</h3>
+            
+
+                </div>
+            </div>
+        </a>
+      </div>
+
       <!-- Pilotos -->
-      <div class="col-sm-4"> 
+      <div class="col-sm-3"> 
         <a href="{{route ('campeonato.pilotos',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="../images/pilotos.jpg" alt="Card image cap">
+            <div class="card" >
+                <img class="card-img-top" src="{{asset ('images/pilotos.jpg')}}"" alt="Card image cap">
                 <div class="card-body  bg-light">
 
                     <h3>Pilotos</h3>
@@ -106,11 +119,11 @@
 
     <!-- Escuderias-->  
      
-        <div class="col col-sm-4">
+        <div class="col col-sm-3">
            
             <a href="{{route ('campeonato.escuderias',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../images/escuderias.jpg" alt="Card image cap">
+                <div class="card" >
+                    <img class="card-img-top" src="{{asset ('images/escuderias960.jpg')}}" alt="Card image cap">
                     <div class="card-body  bg-light">
 
                         <h3>Escuderias</h3>

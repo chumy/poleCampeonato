@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Campeonato;
+use App\Coche;
 use Illuminate\Support\Str as Str;
 
 class CampeonatosSeeder extends Seeder
@@ -28,38 +29,9 @@ class CampeonatosSeeder extends Seeder
             'descripcion' => 'Primer torneo por escuderias para usuarios de LaBSK',
             'punto_id' => 2,
         ]);
-        /*
-        for ($i=1; $i < 13; $i++)
-        {
-            $campeonato->participantes()
-                        ->attach(App\Participante::find($i), [ 'escuderia_id'=> ($i % 6) + 1 ]);
-        }
-        
 
-        for ($i=1; $i < 7; $i++)
-        {
-           
-            $punto = ($i<6) ? 2 : 3;
-            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>$punto]); 
 
-            //$campeonato->participantes()->attach(App\Participante::find($i));
-        
-           /* $campeonato->participantes()
-                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);*
-
-            $posiciones= range(1,12);
-            shuffle($posiciones);
-            for($j=0; $j<sizeof($posiciones); $j++)
-            {
-                $participacion =  ($posiciones[$j] < 7) ? 1 : 0;
-                App\Participante::find($j+1)
-                            ->carreras()
-                            ->attach(App\Carrera::find($i),
-                                ["posicion"=> $posiciones[$j], "campeonato_id"=>1, "participacion"=> $participacion]);
-            
-            }
-        }
-        */
+        // Carreras
 
         for ($i = 1; $i < 7; $i++) {
 
@@ -72,12 +44,14 @@ class CampeonatosSeeder extends Seeder
 
 
         //Inscripciones
-        $participantes = App\Participante::all()->where('id', '>', '12')->shuffle();
+        $participantes = App\Participante::all()->where('id', '<', '13')->shuffle();
+        $coches = Coche::all()->shuffle();
+
         //$escuderias = App\Escuderia::all()->shuffle();
         for ($i = 0; $i < $participantes->count(); $i++) {
 
             $escuderia = App\Escuderia::all()->random();
-            $campeonato->inscribir($participantes[$i], $escuderia);
+            $campeonato->inscribir($participantes[$i], $escuderia, null, Coche::all()->shuffle()->first());
         }
 
         //Resultados
@@ -108,25 +82,9 @@ class CampeonatosSeeder extends Seeder
             'punto_id' => 1,
         ]);
 
-        /*for ($i=1; $i < 6; $i++)
-        {
-            //$escuderias=App\Escuderias::all();
-            $campeonato->carreras()->attach(App\Carrera::find($i),['orden'=>$i, 'punto_id'=>1]); 
-            $campeonato->participantes()
-                                    ->attach(App\Participante::find($i), [ 'escuderia_id'=> $i  ]);
-            $posiciones= range(1,6);
-            shuffle($posiciones);
-            for($j=0; $j<sizeof($posiciones); $j++)
-            {
-                App\Participante::find($j+1)
-                            ->carreras()
-                            ->attach(App\Carrera::find($i),
-                                ["posicion"=> $posiciones[$j], "campeonato_id"=>2]);
-            
-            }
-        }*/
 
 
+        //Carreras
         for ($i = 1; $i < 7; $i++) {
 
             $campeonato->setCarrera(App\Circuito::find($i), $i);

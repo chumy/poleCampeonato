@@ -23,6 +23,10 @@ class UpdateFkInscrito extends Migration
                 ->references('id')->on('participantes')
                 ->onDelete('cascade');
 
+            $table->foreign('coche_id')
+                ->references('id')->on('coches')
+                ->onDelete('cascade');
+
             /*$table->foreign('piloto_id')
                 ->references('id')->on('pilotos')
                 ->onDelete('cascade');*/
@@ -40,6 +44,7 @@ class UpdateFkInscrito extends Migration
             //
             $table->dropForeign('inscritos_campeonato_id_foreign');
             $table->dropForeign('inscritos_participante_id_foreign');
+            $table->dropForeign('inscritos_coche_id_foreign');
             //$table->dropForeign('inscritos_piloto_id_foreign');
         });
     }

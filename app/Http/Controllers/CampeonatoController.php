@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Punto;
 use App\Participante;
 use App\Escuderia;
-use App\Circuito;
+use App\Carrera;
+use App\Coche;
 
 class CampeonatoController extends Controller
 {
@@ -124,6 +125,7 @@ class CampeonatoController extends Controller
         ));
     }
 
+
     public function piloto(String $slug, Participante $participante)
     {
 
@@ -136,9 +138,58 @@ class CampeonatoController extends Controller
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
         //$apodos = $campeonato->participantes;
-        $clasificacion = $campeonato->resultados->where('inscrito_id', $participante->inscripciones->where('campeonato_id', 1)->first()->id);
+        $clasificacion = $campeonato->resultados->where('inscrito_id', $participante->inscripciones->where('campeonato_id', 1)->first()->id)
+            ->where('participacion', 1);
         return view('campeonatos/piloto', compact('campeonato', 'participante', 'clasificacion'));
     }
+
+    public function coche(String $slug, Coche $coche)
+    {
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+        $listaInscritos = [];
+
+        foreach ($campeonato->inscritos->where('coche_id', $coche->id) as $inscrito) {
+            array_push($listaInscritos, $inscrito->id);
+        }
+
+        $clasificacion = Campeonato::find(1)->resultados->whereIn('inscrito_id', $listaInscritos);
+
+        // $clasificacion = $campeonato->resultados->where('coche.id', $coche->id);
+        return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion'));
+    }
+
+    public function calendario(String $slug, Carrera $carrera)
+    {
+
+        $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
+
+
+        if (!isset($carrera->id)) {
+            $carrera = $campeonato->carreras->where('orden', 1)->first();
+            $next = $campeonato->carreras->where('orden', 2)->first();
+            $previous = null;
+        } else {
+            $orden = $carrera->orden;
+            if ($orden == 1) {
+                $next = $campeonato->carreras->where('orden', 2)->first();
+                $previous = null;
+            } elseif ($orden == $campeonato->carreras->count()) {
+                $next = null;
+                $previous = $campeonato->carreras->where('orden', $orden - 1)->first();
+            } else {
+
+                $next = $campeonato->carreras->where('orden', $orden + 1)->first();
+                $previous = $campeonato->carreras->where('orden', $orden - 1)->first();
+            }
+        }
+
+        //$resultados = $carrera->resultados;
+
+        // $clasificacion = $campeonato->resultados->where('coche.id', $coche->id);
+        return view('campeonatos/calendario', compact('campeonato', 'carrera', 'next', 'previous'));
+    }
+
 
     /**
      * Display the specified resource.

@@ -4,131 +4,113 @@
 
 @section('content')
 
+
 <div class="row">
 
-<div class="col-md-6">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Listado de Coches</h4>
-                  <p class="card-category"> Gestión de todas los coches disponibles</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Nombre
-                        </th>
-                        <th>Color</th>
-                        <th>
-                        </th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Coche 1
-                          </td>
-                          <td>
-                            Rojo
-                          </td>
-                          <td>
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Change visibity" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">visibility</i>
-                              </button>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Coche 2
-                          </td>
-                          <td>
-                            Verde
-                          </td>
-                          <td>
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Change visibity" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">visibility_off</i>
-                              </button>
-                          </td>
-                          
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-        <div class="col-md-6">
-              
+    <div class="col-md-6">
         <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Nuevo Coche</h4>
-                  <p class="card-category">Rellena informacion de un nuevo coche</p>
-                </div>
-               
-                <div class="card-body">
-                  
-                  <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Nombre</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      
-                  
-                  </div>
-                  <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Color</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Visible</label>
-                          <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                          </div>
-                        </div>
-                      </div>
-                  
-                  </div>
-                 
-                  <a href="javascript:;" class="btn btn-primary btn-round">Nueva Escuderia</a>
-                </div>
-              </div>
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Listado de Coches</h4>
+                <p class="card-category"> Gestión de todos los coches disponibles</p>
             </div>
-          </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                            </th>
+                        </thead>
+                        <tbody>
+                            @foreach ($coches as $car)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $car->nombre }}</td>
 
-          @endsection
+                                <td>
+                                   <form action="{{ action('CocheController@destroy', $car->id)}}" method="post">
+                                    <a rel="tooltip" href="{{ action('CocheController@edit', $car->id) }}"
+                                        title="Editar Coche" class="btn btn-primary btn-link btn-sm">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+
+                                   
+                                    
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" rel="tooltip" title="Eliminar Carrera"
+                                            class="btn btn-danger btn-link btn-sm">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </form>
+
+                                </td>
+
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Nuevo Coche</h4>
+                <p class="card-category">Rellena informacion de un nuevo coche</p>
+            </div>
+
+            <div class="card-body">
+                @if(isset($coche))
+                <form method="POST" action="{{ route('coche.update',$coche->id) }}" role="form">
+
+                    <input name="_method" type="hidden" value="PATCH">
+                    @else
+                    <form method="POST" action="{{ route('coche.store') }}" role="form">
+                        @endif
+
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Nombre</label>
+                                    <input type="text" name="nombre" id="nombre" class="form-control"
+                                        value="{{  (isset($coche->nombre) ? $coche->nombre : ''  ) }}">
+                                </div>
+                            </div>
+
+                           
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-round">
+                            {{  (isset($coche->nombre) ? 'Modificar Coche': 'Nuevo Coche'  ) }}</button>
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> Revise los campos obligatorios.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

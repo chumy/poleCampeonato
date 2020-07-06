@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inscrito extends Model
 {
     protected $fillable = [
-        'campeonato_id', 'participante_id', 'escuderia_id', 'piloto_id'
+        'campeonato_id', 'participante_id', 'escuderia_id', 'piloto_id', 'coche_id',
     ];
     //
     public function escuderia()
@@ -24,6 +24,12 @@ class Inscrito extends Model
     {
         return $this->belongsTo('App\Piloto');
     }
+
+    public function coche()
+    {
+        return $this->belongsTo('App\Coche');
+    }
+
 
     public function campeonato()
     {

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Resultado extends Model
 {
     //
@@ -45,7 +46,10 @@ class Resultado extends Model
 
     public function puntos()
     {
-        return $this->carrera->puntos->puntos->where('posicion', $this->posicion)->first()->puntos;
+        if ($this->participacion == 1)
+            return $this->carrera->puntos->puntos->where('posicion', $this->posicion)->first()->puntos;
+        else
+            return 0;
     }
 
     public function puntuacion()

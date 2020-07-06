@@ -21,6 +21,9 @@
                         <th>
                           Nombre
                         </th>
+                        <th>
+                          Coche
+                        </th>
                         @if ($campeonato->pilotos)
                         <th>Piloto</th>
                         @endif
@@ -38,6 +41,9 @@
                           </td>
                           <td>
                             {{$ins->participante->apodo}}
+                          </td>
+                          <td>
+                            {{ ($ins->coche) ? $ins->coche->nombre : '' }}
                           </td>
                           @if ($campeonato->pilotos)
                           <td>{{ ($ins->piloto) ? $ins->piloto->nombre : ''}}</td>
@@ -102,6 +108,22 @@
                 
                     <div class="row">
                       
+
+                      <div class="col-md-3">
+                        
+                        <div class="form-group">
+                          <label for="coche_id" class="bmd-label-floating">Coche</label>
+                          <select class="form-control" id="coche_id" name="coche_id">
+                            @if ( isset($inscrito) )
+                              <option value="{{$inscrito->coche->id}}" selected>{{$inscrito->coche->nombre}}</option>
+                            @endif
+                             @foreach ($coches as $car)             
+                            <option value="{{$car->id}}">{{$car->nombre}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+
+                      </div>
 
                       <div class="col-md-3">
                         

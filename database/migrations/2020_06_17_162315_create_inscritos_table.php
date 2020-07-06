@@ -20,6 +20,7 @@ class CreateInscritosTable extends Migration
             $table->unsignedBigInteger('participante_id');
             $table->unsignedBigInteger('escuderia_id')->nullable();
             $table->unsignedBigInteger('piloto_id')->nullable();
+            $table->unsignedBigInteger('coche_id');
 
             $table->timestamps();
         });
