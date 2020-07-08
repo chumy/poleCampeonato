@@ -64,7 +64,7 @@
                                         method="post">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="PATCH">
-                                        <button type="submit" rel="tooltip" title="Cambiar visibilidad"
+                                        <button type="submit" rel="tooltip" title="Cambiar visibilidad Resultados"
                                         class="btn btn-primary btn-link btn-sm">
                                         
                                            <i class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>

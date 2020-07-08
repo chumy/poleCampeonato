@@ -13,23 +13,32 @@
 
             
 
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
 
                 <div class="card flex-row  card-escuderia">
-                    <div class="card-header border-0 card-escuderia-image">
-                       <img src=" {{($coche->imagen) ? $coche->imagen : asset('images/person_8x10.png')}} " alt="" style="height: 200px;">
+                    <div class="card-header border-0 ">
+                       <img class="image-desc img-thumbnail card-escuderia-image"
+                             src=" {{($coche->imagen) ? $coche->imagen : asset('images/person_8x10.png')}}" alt="" >
                     </div>
                     
                     <div class="card-block px-2">
                         <h4 class="card-title">{{$coche->nombre}}</h4>
-                        
+                        @foreach ($campeonato->inscritos->where('coche_id', $coche->id) as $inscrito)
+                        <p class="card-title">Piloto: {{$inscrito->participante->nombre}}</p>
+                        @endforeach
+                        @if($inscrito->escuderia)
+                            <p class="card-title">Escuderia: {{$inscrito->escuderia->nombre}}</p>
+                            @endif
+                            @if($inscrito->piloto)
+                            <p class="card-title">Piloto: {{$inscrito->piloto->nombre}}</p>
+                            @endif
                     </div>
                     
                 </div>
 
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-sm-2"></div>
         </div> 
 
         </div>

@@ -36,29 +36,29 @@
                                 </td>
 
                                 <td>
-
+                                    <div class="row">
                                     <a rel="tooltip" href="{{ action('CampeonatoController@edit', $camp->id) }}" 
                                         title="Editar Campeonato"
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                 </a>
-                                    <a type="button" rel="tooltip" title="Añadir Carreras"
+                                    <a rel="tooltip" title="Administrar Carreras"
                                         class="btn btn-primary btn-link btn-sm"
                                         href="{{ route('carreras.show', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">location_ons</i>
-                                    </button>
-                                    <a type="button" rel="tooltip" title="Añadir Participantes"
+                            </a>
+                                    <a rel="tooltip" title="Administrar Participantes"
                                         class="btn btn-primary btn-link btn-sm"
                                         href="{{ route('inscritos.show', ['campeonato' => $camp->id]) }}">
                                         
                                         <i class="material-icons">person</i>
                                 </a>
 
-                                    <button type="button" rel="tooltip" title="Resultados"
+                                    <a rel="tooltip" title="Administrar Resultados"
                                         class="btn btn-primary btn-link btn-sm"
-                                        onclick="window.location.href='/admin/resultados'">
+                                        href="{{ route('resultados.show', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">list_alt</i>
-                                    </button>
+                            </a>
 
                                     <form
                                         action="{{ route('campeonatos.visible',  [ 'campeonato' =>$camp->id  ] ) }}"
@@ -83,7 +83,7 @@
                                         </button>
                                     </form>
 
-                                   
+                                    </div> 
                                 </td>
                             </tr>
                             @endforeach

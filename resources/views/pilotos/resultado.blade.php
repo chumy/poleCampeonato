@@ -28,7 +28,10 @@
                         <h4 class="card-title">{{$participante->apodo}}</h4>
                         
                     </div>
-                    
+                    <div class="card-block px-2">
+                        <h4 class="card-title">{{$participante->apodo}}</h4>
+                        
+                    </div>
                 </div>
 
             </div>

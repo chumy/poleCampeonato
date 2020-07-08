@@ -105,7 +105,7 @@
           @endif
           ">
                         <a class="nav-link" href="{{ route ('coche.create') }}">
-                            <i class="material-icons">car</i>
+                            <i class="material-icons">directions_car</i>
                             <p>Coches</p>
                         </a>
                     </li>

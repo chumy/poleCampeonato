@@ -140,7 +140,8 @@ class Campeonato extends Model
                 //$inscrito = $piloto->inscrito;
 
                 $punto_esc = $listaEscuderias
-                    ->where('escuderia.id', $clasifCoche->inscritos->first()->escuderia->id)->first()->puntos;
+                    ->where('escuderia.id', $clasifCoche->inscritos->first()->escuderia->id)
+                    ->first()->puntos;
                 $item = [
                     'inscritos' => $clasifCoche->inscritos,
                     'puntos_pilotos' =>  $clasifCoche->puntos,
@@ -282,7 +283,7 @@ class Campeonato extends Model
         $listaPuntos =  $this->getPuntuacionesEscuderias;
         $c = [];
 
-        foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
+        foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $parcial) {
                 $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
@@ -342,7 +343,7 @@ class Campeonato extends Model
 
         //Calculo de resultado con penalizacion 
 
-        foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
+        foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
                 if ($resultadoInscrito->abandono == 1) {

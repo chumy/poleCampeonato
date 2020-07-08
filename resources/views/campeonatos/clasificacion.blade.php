@@ -15,10 +15,10 @@
         <div class="row">
 
             @if ($campeonato->tipo == 2)
-            <div class="col-lg-8">
-                @else
+                <div class="col-lg-8">
+            @else
                 <div class="col-lg-10">
-                    @endif
+            @endif
 
                     <table class="table table-hover ">
                         <thead>
@@ -39,6 +39,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if ( $campeonato->getClasificacion()->count() > 0) 
+                           
                             @foreach($campeonato->getClasificacion() as $clasif)
                             <tr>
                                 <th scope="row" rowspan="{{$clasif->inscritos->count()}}">{{$loop->iteration}}</th>
@@ -86,8 +88,7 @@
                                 @endforeach
                             </tr>
                             @endforeach
-
-
+                            @endif
 
                         </tbody>
                     </table>
@@ -109,6 +110,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if ($campeonato->getClasificacionEscuderias()->count() > 0)
                             @foreach($campeonato->getClasificacionEscuderias() as $clasifEsc)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
@@ -120,7 +122,7 @@
                             </tr>
 
                             @endforeach
-
+                            @endif
                         </tbody>
                     </table>
 

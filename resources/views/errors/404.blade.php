@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Pole Position</title>
+  <title>Pole Position - Error</title>
 
   <!-- Bootstrap core CSS -->
   <!--link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
@@ -22,6 +22,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/error.css') }}" rel="stylesheet">
 
 </head>
     <body>
@@ -93,7 +94,19 @@
 <div class="gap-up"></div>
 
 
-                @yield('content')
+            <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-light">
+                <div class="card-header">Error</div>
+
+                <div class="card-body">
+                   Pagina no encontrada
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 
 

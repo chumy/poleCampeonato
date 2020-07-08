@@ -67,7 +67,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($carrera->resultados->sortby('posicion') as $clas)
+                        @foreach($carrera->resultados->where('participacion',1)->sortby('posicion') as $clas)
 
                         <tr>
                         <th scope="row">{{$loop->iteration}}</th>

@@ -21,7 +21,7 @@ class CreateCarrerasTable extends Migration
 
             $table->bigIncrements('id');
             $table->integer("orden")->default(1);
-            $table->boolean("visible")->default(false);
+            $table->boolean("visible")->default(true);
             $table->date("fecha")->nullable();
 
 

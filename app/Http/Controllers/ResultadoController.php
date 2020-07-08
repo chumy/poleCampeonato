@@ -28,9 +28,12 @@ class ResultadoController extends Controller
     public function create()
     {
 
-        $campeonato = Campeonato::find(1);
-        //
-        return redirect()->route('resultados.show', $campeonato);
+        $campeonato = Campeonato::all()->first();
+        if (!$campeonato)
+            return view('admin/resultado', compact('campeonato'));
+        else
+            //
+            return redirect()->route('resultados.show', $campeonato);
     }
 
     /**
@@ -188,7 +191,7 @@ class ResultadoController extends Controller
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id]);
     }
 
-    public function abandono(Campeonato $campeonato, Carrera $carrera, Resultado $resultado)
+    public function abandono(Carrera $carrera, Resultado $resultado)
     {
 
         $resultado->abandono =  ($resultado->abandono == 0) ? 1 : 0;
@@ -208,6 +211,16 @@ class ResultadoController extends Controller
             ->where('carrera_id', $carrera->id)
             ->where('participante_id', $participante->id)
             ->update(['abandono' => ($abandono == 0) ? 1 : 0]);*/
+
+        return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id]);
+    }
+
+    public function publicar(Campeonato $campeonato, Carrera $carrera)
+    {
+
+        $carrera->visible =  ($carrera->visible == 0) ? 1 : 0;
+        $carrera->save();
+
 
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id]);
     }

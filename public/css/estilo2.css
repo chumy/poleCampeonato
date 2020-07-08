@@ -51,10 +51,10 @@ a {
 }
 
 a:hover {
-    /*color: #6c757d !important;*/
     font-weight: bolder;
     text-decoration: none;
     font-size: 110%;
+    color: #750000 !important;
 }
 
 .grad {
@@ -251,4 +251,9 @@ td {
     font-weight: bolder;
     text-decoration: none;
     font-size: 200%;
+}
+
+.image-desc {
+    height: auto;
+    width: 200px;
 }

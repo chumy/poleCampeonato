@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Coche;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CocheController extends Controller
 {
+    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -38,8 +41,36 @@ class CocheController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, ['nombre' => 'required']);
+        $this->validate($request, [
+            'nombre' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $coche = Coche::create($request->all());
+
+
+        if ($request->has('imagenfile')) {
+
+
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            //dd($escuderia->imagen);
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $coche->imagen = $filePath;
+        }
+
+
+
         $coche->save();
 
         return redirect()->route('coche.create')->with('success', 'Registro creado satisfactoriamente');
@@ -79,7 +110,40 @@ class CocheController extends Controller
     public function update(Request $request, Coche $coche)
     {
         //
-        $this->validate($request, ['nombre' => 'required']);
+
+        $this->validate($request, [
+            'nombre' => 'required',
+            'imagen' =>  'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+
+
+        if ($request->has('imagenfile')) {
+
+
+
+            // Get image file
+            $image = $request->file('imagenfile');
+            // Make a image name based on user name and current timestamp
+            $name = Str::slug($request->input('nombre')) . '_' . time();
+            // Define folder path
+            $folder = '/uploads/images/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+
+            // Borrado de imagen previa
+            if ($coche->imagen) {
+                $this->deleteOne($coche->imagen);
+            }
+
+            //dd($escuderia->imagen);
+            // Upload image
+            $this->uploadOne($image, $folder, 'public', $name);
+            // Set user profile image path in database to filePath
+            $coche->imagen = $filePath;
+        }
+
+
         $coche->fill($request->all());
         $coche->save();
 

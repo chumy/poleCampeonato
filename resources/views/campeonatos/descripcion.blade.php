@@ -91,7 +91,7 @@
       <div class="col col-sm-3 "> <!-- Calendario-->
         <a href="{{route ('campeonato.calendario',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
             <div class="card" >
-                <img class="card-img-top" src="{{asset ('images/campeonato1_960.jpg')}}"" alt="Card image cap">
+                <img class="card-img-top" src="{{asset ('images/calendario960.jpg')}}"" alt="Card image cap">
                 <div class="card-body  bg-light">
 
                     <h3>Calendario</h3>
@@ -106,7 +106,7 @@
       <div class="col-sm-3"> 
         <a href="{{route ('campeonato.pilotos',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
             <div class="card" >
-                <img class="card-img-top" src="{{asset ('images/pilotos.jpg')}}"" alt="Card image cap">
+                <img class="card-img-top" src="{{asset ('images/pilotos960smooth.jpg')}}"" alt="Card image cap">
                 <div class="card-body  bg-light">
 
                     <h3>Pilotos</h3>
@@ -118,12 +118,12 @@
       </div>
 
     <!-- Escuderias-->  
-     
+     @if ($campeonato->escuderias || ($campeonato->tipo== 2))
         <div class="col col-sm-3">
            
             <a href="{{route ('campeonato.escuderias',['slug' => $campeonato->slug]) }}" class="secciones-enlace">
                 <div class="card" >
-                    <img class="card-img-top" src="{{asset ('images/escuderias960.jpg')}}" alt="Card image cap">
+                    <img class="card-img-top" src="{{asset ('images/escuderias960smooth.jpg')}}" alt="Card image cap">
                     <div class="card-body  bg-light">
 
                         <h3>Escuderias</h3>
@@ -134,7 +134,7 @@
             </a>
         </div>
 
-      
+      @endif
     </div>
 
 

@@ -6,6 +6,7 @@ use App\Participante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\DB;
 
 class ParticipanteController extends Controller
 {
@@ -19,7 +20,7 @@ class ParticipanteController extends Controller
     public function index()
     {
         //
-        $pilotos = Participante::all();
+        $pilotos = Participante::all()->sortby('nombre');
         return view('pilotos/pilotos', compact('pilotos'));
     }
 
@@ -31,7 +32,8 @@ class ParticipanteController extends Controller
     public function create()
     {
         //
-        $participantes = Participante::all();
+        //$participantes = Participante::all()->sortby('nombre')->forPage(1, 12);
+        $participantes = DB::table('participantes')->orderby('nombre')->paginate(10);
         return view('admin/participante', compact('participantes'));
     }
 
@@ -82,7 +84,7 @@ class ParticipanteController extends Controller
     public function show(Participante $participante)
     {
         //
-        $pilotos = Participante::all();
+        $pilotos = Participante::all()->sortby('nombre');
         //$puntuaciones = $this->getPuntuacionCampeonatos($participante);
         return view('pilotos/resultado', compact('pilotos', 'participante'));
     }
@@ -96,7 +98,9 @@ class ParticipanteController extends Controller
     public function edit(Participante $participante)
     {
         //
-        $participantes = Participante::all();
+        // $participantes = Participante::all()->sortby('nombre');
+
+        $participantes = DB::table('participantes')->orderby('nombre')->paginate(10);
         return view('admin/participante', compact('participantes', 'participante'));
     }
 

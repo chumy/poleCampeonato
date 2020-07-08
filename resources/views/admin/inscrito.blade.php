@@ -27,7 +27,7 @@
                         @if ($campeonato->pilotos)
                         <th>Piloto</th>
                         @endif
-                        @if ($campeonato->escuderias)
+                        @if ($campeonato->escuderias || ($campeonato->tipo == 2)  )
                         <th>Escuderia</th>
                         @endif
                         <th>
@@ -50,7 +50,7 @@
                           
                           @endif
 
-                          @if ($campeonato->escuderias)
+                          @if ($campeonato->escuderias  || ($campeonato->tipo == 2) )
                           <td>{{ ($ins->escuderia) ? $ins->escuderia->nombre : ''}}</td>
                           
                           @endif
@@ -150,7 +150,7 @@
                           <select class="form-control" id="piloto_id" name="piloto_id">
                              @foreach ($pilotos as $pil)
                             <option value="{{$pil->id}}"
-                              @if ( (isset($inscrito)) && ($inscrito->piloto->id == $pil->id) )
+                              @if ( (isset($inscrito->piloto->id)) && ($inscrito->piloto->id == $pil->id) )
                                selected
                                @endif
                               >{{$pil->nombre}}</option>
@@ -161,7 +161,7 @@
                       </div>
                       @endif
 
-                      @if ($campeonato->escuderias)
+                      @if ($campeonato->escuderias || ($campeonato->tipo == 2) )
                       <div class="col-md-3">
                         
                         <div class="form-group">
@@ -169,7 +169,7 @@
                           <select class="form-control" id="escuderia_id" name="escuderia_id">
                             @foreach ($escuderias as $esc)
                             <option value="{{$esc->id}}"
-                              @if ( (isset($inscrito)) && ($inscrito->escuderia->id == $esc->id) )
+                              @if ( (isset($inscrito->escuderia->id)) && ($inscrito->escuderia->id == $esc->id) )
                                selected
                                @endif
                               >{{$esc->nombre}}</option>

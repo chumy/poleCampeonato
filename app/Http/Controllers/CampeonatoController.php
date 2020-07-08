@@ -11,6 +11,7 @@ use App\Participante;
 use App\Escuderia;
 use App\Carrera;
 use App\Coche;
+use App\Inscrito;
 use Illuminate\Support\Str;
 
 class CampeonatoController extends Controller
@@ -210,6 +211,8 @@ class CampeonatoController extends Controller
 
         $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
 
+        $inscrito = $participante->inscripciones->where('campeonato_id', $campeonato->id)->first();
+
         // DB::enableQueryLog(); // Enable query log
 
 
@@ -217,9 +220,10 @@ class CampeonatoController extends Controller
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
         //$apodos = $campeonato->participantes;
-        $clasificacion = $campeonato->resultados->where('inscrito_id', $participante->inscripciones->where('campeonato_id', 1)->first()->id)
+        $clasificacion = $campeonato->resultados
+            ->where('inscrito_id', $inscrito->id)
             ->where('participacion', 1);
-        return view('campeonatos/piloto', compact('campeonato', 'participante', 'clasificacion'));
+        return view('campeonatos/piloto', compact('campeonato', 'participante', 'clasificacion', 'inscrito'));
     }
 
     public function coche(String $slug, Coche $coche)
@@ -232,10 +236,10 @@ class CampeonatoController extends Controller
             array_push($listaInscritos, $inscrito->id);
         }
 
-        $clasificacion = $campeonato->resultados->whereIn('inscrito_id', $listaInscritos);
+        $clasificacion = $campeonato->resultados->where('participacion', 1)->whereIn('inscrito_id', $listaInscritos);
 
         // $clasificacion = $campeonato->resultados->where('coche.id', $coche->id);
-        return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion'));
+        return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion',));
     }
 
     public function calendario(String $slug, Carrera $carrera)

@@ -73,11 +73,11 @@
 
             <div class="card-body">
                 @if(isset($coche))
-                <form method="POST" action="{{ route('coche.update',$coche->id) }}" role="form">
+                <form method="POST" action="{{ route('coche.update',$coche->id) }}" role="form" enctype="multipart/form-data">
 
                     <input name="_method" type="hidden" value="PATCH">
                     @else
-                    <form method="POST" action="{{ route('coche.store') }}" role="form">
+                    <form method="POST" action="{{ route('coche.store') }}" role="form" enctype="multipart/form-data">
                         @endif
 
                         {{ csrf_field() }}
@@ -93,7 +93,19 @@
                            
 
                         </div>
-
+<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail img-raised">
+                            <img src="{{(isset($coche->imagen) ) ? $coche->imagen : asset('images/person.png')  }}" height="200px">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                            <div>
+                                <span class="btn btn-raised btn-round btn-default btn-file">
+                                    <input type="file" name="imagenfile" />
+                                </span>
+                                <!--a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                    <i class="fa fa-times"></i> Remove</a-->
+                            </div>
+                        </div>
 
                         <button type="submit" class="btn btn-primary btn-round">
                             {{  (isset($coche->nombre) ? 'Modificar Coche': 'Nuevo Coche'  ) }}</button>

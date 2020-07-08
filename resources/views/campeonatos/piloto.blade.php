@@ -11,50 +11,35 @@
     <div class="container">
         <div class="row">
 
-            <!--div class="col-lg-4">
+     
 
-                
-         
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
 
-                    <div class="navbar ">
-                        <ul class="navbar-nav ">
-                            <li class="nav-item dropdown grad">
-                                <a class="dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{$participante->nombre}}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @foreach ($campeonato->participantes as $part)
-                                    @if ($part->id != $participante->id )
-                                    <a class="dropdown-item"
-                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $part->id ]) }}">{{$part->apodo}}</a>
-                                    @endif
-                                    @endforeach
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-
-            </div-->
-
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-
-                <div class="card flex-row  card-escuderia">
-                    <div class="card-header border-0 card-escuderia-image">
-                       <img src="{{ ($participante->imagen) ? $participante->imagen : asset('images/person_8x10.png') }}" alt="" style="height: 200px;">
+                <div class="card flex-row  flex-wrap card-escuderia">
+                    <div class="card-header border-0">
+                       <img class="image-desc img-thumbnail card-escuderia-image"  
+                       src="{{ ($participante->imagen) ? $participante->imagen : asset('images/person_8x10.png') }}" alt="">
                     </div>
                     
-                    <div class="card-block px-2">
-                        <h4 class="card-title">{{$participante->nombre}}</h4>
+                        <div class="card-block px-2">
+                    
+                            <h4 class="card-title">{{$participante->nombre}}</h4>
+                            <p class="card-title">Coche: {{$inscrito->coche->nombre}}</p>
+                            @if($inscrito->escuderia)
+                            <p class="card-title">Escuderia: {{$inscrito->escuderia->nombre}}</p>
+                            @endif
+                            @if($inscrito->piloto)
+                            <p class="card-title">Piloto: {{$inscrito->piloto->nombre}}</p>
+                            @endif
+                        </div>
                         
-                    </div>
                     
+                        
                 </div>
 
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-sm-2"></div>
         </div> 
 
         </div>

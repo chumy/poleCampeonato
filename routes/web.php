@@ -97,8 +97,9 @@ Route::get('/admin/inscritos/{inscrito}/edit', 'InscritoController@edit')->name(
 
 /* RESULTADOS */
 Route::get('/admin/resultados', 'ResultadoController@create')->name('resultados.create')->middleware('auth');
-Route::get('/admin/resultados/{campeonato}/{carrera?}', 'ResultadoController@show')->name('resultados.show')->middleware('auth');
+Route::get('/admin/resultados/{campeonato?}/{carrera?}', 'ResultadoController@show')->name('resultados.show')->middleware('auth');
 Route::patch('/admin/resultados/up/{campeonato}/{carrera}/{resultado}', 'ResultadoController@up')->name('resultados.up')->middleware('auth');
 Route::patch('/admin/resultados/down/{campeonato}/{carrera}/{resultado}', 'ResultadoController@down')->name('resultados.down')->middleware('auth');
 Route::patch('/admin/resultados/abandono/{campeonato}/{carrera}/{resultado}', 'ResultadoController@abandono')->name('resultados.abandono')->middleware('auth');
 Route::patch('/admin/resultados/participacion/{campeonato}/{carrera}/{resultado}', 'ResultadoController@participacion')->name('resultados.participacion')->middleware('auth');
+Route::patch('/admin/resultados/publicar/{campeonato}/{carrera}', 'ResultadoController@publicar')->name('resultados.publicar')->middleware('auth');

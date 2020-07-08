@@ -54,6 +54,13 @@
             </tbody>
           </table>
         </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 center">
+        {{ $participantes->links() }}
+        </div>
+                  <div class="col-md-4"></div>
+        </div>
       </div>
     </div>
   </div>

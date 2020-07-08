@@ -39,10 +39,10 @@
                                         <i class="material-icons">edit</i>
                                     </a>
 
-                                     <a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
+                                     <!--a rel="tooltip" title="{{ ($car->visible) ? 'Visible' : 'No visible' }}"
                                             class="btn btn-primary btn-link btn-sm">
                                                 <i class="material-icons">{{ ($car->visible) ? 'visibility' : 'visibility_off' }}</i>
-                                            </a>
+                                            </a-->
 
                                    
                                     
