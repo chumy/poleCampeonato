@@ -41,24 +41,24 @@
                                         title="Editar Campeonato"
                                         class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
-                                </a>
+                                    </a>
                                     <a rel="tooltip" title="Administrar Carreras"
                                         class="btn btn-primary btn-link btn-sm"
                                         href="{{ route('carreras.show', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">location_ons</i>
-                            </a>
+                                    </a>
                                     <a rel="tooltip" title="Administrar Participantes"
                                         class="btn btn-primary btn-link btn-sm"
                                         href="{{ route('inscritos.show', ['campeonato' => $camp->id]) }}">
                                         
                                         <i class="material-icons">person</i>
-                                </a>
+                                    </a>
 
                                     <a rel="tooltip" title="Administrar Resultados"
                                         class="btn btn-primary btn-link btn-sm"
                                         href="{{ route('resultados.show', ['campeonato' => $camp->id]) }}">
                                         <i class="material-icons">list_alt</i>
-                            </a>
+                                    </a>
 
                                     <form
                                         action="{{ route('campeonatos.visible',  [ 'campeonato' =>$camp->id  ] ) }}"
@@ -82,6 +82,12 @@
                                             <i class="material-icons">close</i>
                                         </button>
                                     </form>
+
+                                    <a rel="tooltip" title="Pagina Campeonato"
+                                        class="btn btn-primary btn-link btn-sm"
+                                        href="{{ route('campeonato.show', ['campeonato' => $camp->slug]) }}">
+                                        <i class="material-icons">open_in_browser</i>
+                                    </a>
 
                                     </div> 
                                 </td>

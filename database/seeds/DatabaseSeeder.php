@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PuntosSeeder::class);
         $this->call(ParticipantesSeeder::class);
         $this->call(CochesSeeder::class);
-        $this->call(CampeonatosSeeder::class);
+        $this->call(PilotosSeeder::class);
+        //$this->call(CampeonatosSeeder::class);
         $this->call(UserSeeder::class);
     }
 }

@@ -56,7 +56,7 @@ class EscuderiaController extends Controller
         ]);
 
         $escuderia = Escuderia::create($request->all());
-        $escuderia->visible = $request->has('visible');
+        //$escuderia->visible = $request->has('visible');
 
 
         if ($request->has('imagenfile')) {
@@ -156,7 +156,7 @@ class EscuderiaController extends Controller
 
 
         $escuderia->update($request->all());
-        $escuderia->visible = $request->has('visible');
+        //$escuderia->visible = $request->has('visible');
         $escuderia->save();
 
         return redirect()->route('escuderias.create')->with('success', 'Registro actualizado satisfactoriamente');
@@ -175,13 +175,4 @@ class EscuderiaController extends Controller
 
         return redirect()->route('escuderias.create')->with('success', 'Registro eliminado satisfactoriamente');
     }
-
-    /*public function uploadOne(UploadedFile $uploadedFile, $folder = null, $disk = 'public', $filename = null)
-    {
-        $name = !is_null($filename) ? $filename : Str::random(25);
-
-        $file = $uploadedFile->storeAs($folder, $name . '.' . $uploadedFile->getClientOriginalExtension(), $disk);
-
-        return $file;
-    }*/
 }

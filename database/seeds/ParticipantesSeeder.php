@@ -65,5 +65,10 @@ class ParticipantesSeeder extends Seeder
             'nombre' => 'Prebosting',
             'apodo' => 'Prebosting',
         ]);
+
+        Participante::create([
+            'nombre' => 'Jenaru',
+            'apodo' => 'Jenaru',
+        ]);
     }
 }

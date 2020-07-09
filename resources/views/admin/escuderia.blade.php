@@ -46,10 +46,10 @@
 
                                             
 
-                                            <a rel="tooltip" title="{{ ($esc->visible) ? 'Visible' : 'No visible' }}"
+                                            <!--a rel="tooltip" title="{{ ($esc->visible) ? 'Visible' : 'No visible' }}"
                                             class="btn btn-primary btn-link btn-sm">
                                                 <i class="material-icons">{{ ($esc->visible) ? 'visibility' : 'visibility_off' }}</i>
-                                            </a>
+                                            </a-->
 
                                             {{csrf_field()}}
                                             <input name="_method" type="hidden" value="DELETE">
@@ -92,14 +92,14 @@
 
                         {{ csrf_field() }}
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Nombre</label>
                                     <input type="text" class="form-control" name="nombre"
                                         value="{{  (isset($escuderia->nombre) ? $escuderia->nombre : ''  ) }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!--div class="col-md-4">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Visible</label>
                                     <div class="form-check">
@@ -114,7 +114,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div-->
 
                         </div>
                        <div class="row">

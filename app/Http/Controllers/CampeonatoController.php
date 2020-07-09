@@ -88,7 +88,7 @@ class CampeonatoController extends Controller
         //$campeonatos = Campeonato::all()->where('visible', 1);
 
         return view('campeonatos/descripcion', compact(
-            'campeonato',
+            'campeonato'
         ));
     }
 
@@ -180,7 +180,7 @@ class CampeonatoController extends Controller
         //$campeonatos = Campeonato::all()->where('visible', 1);
 
         return view('campeonatos/clasificacion', compact(
-            'campeonato',
+            'campeonato'
         ));
     }
 
@@ -239,7 +239,7 @@ class CampeonatoController extends Controller
         $clasificacion = $campeonato->resultados->where('participacion', 1)->whereIn('inscrito_id', $listaInscritos);
 
         // $clasificacion = $campeonato->resultados->where('coche.id', $coche->id);
-        return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion',));
+        return view('campeonatos/coche', compact('campeonato', 'coche', 'clasificacion'));
     }
 
     public function calendario(String $slug, Carrera $carrera)

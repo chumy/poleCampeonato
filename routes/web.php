@@ -63,7 +63,7 @@ Auth::routes();
 /* -------------  RUTAS ADMINISTRACION ---------------- */
 
 /* Redireccion Principal */
-Route::get('/admin', 'ResultadoController@create')->name('resultados.create');
+Route::get('/admin', 'ResultadoController@create')->name('resultados.create')->middleware('auth');
 
 
 Route::resource('/admin/circuitos', 'CircuitoController')->middleware('auth');
