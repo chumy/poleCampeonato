@@ -150,7 +150,9 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="fecha" class="bmd-label-floating">Fecha</label>
-                                <input type="text" class="form-control" name="fecha" placeholder="YYYY-MM-DD">
+                                <input type="text" class="form-control" name="fecha" placeholder="YYYY-MM-DD"
+                                 value="{{  (isset($carrera->fecha) ? $carrera->fecha : ''  ) }}">
+                                
                                 
        
                             </div>

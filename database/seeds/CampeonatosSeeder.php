@@ -54,7 +54,32 @@ class CampeonatosSeeder extends Seeder
             $campeonato->inscribir($participantes[$i], $escuderias[$i % 6], null, $coches[$i % 6]);
         }
 
+        // Carreras
+        for ($i = 1; $i < 7; $i++) {
+            //setCarrera(Circuito $circuito, $orden = null, $punto = null, $fecha = null)
+            if ($i == 3) {
+                $campeonato->setCarrera(App\Circuito::find($i), $i, $i, '2020-08-' . $i);
+            } else {
+                $campeonato->setCarrera(App\Circuito::find($i), $i, null, '2020-08-' . $i);
+            }
+        }
+
+
+
         //Resultados
+
+        //generar Resultados vacioas
+
+        foreach ($campeonato->carreras as $carrera) {
+            $i = 0;
+            foreach ($campeonato->inscritos as $inscrito) {
+                $i++;
+                $carrera->setResultado($inscrito, $i, 0, 0);
+            }
+        }
+
+
+        /*
         $posiciones = range(0, 11);
         for ($j = 0; $j < 6; $j++) { //carreras
 
@@ -63,7 +88,7 @@ class CampeonatosSeeder extends Seeder
                 $campeonato->carreras()->get()[$j]->setResultadoParticipante($participantes[$posiciones[$i]], $i + 1, 0, 1);
             }
         }
-
+*/
 
 
         /* -------------- Torneo 2 --------------------*/

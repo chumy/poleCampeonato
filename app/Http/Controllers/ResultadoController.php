@@ -7,6 +7,7 @@ use App\Campeonato;
 use App\Carrera;
 use App\Resultado;
 use App\Participante;
+use Illuminate\Support\Facades\DB;
 
 class ResultadoController extends Controller
 {
@@ -120,24 +121,7 @@ class ResultadoController extends Controller
             $resultado->save();
         }
 
-        /* $posicion = Resultado::where('campeonato_id', $campeonato->id)
-            ->where('carrera_id', $carrera->id)
-            ->where('participante_id', $participante->id)
-            ->get()->first()
-            ->posicion;
 
-
-        if ($posicion > 1) {
-            Resultado::where('campeonato_id', $campeonato->id)
-                ->where('carrera_id', $carrera->id)
-                ->where('posicion', $posicion - 1)
-                ->update(['posicion' => $posicion]);
-
-            Resultado::where('campeonato_id', $campeonato->id)
-                ->where('carrera_id', $carrera->id)
-                ->where('participante_id', $participante->id)
-                ->update(['posicion' => $posicion - 1]);
-        }*/
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id,]);
     }
 
@@ -147,7 +131,7 @@ class ResultadoController extends Controller
 
         $posicion = $resultado->posicion;
 
-        if ($posicion < $resultado->carrera->campeonato->num_coches) {
+        if ($posicion < $resultado->carrera->campeonato->inscritos->count()) {
 
             $resultado_prox = $carrera->resultados->where('posicion', $posicion + 1)->first();
             $resultado_prox->posicion = $posicion;
@@ -155,17 +139,6 @@ class ResultadoController extends Controller
 
             $resultado->posicion = $posicion + 1;
             $resultado->save();
-
-            /*
-            Resultado::where('campeonato_id', $campeonato->id)
-                ->where('carrera_id', $carrera->id)
-                ->where('posicion', $posicion + 1)
-                ->update(['posicion' => $posicion]);
-
-            Resultado::where('campeonato_id', $campeonato->id)
-                ->where('carrera_id', $carrera->id)
-                ->where('participante_id', $participante->id)
-                ->update(['posicion' => $posicion + 1]);*/
         }
 
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id,]);
@@ -174,43 +147,36 @@ class ResultadoController extends Controller
     public function participacion(Campeonato $campeonato, Carrera $carrera, Resultado $resultado)
     {
 
-        $resultado->participacion =  ($resultado->participacion == 0) ? 1 : 0;
+
+        $nuevaposicion = Resultado::all()->where('carrera_id', $carrera->id)->where('participacion', 1)->count() + 1;
+
+
+        $participacion =  ($resultado->participacion == 0) ? 1 : 0;
+
+        if ($participacion == 1) {
+
+            Resultado::where('carrera_id', $carrera->id)->where('posicion',  $nuevaposicion)->update(['posicion' => $resultado->posicion]);
+
+            $resultado->posicion = $nuevaposicion;
+        } else {
+
+            Resultado::where('carrera_id', $carrera->id)->where('posicion', '>', $resultado->posicion)->update(['posicion' => DB::raw('posicion - 1')]);
+            $resultado->posicion = Resultado::all()->where('carrera_id', $carrera->id)->count();
+        }
+
+
+        $resultado->participacion =  $participacion;
         $resultado->save();
 
-        /* $participacion = Resultado::where('campeonato_id', $campeonato->id)
-            ->where('carrera_id', $carrera->id)
-            ->where('participante_id', $participante->id)
-            ->get()->first()
-            ->participacion;
-
-        Resultado::where('campeonato_id', $campeonato->id)
-            ->where('carrera_id', $carrera->id)
-            ->where('participante_id', $participante->id)
-            ->update(['participacion' => ($participacion == 0) ? 1 : 0]);*/
 
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id]);
     }
 
-    public function abandono(Carrera $carrera, Resultado $resultado)
+    public function abandono(Campeonato $campeonato, Carrera $carrera, Resultado $resultado)
     {
 
         $resultado->abandono =  ($resultado->abandono == 0) ? 1 : 0;
         $resultado->save();
-        //$abandono = ($resultado->abandono == 0) ? 1 : 0;
-
-        //$resultado->update(['abandono' => $abandono]);
-
-
-        /*
-        $abandono = Resultado::where('campeonato_id', $campeonato->id)
-            ->where('carrera_id', $carrera->id)
-            ->where('participante_id', $participante->id)
-            ->get()->first()
-            ->abandono;
-        Resultado::where('campeonato_id', $campeonato->id)
-            ->where('carrera_id', $carrera->id)
-            ->where('participante_id', $participante->id)
-            ->update(['abandono' => ($abandono == 0) ? 1 : 0]);*/
 
         return redirect()->route('resultados.show',  ['campeonato' => $campeonato->id, 'carrera' => $carrera->id]);
     }
