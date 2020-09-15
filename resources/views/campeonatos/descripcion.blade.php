@@ -17,7 +17,7 @@
 
                 <div class=" blog-post text-left">
 
-                    <p>{{ $campeonato->descripcion}}</p>
+                    <p>{!! nl2br(e($campeonato->descripcion))!!}</p>
                     <hr>
 
                     <h5>Formato</h5>

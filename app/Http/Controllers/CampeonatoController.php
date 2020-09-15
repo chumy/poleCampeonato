@@ -196,12 +196,14 @@ class CampeonatoController extends Controller
 
         $campeonato = Campeonato::where('slug', $slug)->firstOrFail();
         $pilotos = $campeonato->participantes;
+        $inscritos = $campeonato->inscritos;
 
         //$campeonatos = Campeonato::all()->where('visible', 1);
 
         return view('pilotos/pilotos', compact(
             'campeonato',
-            'pilotos'
+            'pilotos',
+            'inscritos'
         ));
     }
 
@@ -306,6 +308,8 @@ class CampeonatoController extends Controller
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
         //$escuderias =  $this->getClasificacionEscuderias($campeonato);
-        return view('campeonatos/escuderia', compact('campeonato', 'escuderia'));
+        $inscritos = $campeonato->inscritos->where('escuderia_id', 1);
+
+        return view('campeonatos/escuderia', compact('campeonato', 'escuderia', 'inscritos'));
     }
 }

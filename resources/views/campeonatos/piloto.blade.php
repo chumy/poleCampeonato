@@ -19,7 +19,7 @@
                 <div class="card flex-row  flex-wrap card-escuderia">
                     <div class="card-header border-0">
                        <img class="image-desc img-thumbnail card-escuderia-image"  
-                       src="{{ ($participante->imagen) ? $participante->imagen : asset('images/person_8x10.png') }}" alt="">
+                       src="{{ ($participante->imagen) ? asset($participante->imagen) : asset('images/person_8x10.png') }}" alt="">
                     </div>
                     
                         <div class="card-block px-2">

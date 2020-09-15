@@ -25,24 +25,26 @@
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Piloto</th>
-
+                            <th scope="col">Escuderia</th>
+                            <th scope="col">Coche</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pilotos as $piloto)
+
+                        @foreach($inscritos as $inscrito)
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$piloto->apodo}}</td>
-
+                            <td>{{$inscrito->participante->apodo}}</td>
+                            <td>{{$inscrito->escuderia->nombre}}</td>
+                            <td>{{$inscrito->coche->nombre}}</td>
                             <td><a 
-                                  href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $piloto->id]) }}"><i
+                                  href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $inscrito->participante->id]) }}"><i
                                       ><i
                                         class="material-icons">timer</i></a></td>
 
                         </tr>
                         @endforeach
-
 
                     </tbody>
                 </table>

@@ -132,7 +132,7 @@
 
                          <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                             <div class="fileinput-new thumbnail img-raised">
-                            <img src="{{(isset($escuderia->imagen) ) ? $escuderia->imagen : asset('images/person.png')  }}" height="200px">
+                            <img src="{{(isset($escuderia->imagen) ) ? asset($escuderia->imagen) : asset('images/person.png')  }}" height="200px">
                             </div>
                             <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                             <div>

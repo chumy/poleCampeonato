@@ -17,13 +17,21 @@
                 <div class="card flex-row flex-wrap card-escuderia">
                     <div class="card-header border-0 ">
                        <img class="image-desc img-thumbnail card-escuderia-image" 
-                       src="{{ ($escuderia->imagen) ? $escuderia->imagen : asset('images/escuderia_blank.jpg') }}" alt="" style="height: 200px;">
+                       src="{{ ($escuderia->imagen) ? asset($escuderia->imagen) : asset('images/escuderia_blank.jpg') }}" alt="" style="height: 200px;">
                     </div>
                     <div class="card-block px-2">
                         <h4 class="card-title">{{$escuderia->nombre}}</h4>
                         <p class="card-text">{{$escuderia->descripcion}}</p>
+
+                        <h4 class="card-title">Pilotos</h4>
+                        @foreach ($inscritos as $inscrito )
+                        <p class="card-text">{{$inscrito->participante->apodo}} ({{$inscrito->coche->nombre}})</p>
+                           
+                        @endforeach
+
+
                     </div>
-                    <div class="w-100"></div>
+                   
                 </div>
 
             </div>
