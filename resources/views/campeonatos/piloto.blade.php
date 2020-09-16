@@ -17,12 +17,15 @@
             <div class="col-sm-8">
 
                 <div class="card flex-row  flex-wrap card-escuderia">
+                    <div class="col-sm-6">
                     <div class="card-header border-0">
+                    
                        <img class="image-desc img-thumbnail card-escuderia-image"  
                        src="{{ ($participante->imagen) ? asset($participante->imagen) : asset('images/person_8x10.png') }}" alt="">
                     </div>
-                    
-                        <div class="card-block px-2">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-block">
                     
                             <h4 class="card-title">{{$participante->nombre}}</h4>
                             <p class="card-title">Coche: {{$inscrito->coche->nombre}}</p>
@@ -31,9 +34,10 @@
                             @endif
                             @if($inscrito->piloto)
                             <p class="card-title">Piloto: {{$inscrito->piloto->nombre}}</p>
+                            <p class="card-text">{!! nl2br(e($inscrito->piloto->descripcion))!!}</p>
                             @endif
                         </div>
-                        
+                    </div>
                     
                         
                 </div>

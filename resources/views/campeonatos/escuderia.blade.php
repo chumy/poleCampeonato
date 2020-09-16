@@ -15,23 +15,26 @@
             <div class="col-sm-8">
 
                 <div class="card flex-row flex-wrap card-escuderia">
-                    <div class="card-header border-0 ">
-                       <img class="image-desc img-thumbnail card-escuderia-image" 
-                       src="{{ ($escuderia->imagen) ? asset($escuderia->imagen) : asset('images/escuderia_blank.jpg') }}" alt="" style="height: 200px;">
+                    <div class="col-sm-6">
+                        <div class="card-header border-0 ">
+                        <img class="image-desc img-thumbnail card-escuderia-image" 
+                        src="{{ ($escuderia->imagen) ? asset($escuderia->imagen) : asset('images/escuderia_blank.jpg') }}" alt="" style="height: 200px;">
+                        </div>
                     </div>
-                    <div class="card-block px-2">
-                        <h4 class="card-title">{{$escuderia->nombre}}</h4>
-                        <p class="card-text">{{$escuderia->descripcion}}</p>
+                    <div class="col-sm-6">
+                        <div class="card-block">
+                            <h4 class="card-title">{{$escuderia->nombre}}</h4>
+                            <p class="card-text">{!! nl2br(e($escuderia->descripcion))!!}</p>
 
-                        <h4 class="card-title">Pilotos</h4>
-                        @foreach ($inscritos as $inscrito )
-                        <p class="card-text">{{$inscrito->participante->apodo}} ({{$inscrito->coche->nombre}})</p>
-                           
-                        @endforeach
+                            <h4 class="card-title">Pilotos</h4>
+                            @foreach ($inscritos as $inscrito )
+                            <p class="card-text">{{$inscrito->participante->apodo}} ({{$inscrito->coche->nombre}})</p>
+                            
+                            @endforeach
 
 
+                        </div>
                     </div>
-                   
                 </div>
 
             </div>

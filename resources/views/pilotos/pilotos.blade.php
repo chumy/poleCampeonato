@@ -24,10 +24,16 @@
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
-                            <th scope="col">Piloto</th>
-                            <th scope="col">Escuderia</th>
+                            <th scope="col">Nombre</th>
+                            @if ($campeonato->pilotos)
+                                <th scope="col">Piloto</th>
+                                @endif
+                             @if ($campeonato->escuderias)
+                                <th scope="col">Escuderia</th>
+                                @endif
                             <th scope="col">Coche</th>
-                            <th></th>
+                            <th><!-- Punt Ind--></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +42,20 @@
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$inscrito->participante->apodo}}</td>
-                            <td>{{$inscrito->escuderia->nombre}}</td>
+                            @if ($campeonato->pilotos) 
+                                <td>
+                                    @if ($inscrito->piloto)
+                                    {{$inscrito->piloto->nombre}}
+                                    @endif
+                                </td>
+                            @endif
+                            @if ($campeonato->escuderias)   
+                                <td>
+                                    @if ($inscrito->escuderia)
+                                    {{$inscrito->escuderia->nombre}}
+                                    @endif
+                                </td>
+                            @endif
                             <td>{{$inscrito->coche->nombre}}</td>
                             <td><a 
                                   href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $inscrito->participante->id]) }}"><i

@@ -15,7 +15,7 @@
         <div class="row">
 
             @if ($campeonato->tipo == 2)
-                <div class="col-lg-8">
+                <div class="col-xs-8 px-1">
             @else
                 <div class="col-lg-10">
             @endif
@@ -26,16 +26,18 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Coche</th>
                                 <th scope="col">Nombre</th>
-                                <th></th>
+                            
                                 @if ($campeonato->pilotos)
-                                <th scope="col">Pilotos</th>
+                                <th scope="col">Piloto</th>
                                 @endif
+                                <th><!-- Punt individual --></th>
                                 @if ($campeonato->escuderias)
-                                <th scope="col">Escuderias</th>
+                                <th scope="col">Escuderia</th>
                                 @endif
 
                                 <th scope="col">Puntuacion</th>
-                                <th></th>
+                                <th><!-- Punt total --></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -45,30 +47,31 @@
                             <tr>
                                 <th scope="row" rowspan="{{$clasif->inscritos->count()}}">{{$loop->iteration}}</th>
                                 <td rowspan="{{$clasif->inscritos->count()}}" >{{$clasif->coche->nombre}}</td>
-                                @foreach ($clasif->inscritos as $conductor)
+                                @foreach ($clasif->inscritos as $inscrito)
                                     @if ( $loop->iteration > 1)
                                         <tr>
                                     @endif
 
                                     
-                                    <td >{{$conductor->participante->apodo}}</td>
+                                    <td >{{$inscrito->participante->apodo}}</td>
                                     
                                     @if ($campeonato->pilotos)
-                                    <td>{{$conductor->piloto->nombre}}</td>
+                                    <td>
+                                        @if ($inscrito->piloto)
+                                        {{$inscrito->piloto->nombre}}
+                                    @endif
+                                    </td>
                                     @endif
                                 <td>
                                     @if ($clasif->inscritos->count() > 1)
-                                <a
-                                        href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $conductor->participante->id]) }}"><i
+                                <a href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $inscrito->participante->id]) }}"><i
                                             class="material-icons">timer</i></a>
-
-                                            
-                                
                                 @endif
                                 </td>
+
                                 @if ( $loop->iteration == 1)
                                     @if ($campeonato->escuderias)
-                                    <td rowspan="{{$clasif->inscritos->count()}}">{{$conductor->escuderia->nombre}}</td>
+                                    <td rowspan="{{$clasif->inscritos->count()}}">{{$inscrito->escuderia->nombre}}</td>
                                     @endif
 
                                 <td  rowspan="{{$clasif->inscritos->count()}}">{{$clasif->puntos}}
@@ -78,7 +81,7 @@
                                 @endif
                                 </td>
                                 <td rowspan="{{$clasif->inscritos->count()}}"><a
-                                        href="{{ route('campeonato.coche', [ 'campeonato' =>$campeonato->slug ,'coche' => $conductor->coche]) }}"><i
+                                        href="{{ route('campeonato.coche', [ 'campeonato' =>$campeonato->slug ,'coche' => $inscrito->coche]) }}"><i
                                             class="material-icons">timer</i></a>
                                 </td>
                                 @endif
@@ -96,7 +99,7 @@
 
                 </div>
                 @if ($campeonato->tipo == 2)
-                <div class="col-lg-4">
+                <div class="col-xs-4 px-1">
 
 
 

@@ -57,7 +57,7 @@
                         <dt class="col-sm-9"></dt>
                         <dd class="col-sm-3"></dd>
                         @foreach ($campeonato->getPuntuacionesCarreras as $carreasEspeciales )
-                        <dt class="col-sm-3">Puntuación especial Carrera {{$carreasEspeciales->orden}}</dt>
+                        <dt class="col-sm-3">Puntuación {{$carreasEspeciales->circuito->nombre}}</dt>
                         <dd class="col-sm-9">{{$carreasEspeciales->puntos->toText() }}</dd>
                         @endforeach
 

@@ -120,9 +120,9 @@
                        <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Descripcion</label>
+                                <label>Descripción</label>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating"> Descripcion</label>
+                                    <label class="bmd-label-floating"> Descripción de la escudería</label>
                                     <textarea class="form-control" rows="5" name="descripcion">{{ (isset($escuderia->descripcion) )  ? $escuderia->descripcion : '' }}</textarea>
                                 </div>
                             </div>
