@@ -40,6 +40,10 @@ h6 {
     font-weight: 700;
 }
 
+h5 p {
+    white-space: nowrap;
+}
+
 a {
     color: #6c757d;
 }
@@ -204,6 +208,7 @@ td {
 
 .card {
     background: transparent;
+    padding-top: 1em;
 }
 
 .card-body {

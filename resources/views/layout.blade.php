@@ -29,17 +29,21 @@
     <div class="gap-up"></div>
 
   <!-- Navigation -->
+ 
   <nav class="navbar  static-top grad" style="z-index: 1000;">
     <div class="container">
-        <a class="navbar-brand" href="/">Pole Position</a>
+        <a class="navbar-brand" href="{{ route('index') }}">Pole Position</a>
 
 
-        @if ( isset($campeonato ) )
-            <a class="navbar-brand" href="{{route ('campeonato.show',['slug' => $campeonato->slug]) }}">{{ $campeonato->nombre }}</a>
-          @endif
+       
 
-          @if (Route::has('login'))
-                <div class="text-right dropdown ">
+          <div class="text-right  d-none d-lg-block">
+            <a class="navbar-brand" href="http://www.doitgames.com">DoIt Games</a>
+          </div> 
+  
+
+          @if (Route::has('login2'))
+                <div class="text-right dropdown d-none d-sm-block">
                     
                     @auth
                         <a class="navbar-brand btn  dropdown-toggle" data-toggle="dropdown">Administrador</a>   
@@ -89,6 +93,7 @@
  
     </div>
   </nav>
+  
 <!-- Begin page content -->
 <div class="gap-up"></div>
 

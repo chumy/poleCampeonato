@@ -31,7 +31,7 @@
 <div class="col col-sm-5">
     <!-- Gap -->
     @if ($carreras->count() > 0)
-    <div class="row" style="height: 60%;" ></div>
+    <div class="row d-none d-md-block" style="height: 60%;" ></div>
     <div class="card"  style="  background: transparent">
       <div class="card-body  card-f1-title">
           <h5 class="card-title">Proximas Carreras</h5>

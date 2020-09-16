@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts/campeonato')
 
 @section('title', 'Calendario')
 
@@ -12,24 +12,24 @@
 
             
 
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6 grad" >
+            <div class="col-sm-2 d-none d-sm-block"></div>
+            <div class=" col-sm-8  grad" >
 
                 <div class="card flex-row  card-calendario ">
                     
-                   <div class="card-block px-2  text-center col-sm-3">
+                   <div class="card-block px-2  text-center col-sm-2">
                        @if($previous)
                         <a  class="card-direction" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$previous->id]) }}">
                          <i class="material-icons card-direction ">navigate_before</i></a>
-                        @endif
+                       @endif 
                     </div>
                     
                     
-                    <div class="card-block px-2 text-center col-sm-6">
-                        <h4 class="card-title ">{{$carrera->fecha}} {{$carrera->circuito->nombre}}</h4>
+                    <div class="card-block px-2 text-center col-sm-8">
+                        <h5 class="card-title "><p>{{$carrera->fecha}}</p> {{$carrera->circuito->nombre}}</h5>
                     </div>
                     
-                     <div class="card-block text-center align-middle px-2 col-sm-3">
+                     <div class="card-block text-center align-middle px-2 col-sm-2">
                          @if($next)
                         <a class="card-direction" href="{{Route('campeonato.calendario', ['campeonato'=>$campeonato->slug , 'carrera'=>$next->id]) }}">
                         <i class="material-icons card-direction ">navigate_next</i></a>
@@ -39,7 +39,7 @@
                     
                 </div>
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-sm-2 d-none d-sm-block"></div>
         </div> 
 
     </div>
@@ -92,5 +92,9 @@
     </div>
 </section>
 
+
+
+
+        
 
 @endsection

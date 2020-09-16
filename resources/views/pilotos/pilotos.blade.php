@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts/campeonato')
 
 @section('title', 'Portada')
 
