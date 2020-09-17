@@ -33,7 +33,7 @@
 
                         <dt class="col-sm-3">Pilotos</dt>
                         <dd class="col-sm-3">{{ ($campeonato->pilotos) ? 'Habilitados' : 'Deshabilitados' }}</dd>
-                        <dt class="col-sm-3">Escuderias</dt>
+                        <dt class="col-sm-3">Escuderías</dt>
                         <dd class="col-sm-3">{{ ($campeonato->escuderias) ? 'Habilitadas' : 'Deshabilitadas' }}</dd>
 
                         <dt class="col-sm-9"></dt>

@@ -11,14 +11,14 @@
 <section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10">
+            <div class="table-responsive">
 
 
                 <table class="table table-hover">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
-                            <th scope="col">Escuderia</th>
+                            <th scope="col">Escudería</th>
 
                             <th></th>
 

@@ -37,7 +37,11 @@ h5,
 h6 {
     font-family: "f1Font", "Lato", "Helvetica Neue", Helvetica, Arial,
         sans-serif;
-    font-weight: 700;
+    font-weight: bolder;
+}
+
+h3 {
+    font-size: 1.2rem;
 }
 
 h5 p {

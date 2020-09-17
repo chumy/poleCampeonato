@@ -15,11 +15,11 @@
         <div class="row">
 
             @if ($campeonato->tipo == 2)
-                <div class="col-xs-8 px-1">
+                <div class="col-8 px-1">
             @else
-                <div class="col-lg-10">
+                <div class="col-10">
             @endif
-
+                    <div class="table-responsive">
                     <table class="table table-hover ">
                         <thead>
                             <tr class="thead-dark">
@@ -32,10 +32,10 @@
                                 @endif
                                 <th><!-- Punt individual --></th>
                                 @if ($campeonato->escuderias)
-                                <th scope="col">Escuderia</th>
+                                <th scope="col">Escudería</th>
                                 @endif
 
-                                <th scope="col">Puntuacion</th>
+                                <th scope="col">Puntuación</th>
                                 <th><!-- Punt total --></th>
                                 
                             </tr>
@@ -96,19 +96,19 @@
                         </tbody>
                     </table>
 
-
+                    </div>
                 </div>
                 @if ($campeonato->tipo == 2)
-                <div class="col-xs-4 px-1">
+                <div class="col-4 px-1">
 
-
+<div class="table-responsive">
 
                     <table class="table table-hover">
                         <thead>
                             <tr class="thead-dark">
                                 <th scope="col">#</th>
-                                <th scope="col">Escuderia</th>
-                                <th scope="col">Puntuacion</th>
+                                <th scope="col">Escudería</th>
+                                <th scope="col">Puntuación</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -128,7 +128,7 @@
                             @endif
                         </tbody>
                     </table>
-
+</div>
 
                 </div>
                 @endif

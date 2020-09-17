@@ -11,17 +11,17 @@
         <div class="row text-center">
 
             
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
+            <div class="col-md-2 d-none d-md-block"></div>
+            <div class="col-md-8 col-xs-12">
 
                 <div class="card flex-row flex-wrap card-escuderia">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-12">
                         <div class="card-header border-0 ">
                         <img class="image-desc img-thumbnail card-escuderia-image" 
                         src="{{ ($escuderia->imagen) ? asset($escuderia->imagen) : asset('images/escuderia_blank.jpg') }}" alt="" style="height: 200px;">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-12">
                         <div class="card-block">
                             <h4 class="card-title">{{$escuderia->nombre}}</h4>
                             <p class="card-text">{!! nl2br(e($escuderia->descripcion))!!}</p>
@@ -38,7 +38,7 @@
                 </div>
 
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-md-2 d-none d-md-block"></div>
         </div> 
     </div>
 

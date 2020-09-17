@@ -13,27 +13,28 @@
 
      
 
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
+            <div class="col-lg-1 d-none d-lg-block"></div>
+            <div class="col-lg-10 col-md-10" >
 
                 <div class="card flex-row  flex-wrap card-escuderia">
-                    <div class="col-sm-6">
+                    <div class="col-md-4 col-xs-3">
                     <div class="card-header border-0">
                     
                        <img class="image-desc img-thumbnail card-escuderia-image"  
                        src="{{ ($participante->imagen) ? asset($participante->imagen) : asset('images/person_8x10.png') }}" alt="">
                     </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-md-8 col-xs-9">
                         <div class="card-block">
                     
                             <h4 class="card-title">{{$participante->nombre}}</h4>
-                            <p class="card-title">Coche: {{$inscrito->coche->nombre}}</p>
+                            <p class="card-title"><b>Coche:</b> {{$inscrito->coche->nombre}}</p>
                             @if($inscrito->escuderia)
-                            <p class="card-title">Escuderia: {{$inscrito->escuderia->nombre}}</p>
+                            <p class="card-title"><b>Escuderia:</b> {{$inscrito->escuderia->nombre}}</p>
+                            <p class="card-text">{!! nl2br(e($inscrito->escuderia->descripcion))!!}</p>
                             @endif
                             @if($inscrito->piloto)
-                            <p class="card-title">Piloto: {{$inscrito->piloto->nombre}}</p>
+                            <p class="card-title"><b>Piloto:</b> {{$inscrito->piloto->nombre}}</p>
                             <p class="card-text">{!! nl2br(e($inscrito->piloto->descripcion))!!}</p>
                             @endif
                         </div>
@@ -43,7 +44,7 @@
                 </div>
 
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-lg-1 d-none d-lg-block"></div>
         </div> 
 
         </div>
@@ -58,17 +59,18 @@
 <section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-10">
+            <div class="col-lg-1 d-none d-lg-block"></div>
+            <div class="col-lg-10">
 
+                <div class="table-responsive">
 
                 <table class="table table-hover">
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Carrera</th>
-                            <th scope="col">Posicion</th>
-                            <th scope="col">Puntuacion</th>
+                            <th scope="col">Posición</th>
+                            <th scope="col">Puntuación</th>
 
                         </tr>
                     </thead>
@@ -88,7 +90,7 @@
 
                     </tbody>
                 </table>
-
+</div>
                 <div class="text-right">
                     <h3> <span class="badge badge-secondary">Total: {{$clasificacion->sum(function($value){ return $value->puntos(); }) }} puntos</span>
                     </h3>
@@ -98,7 +100,7 @@
 
 
         </div>
-<div class="col-sm-1"></div>
+<div class="col-lg-1 d-none d-lg-block"></div>
     </div>
 </section>
 

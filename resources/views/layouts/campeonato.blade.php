@@ -31,12 +31,12 @@
   <!-- Navigation -->
  
   <nav class="navbar  static-top grad" style="z-index: 1000;">
-    <div class="container  d-none d-lg-block">
+    <div class="d-none d-sm-block">
         <a class="navbar-brand" href="{{ route('index') }}">Pole Position</a>     
  
     </div>
 
-    <div class="text-right ">
+    <div class="text-right">
             <a class="navbar-brand" href="{{route ('campeonato.show',['slug' => $campeonato->slug]) }}">Volver</a>  
     </div> 
 

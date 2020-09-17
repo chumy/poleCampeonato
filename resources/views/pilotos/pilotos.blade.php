@@ -4,23 +4,15 @@
 
 @section('content')
 
-<!-- Masthead -->
-<header class="masthead text-white text-center pilotos">
-    <div class="overlay pilotos"></div>
-    <div class="container"></div>
-</header>
 
 
-
-
-<section class="secciones-portada  text-center">
+<section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-lg-10">
+            <div class="col-lg-12">
 
-
-                <table class="table table-hover">
+<div class="table-responsive">
+                <table class="table table-hover" >
                     <thead>
                         <tr class="thead-dark">
                             <th scope="col">#</th>
@@ -29,7 +21,7 @@
                                 <th scope="col">Piloto</th>
                                 @endif
                              @if ($campeonato->escuderias)
-                                <th scope="col">Escuderia</th>
+                                <th scope="col">Escudería</th>
                                 @endif
                             <th scope="col">Coche</th>
                             <th><!-- Punt Ind--></th>
@@ -39,7 +31,7 @@
                     <tbody>
 
                         @foreach($inscritos as $inscrito)
-                        <tr>
+                        <tr class="">
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$inscrito->participante->apodo}}</td>
                             @if ($campeonato->pilotos) 
@@ -67,7 +59,7 @@
 
                     </tbody>
                 </table>
-
+</div>
 
             </div>
 
