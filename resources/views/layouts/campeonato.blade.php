@@ -35,7 +35,9 @@
         <a class="navbar-brand" href="{{ route('index') }}">Pole Position</a>     
  
     </div>
-
+  <div class="text-right">
+           <a class="navbar-brand"> @yield('pagina')  </a>
+    </div>
     <div class="text-right">
             <a class="navbar-brand" href="{{route ('campeonato.show',['slug' => $campeonato->slug]) }}">Volver</a>  
     </div> 

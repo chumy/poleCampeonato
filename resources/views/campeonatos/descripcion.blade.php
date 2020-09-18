@@ -80,7 +80,7 @@
                 <img class="card-img-top" src="{{asset ('images/campeonato1_960.jpg')}}" alt="Card image cap">
                 <div class="card-body  bg-light">
 
-                    <h3>Clasificacion</h3>
+                    <h3>Clasificación</h3>
             
 
                 </div>
@@ -126,7 +126,7 @@
                     <img class="card-img-top" src="{{asset ('images/escuderias960smooth.jpg')}}" alt="Card image cap">
                     <div class="card-body  bg-light">
 
-                        <h3>Escuderias</h3>
+                        <h3>Escuderías</h3>
                       
 
                     </div>

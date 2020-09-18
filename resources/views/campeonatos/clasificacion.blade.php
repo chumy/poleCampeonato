@@ -1,7 +1,7 @@
 @extends('layouts/campeonato')
 
 
-
+@section('pagina','Clasificación')
 
 @section('content')
 
@@ -26,11 +26,11 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Coche</th>
                                 <th scope="col">Nombre</th>
-                            
+                            <th><!-- Punt individual --></th>
                                 @if ($campeonato->pilotos)
                                 <th scope="col">Piloto</th>
                                 @endif
-                                <th><!-- Punt individual --></th>
+                                
                                 @if ($campeonato->escuderias)
                                 <th scope="col">Escudería</th>
                                 @endif
@@ -45,7 +45,7 @@
                            
                             @foreach($campeonato->getClasificacion() as $clasif)
                             <tr>
-                                <th scope="row" rowspan="{{$clasif->inscritos->count()}}">{{$loop->iteration}}</th>
+                                <td scope="row" style="font-weight: bold"  rowspan="{{$clasif->inscritos->count()}}">{{$loop->iteration}}</th>
                                 <td rowspan="{{$clasif->inscritos->count()}}" >{{$clasif->coche->nombre}}</td>
                                 @foreach ($clasif->inscritos as $inscrito)
                                     @if ( $loop->iteration > 1)
@@ -55,13 +55,7 @@
                                     
                                     <td >{{$inscrito->participante->apodo}}</td>
                                     
-                                    @if ($campeonato->pilotos)
-                                    <td>
-                                        @if ($inscrito->piloto)
-                                        {{$inscrito->piloto->nombre}}
-                                    @endif
-                                    </td>
-                                    @endif
+                                   
                                 <td>
                                     @if ($clasif->inscritos->count() > 1)
                                 <a href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $inscrito->participante->id]) }}"><i
@@ -69,7 +63,16 @@
                                 @endif
                                 </td>
 
+                                    
                                 @if ( $loop->iteration == 1)
+                                    @if ($campeonato->pilotos)
+                                    <td  rowspan="{{$clasif->inscritos->count()}}">
+                                        @if ($inscrito->piloto)
+                                        {{$inscrito->piloto->nombre}}
+                                        @endif
+                                    </td>
+                                    @endif
+
                                     @if ($campeonato->escuderias)
                                     <td rowspan="{{$clasif->inscritos->count()}}">{{$inscrito->escuderia->nombre}}</td>
                                     @endif

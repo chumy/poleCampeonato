@@ -1,6 +1,6 @@
 @extends('layouts/campeonato')
 
-@section('title', 'Calendario')
+@section('pagina', 'Calendario')
 
 @section('content')
 
@@ -58,9 +58,18 @@
                 <table class="table table-hover ">
                     <thead>
                         <tr class="thead-dark">
+                            @if($carrera->visible == 1 )
                             <th scope="col">#</th>
+                            @endif
                             <th scope="col">Coche</th>
-                            <th scope="col">Piloto</th>
+                            <th scope="col">Nombre</th>
+                             @if ($campeonato->pilotos)
+                                <th scope="col">Piloto</th>
+                                @endif
+                                
+                                @if ($campeonato->escuderias)
+                                <th scope="col">Escudería</th>
+                                @endif
                             @if($carrera->visible == 1 )
                             <th scope="col">Puntos</th>
                             @endif
@@ -70,9 +79,22 @@
                         @foreach($carrera->resultados->where('participacion',1)->sortby('posicion') as $clas)
 
                         <tr>
+                            @if($carrera->visible == 1 )
                         <th scope="row">{{$loop->iteration}}</th>
+                        @endif
                         <td>{{$clas->inscrito->coche->nombre}}</td>
                         <td>{{$clas->inscrito->participante->apodo}}</td>
+                         @if ($campeonato->pilotos)
+                                    <td>
+                                        @if ($clas->inscrito->piloto)
+                                        {{$clas->inscrito->piloto->nombre}}
+                                        @endif
+                                    </td>
+                                    @endif
+
+                                    @if ($campeonato->escuderias)
+                                    <td>{{$clas->inscrito->escuderia->nombre}}</td>
+                                    @endif
                          @if($carrera->visible == 1 )
                             <td>{{$clas->puntos()}}</td>
                         @endif

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Portada')
+@section('pagina', 'Campeonato')
 
 @section('content')
 
