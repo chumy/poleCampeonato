@@ -11,7 +11,8 @@
 <section class="secciones-portada text-center">
     <div class="container">
         <div class="row">
-            <div class="table-responsive">
+            
+            <div class="table-responsive px-1">
 
 
                 <table class="table table-hover">

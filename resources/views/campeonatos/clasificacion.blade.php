@@ -15,7 +15,7 @@
         <div class="row">
 
             @if ($campeonato->tipo == 2)
-                <div class="col-8 px-1">
+                <div class="col-sm-8 col-xs-12 px-1">
             @else
                 <div class="col-10">
             @endif
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 @if ($campeonato->tipo == 2)
-                <div class="col-4 px-1">
+                <div class="col-sm-4 col-xs-12 px-1">
 
 <div class="table-responsive">
 

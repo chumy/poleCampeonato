@@ -18,12 +18,12 @@
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             @if ($campeonato->pilotos)
-                                <th scope="col">Piloto</th>
+                                <th scope="col" class="d-none d-sm-table-cell">Piloto</th>
                                 @endif
                              @if ($campeonato->escuderias)
-                                <th scope="col">Escudería</th>
+                                <th scope="col" class="d-none d-sm-table-cell">Escudería</th>
                                 @endif
-                            <th scope="col">Coche</th>
+                            <th scope="col" class="d-none d-sm-table-cell" >Coche</th>
                             <th><!-- Punt Ind--></th>
 
                         </tr>
@@ -35,20 +35,20 @@
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$inscrito->participante->apodo}}</td>
                             @if ($campeonato->pilotos) 
-                                <td>
+                                <td class="d-none d-sm-table-cell">
                                     @if ($inscrito->piloto)
                                     {{$inscrito->piloto->nombre}}
                                     @endif
                                 </td>
                             @endif
                             @if ($campeonato->escuderias)   
-                                <td>
+                                <td class="d-none d-sm-table-cell">
                                     @if ($inscrito->escuderia)
                                     {{$inscrito->escuderia->nombre}}
                                     @endif
                                 </td>
                             @endif
-                            <td>{{$inscrito->coche->nombre}}</td>
+                            <td class="d-none d-sm-table-cell">{{$inscrito->coche->nombre}}</td>
                             <td><a 
                                   href="{{ route('campeonato.piloto', [ 'campeonato' =>$campeonato->slug ,'participante' => $inscrito->participante->id]) }}"><i
                                       ><i

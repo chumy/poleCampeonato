@@ -308,7 +308,7 @@ class CampeonatoController extends Controller
         //dd($campeonato->participantes);
         //dd(DB::getQueryLog());
         //$escuderias =  $this->getClasificacionEscuderias($campeonato);
-        $inscritos = $campeonato->inscritos->where('escuderia_id', 1);
+        $inscritos = $campeonato->inscritos->where('escuderia_id', $escuderia->id);
 
         return view('campeonatos/escuderia', compact('campeonato', 'escuderia', 'inscritos'));
     }

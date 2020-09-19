@@ -12,7 +12,7 @@
 
             
 
-            <div class="col-sm-2 d-none d-sm-block"></div>
+            <div class="col-sm-2 d-none d-sm-table-cell"></div>
             <div class=" col-sm-8  grad" >
 
                 <div class="card flex-row  card-calendario ">
@@ -39,7 +39,7 @@
                     
                 </div>
             </div>
-            <div class="col-sm-2 d-none d-sm-block"></div>
+            <div class="col-sm-2 d-none d-sm-table-cell"></div>
         </div> 
 
     </div>
@@ -52,23 +52,23 @@
 <section class="secciones-portada  text-center">
     <div class="container">
         <div class="row">
-            <div class="table-responsive">
+            <div class="table-responsive px-1">
 
 
                 <table class="table table-hover ">
                     <thead>
                         <tr class="thead-dark">
                             @if($carrera->visible == 1 )
-                            <th scope="col">#</th>
+                            <th >#</th>
                             @endif
-                            <th scope="col">Coche</th>
-                            <th scope="col">Nombre</th>
+                            <th class="d-none d-sm-table-cell">Coche</th>
+                            <th >Nombre</th>
                              @if ($campeonato->pilotos)
-                                <th scope="col">Piloto</th>
+                                <th class="d-none d-sm-table-cell">Piloto</th>
                                 @endif
                                 
                                 @if ($campeonato->escuderias)
-                                <th scope="col">Escudería</th>
+                                <th class="d-none d-sm-table-cell" >Escudería</th>
                                 @endif
                             @if($carrera->visible == 1 )
                             <th scope="col">Puntos</th>
@@ -82,19 +82,19 @@
                             @if($carrera->visible == 1 )
                         <th scope="row">{{$loop->iteration}}</th>
                         @endif
-                        <td>{{$clas->inscrito->coche->nombre}}</td>
+                        <td class="d-none d-sm-table-cell">{{$clas->inscrito->coche->nombre}}</td>
                         <td>{{$clas->inscrito->participante->apodo}}</td>
                          @if ($campeonato->pilotos)
-                                    <td>
-                                        @if ($clas->inscrito->piloto)
-                                        {{$clas->inscrito->piloto->nombre}}
-                                        @endif
-                                    </td>
-                                    @endif
+                            <td class="d-none d-sm-table-cell">
+                                @if ($clas->inscrito->piloto)
+                                {{$clas->inscrito->piloto->nombre}}
+                                @endif
+                            </td>
+                         @endif
 
-                                    @if ($campeonato->escuderias)
-                                    <td>{{$clas->inscrito->escuderia->nombre}}</td>
-                                    @endif
+                        @if ($campeonato->escuderias)
+                            <td class="d-none d-sm-table-cell">{{$clas->inscrito->escuderia->nombre}}</td>
+                        @endif
                          @if($carrera->visible == 1 )
                             <td>{{$clas->puntos()}}</td>
                         @endif
