@@ -122,6 +122,8 @@ class CarreraController extends Controller
         $campeonato = $carrera->campeonato;
         $carrera->delete();
 
+        $this->reordenarCarreras($campeonato);
+
         return redirect()->route('carreras.show', compact('campeonato'))
             ->with('success', 'Registro eliminado satisfactoriamente');
     }
@@ -134,7 +136,7 @@ class CarreraController extends Controller
         //posicion original
         $posicion = $carrera->orden;
         $campeonato = $carrera->campeonato;
-
+        $this->reordenarCarreras($campeonato);
 
 
         if ($posicion > 1) {
@@ -156,6 +158,8 @@ class CarreraController extends Controller
         //posicion original
         $posicion = $carrera->orden;
         $campeonato = $carrera->campeonato;
+
+        $this->reordenarCarreras($campeonato);
 
 
         if ($posicion < $campeonato->carreras->count()) {
@@ -187,5 +191,17 @@ class CarreraController extends Controller
 
 
         return redirect()->route('carreras.show', compact('campeonato'));
+    }
+
+    public function reordenarCarreras(Campeonato $campeonato)
+    {
+
+        //generar Resultados
+        $i = 0;
+        foreach ($campeonato->carreras->sortBy('orden') as $carrera) {
+            $i++;
+            $carrera->orden = $i;
+            $carrera->save();
+        }
     }
 }
