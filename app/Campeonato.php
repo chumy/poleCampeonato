@@ -286,7 +286,12 @@ class Campeonato extends Model
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $parcial) {
-                $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                if ($parcial->abandono == 1) {
+                    $puntos += floor($parcial->puntos() * $parcial->puntuacion()->penalizacion);
+                } else {
+
+                    $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                }
                 $escuderia = $parcial->inscrito->escuderia;
                 //array_push($c, array('escuderia' => $escuderia));
                 array_push($c, ((object) array(
@@ -390,7 +395,60 @@ class Campeonato extends Model
     public function getResultadosInscritos()
     {
 
-        return $this->resultados->where('participacion', 1)->groupBy('inscrito_id');
+        //return $this->resultados->where('participacion', 1)->groupBy('inscrito_id');
+
+        // Calculo de puntuaciones de pilotos por escuderia
+        $listaPuntos =  $this->getPuntuacionesEscuderias;
+        $c = [];
+
+        foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
+            $puntos = 0;
+            foreach ($resultadosInscritos as $parcial) {
+                if ($parcial->abandono == 1) {
+                    $puntos += floor($parcial->puntos() * $parcial->puntuacion()->penalizacion);
+                } else {
+
+                    $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                }
+
+                //array_push($c, array('escuderia' => $escuderia));
+                array_push($c, ((object) array(
+                    'puntos' => $puntos,
+                    'inscrito' => $parcial->inscrito_id,
+                    'carrera_id' => $parcial->carrera_id,
+                    'carrera' => Carrera::find($parcial->carrera_id),
+                )));
+            }
+            //$escuderia = $parciales['inscrito']->escuderia;
+
+        }
+        return  collect($c)->sortby('carrera_id');
+
+        /*$resultados = collect($c)->groupby('carrera_id')->sortby('carrera_id');
+        $clasificacion = [];
+        //return $resultados;
+        foreach ($resultados as $resultadoEsc) { //Carreras
+
+            foreach ($resultadoEsc->groupby('inscrito.id') as $parciales) {
+                $puntos = 0;
+                foreach ($parciales as $parcial) {
+                    $puntos += $parcial->puntos;
+                }
+                //1;
+                array_push($clasificacion, ((object) array(
+                    'puntos' => $puntos,
+                    'inscrito' => $parcial->inscrito,
+                    'carrera_id' => $parcial->carrera_id,
+                    'carrera' => Carrera::find($parcial->carrera_id),
+
+                )));
+            }
+        }
+
+        // Asigancion de puntos por clasificacion
+
+
+        return collect($clasificacion);*/
     }
 
 
@@ -411,7 +469,9 @@ class Campeonato extends Model
             $puntos = 0;
             $inscritos = [];
             foreach ($resultadosCoches as $resultadoInscrito) {
+
                 $puntos += $resultadoInscrito->puntos;
+
                 array_push($inscritos, $resultadoInscrito->inscrito);
             }
             array_push(
@@ -447,11 +507,15 @@ class Campeonato extends Model
         })->get();*/
         //$this->resultados->whereHas('inscrito', function ($q){$q->where('id', 1)}) 
 
-        foreach ($this->resultados->whereIn('inscrito_id') as $resultadosInscritos) {
+        foreach ($this->resultados as $resultadosInscritos) {
             $puntos = 0;
             $inscritos = [];
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                $puntos += $resultadoInscrito->puntos;
+                if ($resultadoInscrito->abandono == 1) {
+                    $puntos += floor($resultadoInscrito->puntos() * $resultadoInscrito->puntuacion()->penalizacion);
+                } else {
+                    $puntos += $resultadoInscrito->puntos;
+                }
                 array_push($inscritos, $resultadoInscrito->inscrito);
             }
             array_push(
