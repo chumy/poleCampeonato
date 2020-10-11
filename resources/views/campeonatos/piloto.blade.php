@@ -69,14 +69,14 @@
                         <tr class="thead-dark">
                             <th scope="col">#</th>
                             <th scope="col">Carrera</th>
-                            <!--th scope="col">Posición</th-->
+                            <th scope="col">Posición</th>
                             <th scope="col">Puntuación</th>
 
                         </tr>
                     </thead>
                     <tbody>
 
-                        <!--@foreach ($clasificacion as $carrera)
+                        @foreach ($clasificacion as $carrera)
                         <tr>
                             <th scope="row">{{$loop->iteration }}</th>
                             <td>{{$carrera->carrera->circuito->nombre}}</td>
@@ -84,9 +84,9 @@
                             <td>{{$carrera->puntos()}}</td>
                         </tr>
 
-                        @endforeach-->
+                        @endforeach>
 
-                        @foreach ($campeonato->getResultadosInscritos()->where('inscrito',$inscrito->id)->sortBy('carrera.orden') as $car)
+                        <!--@foreach ($campeonato->getResultadosInscritos()->where('inscrito',$inscrito->id)->sortBy('carrera.orden') as $car)
 
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
@@ -95,7 +95,7 @@
                             
                         </tr>
 
-                        @endforeach
+                        @endforeach-->
 
 
 
@@ -103,7 +103,9 @@
                 </table>
 </div>
                 <div class="text-right">
-                    <h3> <span class="badge badge-secondary">Total: {{$campeonato->getResultadosInscritos()->where('inscrito',$inscrito->id)->sum(function($value){ return $value->puntos; }) }} puntos</span>
+                    <!--h3> <span class="badge badge-secondary">Total: {{$campeonato->getResultadosInscritos()->where('inscrito',$inscrito->id)->sum(function($value){ return $value->puntos; }) }} puntos</span>
+                    </h3-->
+                     <h3> <span class="badge badge-secondary">Total: {{$clasificacion->sum(function($value){ return $value->puntos(); }) }} puntos</span>
                     </h3>
                 </div>
 

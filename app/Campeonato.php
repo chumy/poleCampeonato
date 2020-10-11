@@ -171,11 +171,11 @@ class Campeonato extends Model
         foreach ($this->resultados->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                if ($resultadoInscrito->abandono == 1) {
+                /*if ($resultadoInscrito->abandono == 1) {
                     $puntos += floor($resultadoInscrito->puntos() * $resultadoInscrito->puntuacion()->penalizacion);
-                } else {
-                    $puntos += $resultadoInscrito->puntos();
-                }
+                } else {*/
+                $puntos += $resultadoInscrito->puntos();
+                // }
             }
             array_push(
                 $c,
@@ -210,15 +210,15 @@ class Campeonato extends Model
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                if ($resultadoInscrito->abandono == 1) {
+                /*if ($resultadoInscrito->abandono == 1) {
                     $puntos += floor(
                         $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos
                             * $listaPuntos->penalizacion
                     );
-                } else {
+                } else {*/
 
-                    $puntos += $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos;
-                }
+                $puntos += $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos;
+                //}
             }
 
             array_push(
@@ -286,12 +286,13 @@ class Campeonato extends Model
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $parcial) {
-                if ($parcial->abandono == 1) {
+                /*if ($parcial->abandono == 1) {
                     $puntos += floor($parcial->puntos() * $parcial->puntuacion()->penalizacion);
-                } else {
+                } else {*/
 
-                    $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
-                }
+                //$puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                //}
+                $puntos = $parcial->puntos();
                 $escuderia = $parcial->inscrito->escuderia;
                 //array_push($c, array('escuderia' => $escuderia));
                 array_push($c, ((object) array(
@@ -351,12 +352,12 @@ class Campeonato extends Model
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                if ($resultadoInscrito->abandono == 1) {
+                /*if ($resultadoInscrito->abandono == 1) {
                     $puntos += floor($resultadoInscrito->puntos() * $resultadoInscrito->puntuacion()->penalizacion);
-                } else {
-                    if ($resultadoInscrito->participacion == 1)
-                        $puntos += $resultadoInscrito->puntos();
-                }
+                } else {*/
+                if ($resultadoInscrito->participacion == 1)
+                    $puntos += $resultadoInscrito->puntos();
+                //}
             }
             array_push(
                 $c,
@@ -404,13 +405,13 @@ class Campeonato extends Model
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $parcial) {
-                if ($parcial->abandono == 1) {
+                /*if ($parcial->abandono == 1) {
                     $puntos += floor($parcial->puntos() * $parcial->puntuacion()->penalizacion);
                 } else {
-
-                    $puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
-                }
-
+*/
+                //$puntos = $listaPuntos->puntos->where('posicion', $parcial->posicion)->first()->puntos;
+                // }
+                $puntos = $parcial->puntos();
                 //array_push($c, array('escuderia' => $escuderia));
                 array_push($c, ((object) array(
                     'puntos' => $puntos,
@@ -511,11 +512,11 @@ class Campeonato extends Model
             $puntos = 0;
             $inscritos = [];
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                if ($resultadoInscrito->abandono == 1) {
+                /*if ($resultadoInscrito->abandono == 1) {
                     $puntos += floor($resultadoInscrito->puntos() * $resultadoInscrito->puntuacion()->penalizacion);
-                } else {
-                    $puntos += $resultadoInscrito->puntos;
-                }
+                } else {*/
+                $puntos += $resultadoInscrito->puntos;
+                //}
                 array_push($inscritos, $resultadoInscrito->inscrito);
             }
             array_push(

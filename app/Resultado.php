@@ -46,9 +46,13 @@ class Resultado extends Model
 
     public function puntos()
     {
-        if ($this->participacion == 1)
-            return $this->carrera->puntos->puntos->where('posicion', $this->posicion)->first()->puntos;
-        else
+        if ($this->participacion == 1) {
+            $puntos = $this->carrera->puntos->puntos->where('posicion', $this->posicion)->first()->puntos;
+            if ($this->abandono == 1) {
+                $puntos = floor($puntos * $this->puntuacion()->penalizacion);
+            }
+            return $puntos;
+        } else
             return 0;
     }
 
