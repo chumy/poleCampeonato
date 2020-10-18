@@ -204,21 +204,25 @@ class Campeonato extends Model
     {
 
         // Calculo de puntuaciones de pilotos con la puntuacion de escuderia
-        $listaPuntos =  $this->getPuntuacionesEscuderias;
+        //$listaPuntos =  $this->getPuntuacionesEscuderias;
+        $listaPuntos =  $this->getPuntuaciones()->first();
         $c = [];
 
         foreach ($this->resultados->where('participacion', 1)->groupBy('inscrito_id') as $resultadosInscritos) {
             $puntos = 0;
             foreach ($resultadosInscritos as $resultadoInscrito) {
-                /*if ($resultadoInscrito->abandono == 1) {
+
+                /*
+                if ($resultadoInscrito->abandono == 1) {
                     $puntos += floor(
                         $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos
                             * $listaPuntos->penalizacion
                     );
-                } else {*/
+                } else {
 
-                $puntos += $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos;
-                //}
+                    $puntos += $listaPuntos->puntos->where('posicion', $resultadoInscrito->posicion)->first()->puntos;
+                }*/
+                $puntos += $resultadoInscrito->puntos();
             }
 
             array_push(
